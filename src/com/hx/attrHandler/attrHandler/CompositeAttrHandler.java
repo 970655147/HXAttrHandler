@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.hx.attrHandler.attrHandler.adapter.MultiArgsAttrHandler;
 import com.hx.attrHandler.attrHandler.interf.AttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 // 包含一个attrHandler链的AttrHandler
 public class CompositeAttrHandler extends MultiArgsAttrHandler<AttrHandler> {
@@ -22,7 +22,7 @@ public class CompositeAttrHandler extends MultiArgsAttrHandler<AttrHandler> {
 		super(initCap);
 	}
 	public CompositeAttrHandler() {
-		super(Constants.COMPOSITE_HANDLER_DEFAULT_CAP);
+		super(HXAttrHandlerConstants.COMPOSITE_HANDLER_DEFAULT_CAP);
 	}
 	
 	@Override
@@ -37,7 +37,7 @@ public class CompositeAttrHandler extends MultiArgsAttrHandler<AttrHandler> {
 	
 	@Override
 	public String name() {
-		return Constants.COMPOSITE;
+		return HXAttrHandlerConstants.COMPOSITE;
 	}
 
 }

@@ -7,7 +7,7 @@
 package com.hx.attrHandler.attrHandler;
 
 import com.hx.attrHandler.attrHandler.adapter.interf.NoneOrOneStringArgsAttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 // 获取给定的字符串的长度的handler
 // map(toBool )	or map(toBool() )  or map(toBool('false') )
@@ -18,7 +18,7 @@ public class ToBooleanAttrHandler extends NoneOrOneStringArgsAttrHandler {
 		super(str);
 	}
 	public ToBooleanAttrHandler() {
-		this(Constants.HANDLER_UNDEFINED);
+		this(HXAttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class ToBooleanAttrHandler extends NoneOrOneStringArgsAttrHandler {
 
 	@Override
 	public String name() {
-		return Constants.TO_BOOLEAN;
+		return HXAttrHandlerConstants.TO_BOOLEAN;
 	}
 	
 }

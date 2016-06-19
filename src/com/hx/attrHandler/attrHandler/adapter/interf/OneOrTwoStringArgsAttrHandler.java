@@ -11,7 +11,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.hx.attrHandler.attrHandler.adapter.interf.interf.TwoStringArgsAttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 
 // 零个或者一个字符串参数的AttrHander参数的AttrHandler
@@ -33,7 +33,7 @@ public abstract class OneOrTwoStringArgsAttrHandler extends TwoStringArgsAttrHan
 	}
 	// 重写handle0, 处理逻辑[将核心逻辑留在了gotResult中]
 	public String handle0(String result) {
-		if(Constants.HANDLER_UNDEFINED.equals(arg02) ) {
+		if(HXAttrHandlerConstants.HANDLER_UNDEFINED.equals(arg02) ) {
 			arg02 = arg01;
 			arg01 = result;
 		}

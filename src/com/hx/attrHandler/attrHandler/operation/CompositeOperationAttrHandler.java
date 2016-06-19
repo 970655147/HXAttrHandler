@@ -11,21 +11,21 @@ import java.util.List;
 import com.hx.attrHandler.attrHandler.StandardHandlerParser.Types;
 import com.hx.attrHandler.attrHandler.operation.interf.MultiArgsOperationAttrHandler;
 import com.hx.attrHandler.attrHandler.operation.interf.OperationAttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 // 复合OperationAttrHandler的AttrHandler
 public class CompositeOperationAttrHandler<T extends OperationAttrHandler> extends MultiArgsOperationAttrHandler<T> {
 	// 初始化
 	public CompositeOperationAttrHandler(List<T> handlerChain) {
 		super(handlerChain);
-		operationType(Constants.OPERATION_COMPOSITE);
+		operationType(HXAttrHandlerConstants.OPERATION_COMPOSITE);
 	}
 	public CompositeOperationAttrHandler(int initCap) {
 		super(initCap);
-		operationType(Constants.OPERATION_COMPOSITE);
+		operationType(HXAttrHandlerConstants.OPERATION_COMPOSITE);
 	}
 	public CompositeOperationAttrHandler() {
-		this(Constants.COMPOSITE_HANDLER_DEFAULT_CAP);
+		this(HXAttrHandlerConstants.COMPOSITE_HANDLER_DEFAULT_CAP);
 	}
 	
 	// 获取最后一个OperationAttrHandler
@@ -54,6 +54,6 @@ public class CompositeOperationAttrHandler<T extends OperationAttrHandler> exten
 	
 	@Override
 	public String name() {
-		return Constants.OPERATION_COMPOSITE;
+		return HXAttrHandlerConstants.OPERATION_COMPOSITE;
 	}
 }

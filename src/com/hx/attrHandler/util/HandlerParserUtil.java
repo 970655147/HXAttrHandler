@@ -20,8 +20,8 @@ public class HandlerParserUtil {
 	
 	// 将给定的字符串解析为AttrHandler
 	public static OperationAttrHandler handlerParse(String handlerStr, String handlerType, Types lastOperationReturn) {
-		Tools.assert0(handlerStr != null, "'handlerStr' can't be null ");
-		Tools.assert0(handlerType != null, "'handlerType' can't be null ");
+		HXAttrHandlerTools.assert0(handlerStr != null, "'handlerStr' can't be null ");
+		HXAttrHandlerTools.assert0(handlerType != null, "'handlerType' can't be null ");
 		return handlerParser.handlerParse(handlerStr, handlerType, lastOperationReturn);
 	}
 	public static OperationAttrHandler handlerParse(String handlerStr, String handlerType) {
@@ -30,10 +30,10 @@ public class HandlerParserUtil {
 	
 	// 合并两个Handler
 	public static OperationAttrHandler combineHandler(OperationAttrHandler mainHandler, OperationAttrHandler attachHander) {
-		Tools.assert0(mainHandler != null, "'mainHandler' can't be null ");
-		Tools.assert0(attachHander != null, "'attachHander' can't be null ");
+		HXAttrHandlerTools.assert0(mainHandler != null, "'mainHandler' can't be null ");
+		HXAttrHandlerTools.assert0(attachHander != null, "'attachHander' can't be null ");
 		
-		Tools.assert0(! mainHandler.operationReturn().isFinal, "the first handler's returnType is final, can't concate 'AttrHandler' anymore ! please check it ! ");
+		HXAttrHandlerTools.assert0(! mainHandler.operationReturn().isFinal, "the first handler's returnType is final, can't concate 'AttrHandler' anymore ! please check it ! ");
 		CompositeOperationAttrHandler<OperationAttrHandler> attrHandler = new CompositeOperationAttrHandler<>();
 		attrHandler.addHandler(mainHandler);
 		attrHandler.addHandler(attachHander);

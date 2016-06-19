@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="D:/Assist/jar/json/commons-logging.jar"/>
 	<classpathentry kind="lib" path="D:/Assist/jar/json/ezmorph-1.0.6.jar"/>
 	<classpathentry kind="lib" path="D:/Assist/jar/json/json-lib-2.2.3-jdk15.jar"/>
+	<classpathentry kind="lib" path="D:/Assist/jar/crawler/HXLog.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

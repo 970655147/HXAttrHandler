@@ -7,7 +7,7 @@
 package com.hx.attrHandler.attrHandler;
 
 import com.hx.attrHandler.attrHandler.adapter.interf.NoneOrOneStringArgsAttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 // 什么都不做的AttrHandler
 // map(doNothing)
@@ -18,7 +18,7 @@ public class DoNothingAttrHandler extends NoneOrOneStringArgsAttrHandler {
 		super(str);
 	}
 	public DoNothingAttrHandler() {
-		this(Constants.HANDLER_UNDEFINED);
+		this(HXAttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class DoNothingAttrHandler extends NoneOrOneStringArgsAttrHandler {
 
 	@Override
 	public String name() {
-		return Constants.DO_NOTHING;
+		return HXAttrHandlerConstants.DO_NOTHING;
 	}
 	
 }

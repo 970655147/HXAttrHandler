@@ -7,8 +7,8 @@
 package com.hx.attrHandler.attrHandler;
 
 import com.hx.attrHandler.attrHandler.adapter.interf.TwoOrThreeStringTwoBooleanArgsAttrHandler;
-import com.hx.attrHandler.util.Constants;
-import com.hx.attrHandler.util.Tools;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
+import com.hx.attrHandler.util.HXAttrHandlerTools;
 
 // getStrIn('hello', 'e', 'o')
 public class GetStrInRangeHandler extends TwoOrThreeStringTwoBooleanArgsAttrHandler  {
@@ -18,26 +18,26 @@ public class GetStrInRangeHandler extends TwoOrThreeStringTwoBooleanArgsAttrHand
 		super(target, start, end, includeStart, includeEnd);
 	}
 	public GetStrInRangeHandler(String start, String end, boolean includeStart, boolean includeEnd) {
-		this(Constants.HANDLER_UNDEFINED, start, end, includeStart, includeEnd);
+		this(HXAttrHandlerConstants.HANDLER_UNDEFINED, start, end, includeStart, includeEnd);
 	}
 	public GetStrInRangeHandler(String target, String start, String end) {
 		this(target, start, end, false, false);
 	}
 	public GetStrInRangeHandler(String start, String end) {
-		this(Constants.HANDLER_UNDEFINED, start, end, false, false);
+		this(HXAttrHandlerConstants.HANDLER_UNDEFINED, start, end, false, false);
 	}
 	public GetStrInRangeHandler() {
-		this(Constants.HANDLER_UNDEFINED, Constants.HANDLER_UNDEFINED, Constants.HANDLER_UNDEFINED, false, false);
+		this(HXAttrHandlerConstants.HANDLER_UNDEFINED, HXAttrHandlerConstants.HANDLER_UNDEFINED, HXAttrHandlerConstants.HANDLER_UNDEFINED, false, false);
 	}
 
 	@Override
 	protected String gotResult(String target, String start, String end, boolean includeStart, boolean includeEnd, String result) {
-		return Tools.getStrInRange(target, start, end, includeStart, includeEnd);
+		return HXAttrHandlerTools.getStrInRange(target, start, end, includeStart, includeEnd);
 	}
 
 	@Override
 	public String name() {
-		return Constants.GET_STR_IN_RANGE;
+		return HXAttrHandlerConstants.GET_STR_IN_RANGE;
 	}
 
 }

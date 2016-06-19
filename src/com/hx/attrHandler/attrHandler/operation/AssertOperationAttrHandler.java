@@ -9,7 +9,7 @@ package com.hx.attrHandler.attrHandler.operation;
 import com.hx.attrHandler.attrHandler.StandardHandlerParser.Types;
 import com.hx.attrHandler.attrHandler.interf.AttrHandler;
 import com.hx.attrHandler.attrHandler.operation.interf.OperationAttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 // assertHandler
 // 注意 ： 请将结果原样返回
@@ -21,7 +21,7 @@ public class AssertOperationAttrHandler extends OperationAttrHandler {
 	public AssertOperationAttrHandler(AttrHandler handler, Types operationReturn ) {
 		super();
 		this.handler = handler;
-		operationType(Constants.ASSERT_OPERATION);
+		operationType(HXAttrHandlerConstants.ASSERT_OPERATION);
 		operationReturn(operationReturn);
 	}
 
@@ -38,7 +38,7 @@ public class AssertOperationAttrHandler extends OperationAttrHandler {
 
 	@Override
 	public String name() {
-		return Constants.ASSERT_OPERATION;
+		return HXAttrHandlerConstants.ASSERT_OPERATION;
 	}
 
 }

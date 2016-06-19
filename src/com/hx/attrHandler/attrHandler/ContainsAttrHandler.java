@@ -7,8 +7,8 @@
 package com.hx.attrHandler.attrHandler;
 
 import com.hx.attrHandler.attrHandler.adapter.interf.OneOrTwoStringArgsAttrHandler;
-import com.hx.attrHandler.util.Constants;
-import com.hx.attrHandler.util.Tools;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
+import com.hx.attrHandler.util.HXAttrHandlerTools;
 
 // 判断给定的result中是否包含contains
 // 类似于equals
@@ -20,20 +20,20 @@ public class ContainsAttrHandler extends OneOrTwoStringArgsAttrHandler {
 		super(str, contains);
 	}
 	public ContainsAttrHandler(String contains) {
-		this(contains, Constants.HANDLER_UNDEFINED);
+		this(contains, HXAttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 	public ContainsAttrHandler() {
-		this(Constants.HANDLER_UNDEFINED, Constants.HANDLER_UNDEFINED);
+		this(HXAttrHandlerConstants.HANDLER_UNDEFINED, HXAttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 
 	@Override
 	protected String gotResult(String str, String contains, String result) {
-		Tools.assert0(contains != null, "error while calc the 'matches(String)', pattern be initialized illegal ! ");
+		HXAttrHandlerTools.assert0(contains != null, "error while calc the 'matches(String)', pattern be initialized illegal ! ");
 		return String.valueOf(str.contains(contains) );
 	}
 	
 	@Override
 	public String name() {
-		return Constants.CONTAINS;
+		return HXAttrHandlerConstants.CONTAINS;
 	}
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.hx.attrHandler.attrHandler.adapter.MultiArgsAttrHandler;
 import com.hx.attrHandler.attrHandler.interf.AttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 // ¶ÌÂ·Óë
 // and(left, right), left && right
@@ -23,23 +23,23 @@ public class CuttingOutAndAttrHandler<T extends AttrHandler> extends MultiArgsAt
 		super(initCap);
 	}
 	public CuttingOutAndAttrHandler() {
-		this(Constants.CUTTING_DOOR_HANDLER_DEFAULT_CAP);
+		this(HXAttrHandlerConstants.CUTTING_DOOR_HANDLER_DEFAULT_CAP);
 	}
 	
 	@Override
 	protected String handle0(String result) {
 		for(AttrHandler handler : handlers) {
-			if(Constants.FALSE.equals(handler.handle(result)) ) {
-				return Constants.FALSE;
+			if(HXAttrHandlerConstants.FALSE.equals(handler.handle(result)) ) {
+				return HXAttrHandlerConstants.FALSE;
 			}
 		}
 		
-		return Constants.TRUE;
+		return HXAttrHandlerConstants.TRUE;
 	}
 	
 	@Override
 	public String name() {
-		return Constants.CUTTING_OUT_AND;
+		return HXAttrHandlerConstants.CUTTING_OUT_AND;
 	}
 	
 }

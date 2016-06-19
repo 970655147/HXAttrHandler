@@ -36,9 +36,9 @@ import com.hx.attrHandler.attrHandler.operation.CompositeOperationAttrHandler;
 import com.hx.attrHandler.attrHandler.operation.FilterOperationAttrHandler;
 import com.hx.attrHandler.attrHandler.operation.MapOperationAttrHandler;
 import com.hx.attrHandler.attrHandler.operation.interf.OperationAttrHandler;
-import com.hx.attrHandler.util.Constants;
-import com.hx.attrHandler.util.Tools;
-import com.hx.attrHandler.util.WordsSeprator;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
+import com.hx.attrHandler.util.HXAttrHandlerTools;
+import com.hx.log.util.WordsSeprator;
 
 // Std 标准的处理handler字符串的解析器
 public class StandardHandlerParser extends HandlerParser {
@@ -53,42 +53,42 @@ public class StandardHandlerParser extends HandlerParser {
 	// 支持的方法, 到其返回值的映射
 	private static Map<String, Types> handlerToResultType = new HashMap<>();
 	static {
-		handlerToResultType.put(Constants.CONCATE, Types.String);
-		handlerToResultType.put(Constants.REPLACE, Types.String);
-		handlerToResultType.put(Constants.TRIM, Types.String);
-		handlerToResultType.put(Constants.TRIM_AS_ONE, Types.String);
-		handlerToResultType.put(Constants.TRIM_ALL, Types.String);
-		handlerToResultType.put(Constants.SUB_STRING, Types.String);
-		handlerToResultType.put(Constants.TO_UPPERCASE, Types.String);
-		handlerToResultType.put(Constants.TO_LOWERCASE, Types.String);
-		handlerToResultType.put(Constants.DO_NOTHING, Types.String);
-		handlerToResultType.put(Constants.COND_EXP, Types.String);
-		handlerToResultType.put(Constants.TO_STRING, Types.String);
-		handlerToResultType.put(Constants.GET_STR_IN_RANGE, Types.String);
+		handlerToResultType.put(HXAttrHandlerConstants.CONCATE, Types.String);
+		handlerToResultType.put(HXAttrHandlerConstants.REPLACE, Types.String);
+		handlerToResultType.put(HXAttrHandlerConstants.TRIM, Types.String);
+		handlerToResultType.put(HXAttrHandlerConstants.TRIM_AS_ONE, Types.String);
+		handlerToResultType.put(HXAttrHandlerConstants.TRIM_ALL, Types.String);
+		handlerToResultType.put(HXAttrHandlerConstants.SUB_STRING, Types.String);
+		handlerToResultType.put(HXAttrHandlerConstants.TO_UPPERCASE, Types.String);
+		handlerToResultType.put(HXAttrHandlerConstants.TO_LOWERCASE, Types.String);
+		handlerToResultType.put(HXAttrHandlerConstants.DO_NOTHING, Types.String);
+		handlerToResultType.put(HXAttrHandlerConstants.COND_EXP, Types.String);
+		handlerToResultType.put(HXAttrHandlerConstants.TO_STRING, Types.String);
+		handlerToResultType.put(HXAttrHandlerConstants.GET_STR_IN_RANGE, Types.String);
 		
-		handlerToResultType.put(Constants.INDEX_OF, Types.Int);
-		handlerToResultType.put(Constants.LAST_INDEX_OF, Types.Int);
-		handlerToResultType.put(Constants.LENGTH, Types.Int);
-		handlerToResultType.put(Constants.ADD, Types.Int);
-		handlerToResultType.put(Constants.SUB, Types.Int);
-		handlerToResultType.put(Constants.MUL, Types.Int);
-		handlerToResultType.put(Constants.DIV, Types.Int);
-		handlerToResultType.put(Constants.MOD, Types.Int);
-		handlerToResultType.put(Constants.TO_INT, Types.Int);
+		handlerToResultType.put(HXAttrHandlerConstants.INDEX_OF, Types.Int);
+		handlerToResultType.put(HXAttrHandlerConstants.LAST_INDEX_OF, Types.Int);
+		handlerToResultType.put(HXAttrHandlerConstants.LENGTH, Types.Int);
+		handlerToResultType.put(HXAttrHandlerConstants.ADD, Types.Int);
+		handlerToResultType.put(HXAttrHandlerConstants.SUB, Types.Int);
+		handlerToResultType.put(HXAttrHandlerConstants.MUL, Types.Int);
+		handlerToResultType.put(HXAttrHandlerConstants.DIV, Types.Int);
+		handlerToResultType.put(HXAttrHandlerConstants.MOD, Types.Int);
+		handlerToResultType.put(HXAttrHandlerConstants.TO_INT, Types.Int);
 		
-		handlerToResultType.put(Constants.EQUALS, Types.Boolean);
-		handlerToResultType.put(Constants.MATCHES, Types.Boolean);
-		handlerToResultType.put(Constants.CONTAINS, Types.Boolean);
-		handlerToResultType.put(Constants.NOT, Types.Boolean);
-		handlerToResultType.put(Constants.GREATER_THAN, Types.Boolean);
-		handlerToResultType.put(Constants.GREATER_EQUALS_THAN, Types.Boolean);
-		handlerToResultType.put(Constants.LESS_THAN, Types.Boolean);
-		handlerToResultType.put(Constants.LESS_EQUALS_THAN, Types.Boolean);
-		handlerToResultType.put(Constants._EQUALS, Types.Boolean);
-		handlerToResultType.put(Constants.NOT_EQUALS, Types.Boolean);
-		handlerToResultType.put(Constants.CUTTING_OUT_AND, Types.Boolean);
-		handlerToResultType.put(Constants.CUTTING_OUT_OR, Types.Boolean);
-		handlerToResultType.put(Constants.TO_BOOLEAN, Types.Boolean);
+		handlerToResultType.put(HXAttrHandlerConstants.EQUALS, Types.Boolean);
+		handlerToResultType.put(HXAttrHandlerConstants.MATCHES, Types.Boolean);
+		handlerToResultType.put(HXAttrHandlerConstants.CONTAINS, Types.Boolean);
+		handlerToResultType.put(HXAttrHandlerConstants.NOT, Types.Boolean);
+		handlerToResultType.put(HXAttrHandlerConstants.GREATER_THAN, Types.Boolean);
+		handlerToResultType.put(HXAttrHandlerConstants.GREATER_EQUALS_THAN, Types.Boolean);
+		handlerToResultType.put(HXAttrHandlerConstants.LESS_THAN, Types.Boolean);
+		handlerToResultType.put(HXAttrHandlerConstants.LESS_EQUALS_THAN, Types.Boolean);
+		handlerToResultType.put(HXAttrHandlerConstants._EQUALS, Types.Boolean);
+		handlerToResultType.put(HXAttrHandlerConstants.NOT_EQUALS, Types.Boolean);
+		handlerToResultType.put(HXAttrHandlerConstants.CUTTING_OUT_AND, Types.Boolean);
+		handlerToResultType.put(HXAttrHandlerConstants.CUTTING_OUT_OR, Types.Boolean);
+		handlerToResultType.put(HXAttrHandlerConstants.TO_BOOLEAN, Types.Boolean);
 	}
 	
 	// 没有参数的方法, 一个字符串参数的方法, 两个字符串参数的方法, 多种选择的参数的方法
@@ -106,85 +106,85 @@ public class StandardHandlerParser extends HandlerParser {
 	private final static Set<String> noneOrOneStringOneOrTwoIntArgsMap = new HashSet<>();
 	static {
 		// toUpperCase, toUpperCase()
-		noneOrStringArgsMap.add(Constants.TO_UPPERCASE);
-		noneOrStringArgsMap.add(Constants.TO_LOWERCASE);
-		noneOrStringArgsMap.add(Constants.LENGTH);
-		noneOrStringArgsMap.add(Constants.DO_NOTHING);
-		noneOrStringArgsMap.add(Constants.TO_INT);
-		noneOrStringArgsMap.add(Constants.TO_BOOLEAN);
-		noneOrStringArgsMap.add(Constants.TO_STRING);
+		noneOrStringArgsMap.add(HXAttrHandlerConstants.TO_UPPERCASE);
+		noneOrStringArgsMap.add(HXAttrHandlerConstants.TO_LOWERCASE);
+		noneOrStringArgsMap.add(HXAttrHandlerConstants.LENGTH);
+		noneOrStringArgsMap.add(HXAttrHandlerConstants.DO_NOTHING);
+		noneOrStringArgsMap.add(HXAttrHandlerConstants.TO_INT);
+		noneOrStringArgsMap.add(HXAttrHandlerConstants.TO_BOOLEAN);
+		noneOrStringArgsMap.add(HXAttrHandlerConstants.TO_STRING);
 		
 		// !(true), not(true)
-		oneBooleanArgsMap.add(Constants.NOT);
+		oneBooleanArgsMap.add(HXAttrHandlerConstants.NOT);
 		
 		// equals('abc'), equals('adb', 'abc')
-		oneOrTwoStringArgsMap.add(Constants.EQUALS);
-		oneOrTwoStringArgsMap.add(Constants.MATCHES);
-		oneOrTwoStringArgsMap.add(Constants.CONTAINS);
-		oneOrTwoStringArgsMap.add(Constants.GREATER_THAN);
-		oneOrTwoStringArgsMap.add(Constants.GREATER_EQUALS_THAN);
-		oneOrTwoStringArgsMap.add(Constants.LESS_THAN);
-		oneOrTwoStringArgsMap.add(Constants.LESS_EQUALS_THAN);
-		oneOrTwoStringArgsMap.add(Constants._EQUALS);
-		oneOrTwoStringArgsMap.add(Constants.NOT_EQUALS);
+		oneOrTwoStringArgsMap.add(HXAttrHandlerConstants.EQUALS);
+		oneOrTwoStringArgsMap.add(HXAttrHandlerConstants.MATCHES);
+		oneOrTwoStringArgsMap.add(HXAttrHandlerConstants.CONTAINS);
+		oneOrTwoStringArgsMap.add(HXAttrHandlerConstants.GREATER_THAN);
+		oneOrTwoStringArgsMap.add(HXAttrHandlerConstants.GREATER_EQUALS_THAN);
+		oneOrTwoStringArgsMap.add(HXAttrHandlerConstants.LESS_THAN);
+		oneOrTwoStringArgsMap.add(HXAttrHandlerConstants.LESS_EQUALS_THAN);
+		oneOrTwoStringArgsMap.add(HXAttrHandlerConstants._EQUALS);
+		oneOrTwoStringArgsMap.add(HXAttrHandlerConstants.NOT_EQUALS);
 		
 		// subString(1), subString(1, 4)
-		stringOneOrTwoIntArgsMap.add(Constants.SUB_STRING);
+		stringOneOrTwoIntArgsMap.add(HXAttrHandlerConstants.SUB_STRING);
 		
 		// replace(regex, replacement)
-		twoOrThreeStringArgsMap.add(Constants.REPLACE);
+		twoOrThreeStringArgsMap.add(HXAttrHandlerConstants.REPLACE);
 		
 		// add(arg01, arg02)
-		multiIntArgsMap.add(Constants.ADD);
-		multiIntArgsMap.add(Constants.SUB);
-		multiIntArgsMap.add(Constants.MUL);
-		multiIntArgsMap.add(Constants.DIV);
-		multiIntArgsMap.add(Constants.MOD);
+		multiIntArgsMap.add(HXAttrHandlerConstants.ADD);
+		multiIntArgsMap.add(HXAttrHandlerConstants.SUB);
+		multiIntArgsMap.add(HXAttrHandlerConstants.MUL);
+		multiIntArgsMap.add(HXAttrHandlerConstants.DIV);
+		multiIntArgsMap.add(HXAttrHandlerConstants.MOD);
 		
 		// indexOf('abc'), indexOf('abc', 3)
-		oneOrTwoStringIntArgsMap.add(Constants.INDEX_OF);
-		oneOrTwoStringIntArgsMap.add(Constants.LAST_INDEX_OF);
+		oneOrTwoStringIntArgsMap.add(HXAttrHandlerConstants.INDEX_OF);
+		oneOrTwoStringIntArgsMap.add(HXAttrHandlerConstants.LAST_INDEX_OF);
 		
 		// condExp(true, truePart, falsePart), true ? truePart : falsePart
-		oneBooleanTwoStringArgsMap.add(Constants.COND_EXP);
+		oneBooleanTwoStringArgsMap.add(HXAttrHandlerConstants.COND_EXP);
 		
 		// concate('abc', 'def', 'dd', ..), 'abc' + 'def' + 'dd', ..
-		multiStringArgsMap.add(Constants.CONCATE);
+		multiStringArgsMap.add(HXAttrHandlerConstants.CONCATE);
 		
 		// and(true, true), true & true
-		multiBooleanArgsMap.add(Constants.CUTTING_OUT_AND);
-		multiBooleanArgsMap.add(Constants.CUTTING_OUT_OR);
+		multiBooleanArgsMap.add(HXAttrHandlerConstants.CUTTING_OUT_AND);
+		multiBooleanArgsMap.add(HXAttrHandlerConstants.CUTTING_OUT_OR);
 		
 		// getStrIn('abc', 'def')
-		twoOrThreeStringTwoBooleanArgsMap.add(Constants.GET_STR_IN_RANGE);
+		twoOrThreeStringTwoBooleanArgsMap.add(HXAttrHandlerConstants.GET_STR_IN_RANGE);
 		
 		// trim, trim(), trim(2), trim('abc', 1), trim(2, 2), trim('acsdf', 1, 1)
-		noneOrOneStringOneOrTwoIntArgsMap.add(Constants.TRIM);
-		noneOrOneStringOneOrTwoIntArgsMap.add(Constants.TRIM_AS_ONE);
-		noneOrOneStringOneOrTwoIntArgsMap.add(Constants.TRIM_ALL);
+		noneOrOneStringOneOrTwoIntArgsMap.add(HXAttrHandlerConstants.TRIM);
+		noneOrOneStringOneOrTwoIntArgsMap.add(HXAttrHandlerConstants.TRIM_AS_ONE);
+		noneOrOneStringOneOrTwoIntArgsMap.add(HXAttrHandlerConstants.TRIM_ALL);
 	}
 	
 	// -------------------- business method ----------------------------------
 	// 各个分隔符的位置
 	public OperationAttrHandler handlerParse(String handlerStr, String handlerType, Types lastOperationReturn) {
 		CompositeOperationAttrHandler<OperationAttrHandler> compositeOperationAttrHandler = new CompositeOperationAttrHandler<>();
-		handlerStr = Tools.trimAllSpaces(handlerStr, Constants.escapeCharMap);
+		handlerStr = HXAttrHandlerTools.trimAllSpaces(handlerStr, HXAttrHandlerConstants.escapeCharMap);
 		String lastOperationType = null;
-		List<String> suppertedOperations = Constants.handlerTypeToHandleOperations.get(handlerType);
+		List<String> suppertedOperations = HXAttrHandlerConstants.handlerTypeToHandleOperations.get(handlerType);
 		
-		WordsSeprator sep = new WordsSeprator(handlerStr, Constants.handlerParserSeps, Constants.escapeMap, true);
+		WordsSeprator sep = new WordsSeprator(handlerStr, HXAttrHandlerConstants.handlerParserSeps, HXAttrHandlerConstants.escapeMap, true);
 		while(sep.hasNext() ) {
 			if(lastOperationReturn != null) {
 				if(lastOperationReturn.isFinal ) {
-					Tools.assert0("the operation : '" + lastOperationType + "' is final operation, can't take more operation !  around : " + sep.rest() );
+					HXAttrHandlerTools.assert0("the operation : '" + lastOperationType + "' is final operation, can't take more operation !  around : " + sep.rest() );
 				}
 			}
 			lastOperationType = sep.next();
-			Tools.assert0(suppertedOperations.contains(lastOperationType), "have no this opearnd : '" + lastOperationType + "', in operation : '" + handlerType 
-							+ "' ! from now on support : " + Constants.handlerTypeToHandleOperations.get(handlerType).toString() );
+			HXAttrHandlerTools.assert0(suppertedOperations.contains(lastOperationType), "have no this opearnd : '" + lastOperationType + "', in operation : '" + handlerType 
+							+ "' ! from now on support : " + HXAttrHandlerConstants.handlerTypeToHandleOperations.get(handlerType).toString() );
 			String bracket = sep.next();
-			Tools.assert0(Constants.bracketPair.containsKey(bracket), "expect a bracket : '" + bracket + "' ! , please check your format['" + sep.rest() + "'] ! ");
-			Operand handlerOperand = getAttrHandlerContent(sep, bracket, Constants.bracketPair);
+			HXAttrHandlerTools.assert0(HXAttrHandlerConstants.bracketPair.containsKey(bracket), "expect a bracket : '" + bracket + "' ! , please check your format['" + sep.rest() + "'] ! ");
+			Operand handlerOperand = getAttrHandlerContent(sep, bracket, HXAttrHandlerConstants.bracketPair);
 			lastOperationReturn = checkHandlerContent(sep, handlerOperand );
 			checkHandler(lastOperationType, lastOperationReturn);
 			OperationAttrHandler handlerNow = getOperationAttrHandler(lastOperationType, getAttrHandler(sep, handlerOperand), lastOperationReturn, compositeOperationAttrHandler );
@@ -196,7 +196,7 @@ public class StandardHandlerParser extends HandlerParser {
 			if((dotOrNull == null) ) {
 				break ;
 			}
-			Tools.assert0(".".equals(dotOrNull), "expect a dot : '.' ! , please check your format['" + sep.rest() + "'] ! ");
+			HXAttrHandlerTools.assert0(".".equals(dotOrNull), "expect a dot : '.' ! , please check your format['" + sep.rest() + "'] ! ");
 		}
 		
 		return compositeOperationAttrHandler;
@@ -210,7 +210,7 @@ public class StandardHandlerParser extends HandlerParser {
 		Operand handlerOperand = null;
 		if(sep.hasNext() ) {
 			handlerOperand = getAttrHandlerOperand(sep, bracket, bracketpair, isFromNone);
-			Tools.assert0(bracketpair.get(bracket).equals(sep.next() ), "expect a rightBracket : ')' ! , please check your format['" + sep.rest() + "'] ! ");
+			HXAttrHandlerTools.assert0(bracketpair.get(bracket).equals(sep.next() ), "expect a rightBracket : ')' ! , please check your format['" + sep.rest() + "'] ! ");
 		}
 		
 		return handlerOperand;
@@ -226,7 +226,7 @@ public class StandardHandlerParser extends HandlerParser {
 				attrHandlerContent.type(OperandTypes.Int);
 				return Types.Int;
 			} catch(Exception e) {
-				if(Constants.TRUE.equals(attrHandlerContent.name()) || Constants.FALSE.equals(attrHandlerContent.name()) ) {
+				if(HXAttrHandlerConstants.TRUE.equals(attrHandlerContent.name()) || HXAttrHandlerConstants.FALSE.equals(attrHandlerContent.name()) ) {
 					attrHandlerContent.type(OperandTypes.Boolean);
 					return Types.Boolean;
 				}
@@ -241,20 +241,20 @@ public class StandardHandlerParser extends HandlerParser {
 		Operand lastOperand = null, operand = attrHandlerContent;
 		
 		while(true ) {
-			Tools.assert0(((operand != null) && (handlerToResultType.containsKey(operand.name()) || Constants.ANONY_OPERAND_NAME.equals(operand.name()) ) ), "have no this opearnd : '" + operand.name() + "' ! from now on support : " + handlerToResultType.keySet().toString() );
+			HXAttrHandlerTools.assert0(((operand != null) && (handlerToResultType.containsKey(operand.name()) || HXAttrHandlerConstants.ANONY_OPERAND_NAME.equals(operand.name()) ) ), "have no this opearnd : '" + operand.name() + "' ! from now on support : " + handlerToResultType.keySet().toString() );
 			if(curType.isFinal) {
-				Tools.assert0("the operation : '" + lastOperand.name() + "' is final operation, can't take more operation !  around : " + sep.rest(operand.pos()) );
+				HXAttrHandlerTools.assert0("the operation : '" + lastOperand.name() + "' is final operation, can't take more operation !  around : " + sep.rest(operand.pos()) );
 			}
 			// nonArgsOperator, works like : "map(length ), map(length() )"
-			if(Constants.ANONY_OPERAND_NAME.equals(operand.name()) ) {
-				Tools.assert0(((operand.operands() != null) && (operand.operands().size() == 1) ), "anonyOperand can only take one parameter, please check it ! around : " + sep.rest(operand.pos()) );
+			if(HXAttrHandlerConstants.ANONY_OPERAND_NAME.equals(operand.name()) ) {
+				HXAttrHandlerTools.assert0(((operand.operands() != null) && (operand.operands().size() == 1) ), "anonyOperand can only take one parameter, please check it ! around : " + sep.rest(operand.pos()) );
 				curType = checkHandlerContent(sep, attrHandlerContent.operand(0) );
 			} else if(noneOrStringArgsMap.contains(operand.name()) ) {
 				Types param = checkHandlerContent(sep, operand.operand(0));
 				boolean isValid = (operand.operands() == null) 
 								|| ( (operand.operands().size() == 1) 
 									 && (emptyOperand(operand.operand(0))) || (stringAble(param)) );
-				Tools.assert0(isValid, "the operand : '" + operand.name() + "' take ([String]), 'no parameter or String', but got (" + param + ") please check it ! around : " + sep.rest(operand.pos()) );
+				HXAttrHandlerTools.assert0(isValid, "the operand : '" + operand.name() + "' take ([String]), 'no parameter or String', but got (" + param + ") please check it ! around : " + sep.rest(operand.pos()) );
 			} else if(oneBooleanArgsMap.contains(operand.name()) ) {
 				Types param = checkHandlerContent(sep, operand.operand(0));
 				boolean isValid = (operand.operands() != null) 
@@ -429,10 +429,10 @@ public class StandardHandlerParser extends HandlerParser {
 				assert0(isValid, operand.name(), "[String, Int, Int]", operand.operands().size(),  (param01 + ", " + param02 + "," + param03), sep.rest(operand.pos()) );
 			} else {
 				// can't got there !
-				Tools.assert0("unknow operand : '" + operand.name() + "', please check it !   around : " + sep.rest(operand.pos()) );
+				HXAttrHandlerTools.assert0("unknow operand : '" + operand.name() + "', please check it !   around : " + sep.rest(operand.pos()) );
 			}
 			
-			if(! Constants.ANONY_OPERAND_NAME.equals(operand.name()) ) {
+			if(! HXAttrHandlerConstants.ANONY_OPERAND_NAME.equals(operand.name()) ) {
 				curType = handlerToResultType.get(operand.name() );
 			}
 			if(operand.hasNext()) {
@@ -447,7 +447,7 @@ public class StandardHandlerParser extends HandlerParser {
 	}
 	private void assert0(boolean isValid, String operandName, String needTypes, int got, String gotTypes, String around ) {
 		String errorMsg = String.format("the operand : '%s' need '%s' as parameter, but got %d params: '(%s)',  around : %s", operandName, needTypes, got, gotTypes, around);
-		Tools.assert0(isValid, errorMsg);
+		HXAttrHandlerTools.assert0(isValid, errorMsg);
 	}
 	// 根据attrHandlerContent, 获取一个AttrHandler
 	private AttrHandler getAttrHandler(WordsSeprator sep, Operand attrHandler) {
@@ -471,7 +471,7 @@ public class StandardHandlerParser extends HandlerParser {
 		return attrHandlerChain;
 	}
 		private AttrHandler getAttrHandler0(WordsSeprator sep, Operand attrHandler) {
-			if(Constants.ANONY_OPERAND_NAME.equals(attrHandler.name()) ) {
+			if(HXAttrHandlerConstants.ANONY_OPERAND_NAME.equals(attrHandler.name()) ) {
 				return getAttrHandler(sep, attrHandler.operand(0) );
 			}
 			if(noneOrStringArgsMap.contains(attrHandler.name()) ) {
@@ -505,14 +505,14 @@ public class StandardHandlerParser extends HandlerParser {
 		}
 	private OperationAttrHandler getOperationAttrHandler(String operationType, AttrHandler attrHandler, Types operationReturn, CompositeOperationAttrHandler<OperationAttrHandler> compositeOperationAttrHandler ) {
 		switch(operationType) {
-			case Constants.MAP_OPERATION:
+			case HXAttrHandlerConstants.MAP_OPERATION:
 				return new MapOperationAttrHandler(attrHandler, operationReturn);
-			case Constants.FILTER_OPERATION:
+			case HXAttrHandlerConstants.FILTER_OPERATION:
 				return new FilterOperationAttrHandler(attrHandler, compositeOperationAttrHandler.lastReturnType() );
-			case Constants.ASSERT_OPERATION:
+			case HXAttrHandlerConstants.ASSERT_OPERATION:
 				return new AssertOperationAttrHandler(attrHandler, compositeOperationAttrHandler.lastReturnType() );
 			default:
-				Tools.assert0("have no this operationType ! from now on support : " + Constants.handlerTypeToHandleOperations.keySet().toString() );
+				HXAttrHandlerTools.assert0("have no this operationType ! from now on support : " + HXAttrHandlerConstants.handlerTypeToHandleOperations.keySet().toString() );
 				break;
 		}
 		
@@ -521,17 +521,17 @@ public class StandardHandlerParser extends HandlerParser {
 	// 校验当前handler
 	private void checkHandler(String operationType, Types returnType) {
 		switch (operationType ) {
-			case Constants.MAP_OPERATION:
+			case HXAttrHandlerConstants.MAP_OPERATION:
 				
 				break;
-			case Constants.FILTER_OPERATION:
-				Tools.assert0(Types.Boolean == returnType, "operation : 'filter' just support (Boolean) as parameter ! but got : (" + returnType + ")" );
+			case HXAttrHandlerConstants.FILTER_OPERATION:
+				HXAttrHandlerTools.assert0(Types.Boolean == returnType, "operation : 'filter' just support (Boolean) as parameter ! but got : (" + returnType + ")" );
 				break;
-			case Constants.ASSERT_OPERATION:
-				Tools.assert0(Types.Boolean == returnType, "operation : 'assert' just support (Boolean) as parameter ! but got : (" + returnType + ")" );
+			case HXAttrHandlerConstants.ASSERT_OPERATION:
+				HXAttrHandlerTools.assert0(Types.Boolean == returnType, "operation : 'assert' just support (Boolean) as parameter ! but got : (" + returnType + ")" );
 				break;
 			default:
-				Tools.assert0("have no this operationType ! from now on support : " + Constants.handlerTypeToHandleOperations.keySet().toString() );
+				HXAttrHandlerTools.assert0("have no this operationType ! from now on support : " + HXAttrHandlerConstants.handlerTypeToHandleOperations.keySet().toString() );
 				break;
 		}
 	}
@@ -557,11 +557,11 @@ public class StandardHandlerParser extends HandlerParser {
 //		Tools.assert0((allAttrHandler.contains(method) || (sep.seek().equals(Constants.STRING_CONCATE)) || (sep.seek().equals(Constants.PARAM_SEP)) ), "unknow method : " + method + ",  please check your format['" + handler + "'] !" );
 		// incase of "map((trim()) )"
 		if(bracketpair.containsKey(method) ) {
-			method = Constants.ANONY_OPERAND_NAME;
+			method = HXAttrHandlerConstants.ANONY_OPERAND_NAME;
 		// incase of "! equals('abc')"
-		} else if(Constants.STRING_NOT.equals(method)) {
+		} else if(HXAttrHandlerConstants.STRING_NOT.equals(method)) {
 			sep.next();
-			Operand operand = new Operand(Constants.NOT, OperandTypes.Method, sep.lastNextPos() );
+			Operand operand = new Operand(HXAttrHandlerConstants.NOT, OperandTypes.Method, sep.lastNextPos() );
 			operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromNone) );
 			return operand;
 		// common case : "trim()" or "'Hello' + $this"
@@ -578,12 +578,12 @@ public class StandardHandlerParser extends HandlerParser {
 		while(sep.hasNext() ) {
 			// 			  		  |idx			   |
 			// incase of "(param01, xx)", "(param01)"
-			if(Constants.PARAM_SEP.equals(sep.seek()) 
+			if(HXAttrHandlerConstants.PARAM_SEP.equals(sep.seek()) 
 					|| bracketpair.get(bracket).equals(sep.seek())
-					|| (isFrom(flags, isFromConcate) && (Constants.STRING_CONCATE.equals(sep.seek())) || Constants.COND_EXP_BRANCH.equals(sep.seek() ) ) 
-					|| (isFrom(flags, isFromCuttingOut) && Constants.STRING_CONCATE.equals(sep.seek()) ) 
-					|| (isFrom(flags, isFromComp) && (Constants.STRING_CONCATE.equals(sep.seek()) || Constants.AND.equals(sep.seek()) || Constants.OR.equals(sep.seek()) || Constants.COND_EXP_COND.equals(sep.seek()) ) ) 
-					|| (isFrom(flags, isFromCondExp) && Constants.COND_EXP_BRANCH.equals(sep.seek()) ) 
+					|| (isFrom(flags, isFromConcate) && (HXAttrHandlerConstants.STRING_CONCATE.equals(sep.seek())) || HXAttrHandlerConstants.COND_EXP_BRANCH.equals(sep.seek() ) ) 
+					|| (isFrom(flags, isFromCuttingOut) && HXAttrHandlerConstants.STRING_CONCATE.equals(sep.seek()) ) 
+					|| (isFrom(flags, isFromComp) && (HXAttrHandlerConstants.STRING_CONCATE.equals(sep.seek()) || HXAttrHandlerConstants.AND.equals(sep.seek()) || HXAttrHandlerConstants.OR.equals(sep.seek()) || HXAttrHandlerConstants.COND_EXP_COND.equals(sep.seek()) ) ) 
+					|| (isFrom(flags, isFromCondExp) && HXAttrHandlerConstants.COND_EXP_BRANCH.equals(sep.seek()) ) 
 					) {
 				return operand;
 			}
@@ -597,18 +597,18 @@ public class StandardHandlerParser extends HandlerParser {
 				operand.addOperand(ope );
 				while(sep.hasNext() ) {
 					String dotCommaOrNot = sep.next();
-					if(Constants.SUB_HANDLER_CALL.equals(dotCommaOrNot) ) {
+					if(HXAttrHandlerConstants.SUB_HANDLER_CALL.equals(dotCommaOrNot) ) {
 						ope.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromNone) );
-					} else if(Constants.PARAM_SEP.equals(dotCommaOrNot) ) {
+					} else if(HXAttrHandlerConstants.PARAM_SEP.equals(dotCommaOrNot) ) {
 						ope = getAttrHandlerOperand(sep, bracket, bracketpair, isFromNone);
 						operand.addOperand(ope );
 					} else {
-						Tools.assert0(bracketpair.get(bracket).equals(dotCommaOrNot), "expect a  : '" + bracketpair.get(bracket) + "' ! , please check your format['" + sep.rest() + "'] ! ");
+						HXAttrHandlerTools.assert0(bracketpair.get(bracket).equals(dotCommaOrNot), "expect a  : '" + bracketpair.get(bracket) + "' ! , please check your format['" + sep.rest() + "'] ! ");
 						break ;
 					}
 				}
 			}
-			if(Constants.SUB_HANDLER_CALL.equals(next) ) {
+			if(HXAttrHandlerConstants.SUB_HANDLER_CALL.equals(next) ) {
 				Operand ope = getAttrHandlerOperand(sep, bracket, bracketpair, isFromNone);
 				operand.setNext(ope);
 			}
@@ -616,9 +616,9 @@ public class StandardHandlerParser extends HandlerParser {
 			// 处理语法糖, 拼串, 短路与/ 或, 条件表达式, 比较运算符
 			// 			    | |
 			// incase of "a + b"
-			if(Constants.STRING_CONCATE.equals(next) ) {
+			if(HXAttrHandlerConstants.STRING_CONCATE.equals(next) ) {
 				Operand oldOperand = operand;
-				operand = new Operand(Constants.CONCATE, OperandTypes.Method, sep.lastNextPos() );
+				operand = new Operand(HXAttrHandlerConstants.CONCATE, OperandTypes.Method, sep.lastNextPos() );
 				operand.addOperand(oldOperand );
 					
 				boolean isFirstConcate = true;
@@ -628,17 +628,17 @@ public class StandardHandlerParser extends HandlerParser {
 					}
 					isFirstConcate = false;
 					operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromConcate) );
-				} while(Constants.STRING_CONCATE.equals(sep.seek()) );
+				} while(HXAttrHandlerConstants.STRING_CONCATE.equals(sep.seek()) );
 			// 规约拼串的优先级高于 短路与/ 或[&&, ||]
-			} else if(Constants.AND.equals(next) || Constants.OR.equals(next) ) {
+			} else if(HXAttrHandlerConstants.AND.equals(next) || HXAttrHandlerConstants.OR.equals(next) ) {
 				String curSymbol = next;
-				Tools.assert0(curSymbol.equals(sep.seek() ), "expect a : " + curSymbol + " ! aoround : " + sep.rest() );
+				HXAttrHandlerTools.assert0(curSymbol.equals(sep.seek() ), "expect a : " + curSymbol + " ! aoround : " + sep.rest() );
 				sep.next();
 				Operand oldOperand = operand;
-				if(Constants.AND.equals(curSymbol) ) {
-					operand = new Operand(Constants.CUTTING_OUT_AND, OperandTypes.Method, sep.lastNextPos() );
+				if(HXAttrHandlerConstants.AND.equals(curSymbol) ) {
+					operand = new Operand(HXAttrHandlerConstants.CUTTING_OUT_AND, OperandTypes.Method, sep.lastNextPos() );
 				} else {
-					operand = new Operand(Constants.CUTTING_OUT_OR, OperandTypes.Method, sep.lastNextPos() );
+					operand = new Operand(HXAttrHandlerConstants.CUTTING_OUT_OR, OperandTypes.Method, sep.lastNextPos() );
 				}
 				operand.addOperand(oldOperand );
 					
@@ -646,7 +646,7 @@ public class StandardHandlerParser extends HandlerParser {
 				do {
 					if(! isFirstConcate) {
 						sep.next();
-						Tools.assert0(curSymbol.equals(sep.seek() ), "expect a : " + curSymbol + " ! aoround : " + sep.rest() );
+						HXAttrHandlerTools.assert0(curSymbol.equals(sep.seek() ), "expect a : " + curSymbol + " ! aoround : " + sep.rest() );
 						sep.next();
 					}
 					isFirstConcate = false;
@@ -657,43 +657,43 @@ public class StandardHandlerParser extends HandlerParser {
 //					   ||
 //					   \/
 //				  ab   ==  cd				
-			} else if(Constants.GT.equals(next) || Constants.LT.equals(next) ) {
+			} else if(HXAttrHandlerConstants.GT.equals(next) || HXAttrHandlerConstants.LT.equals(next) ) {
 				Operand oldOperand = operand;
-				if(Constants.GT.equals(next) ) {
-					if(! Constants.EQ.equals(sep.seek()) ) {
-						operand = new Operand(Constants.GREATER_THAN, OperandTypes.Method, sep.lastNextPos() );
+				if(HXAttrHandlerConstants.GT.equals(next) ) {
+					if(! HXAttrHandlerConstants.EQ.equals(sep.seek()) ) {
+						operand = new Operand(HXAttrHandlerConstants.GREATER_THAN, OperandTypes.Method, sep.lastNextPos() );
 					} else {
 						sep.next();
-						operand = new Operand(Constants.GREATER_EQUALS_THAN, OperandTypes.Method, sep.lastNextPos() );
+						operand = new Operand(HXAttrHandlerConstants.GREATER_EQUALS_THAN, OperandTypes.Method, sep.lastNextPos() );
 					}
 				} else {
-					if(! Constants.EQ.equals(sep.seek()) ) {
-						operand = new Operand(Constants.LESS_THAN, OperandTypes.Method, sep.lastNextPos() );
+					if(! HXAttrHandlerConstants.EQ.equals(sep.seek()) ) {
+						operand = new Operand(HXAttrHandlerConstants.LESS_THAN, OperandTypes.Method, sep.lastNextPos() );
 					} else {
 						sep.next();
-						operand = new Operand(Constants.LESS_EQUALS_THAN, OperandTypes.Method, sep.lastNextPos() );
+						operand = new Operand(HXAttrHandlerConstants.LESS_EQUALS_THAN, OperandTypes.Method, sep.lastNextPos() );
 					}
 				}
 				operand.addOperand(oldOperand);
 				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromComp) );
-			} else if(Constants.EQ.equals(next) || Constants.STRING_NOT.equals(next) ) {
-				Tools.assert0(Constants.EQ.equals(sep.seek() ), "expect a : " + Constants.EQ + " ! aoround : " + sep.rest() );
+			} else if(HXAttrHandlerConstants.EQ.equals(next) || HXAttrHandlerConstants.STRING_NOT.equals(next) ) {
+				HXAttrHandlerTools.assert0(HXAttrHandlerConstants.EQ.equals(sep.seek() ), "expect a : " + HXAttrHandlerConstants.EQ + " ! aoround : " + sep.rest() );
 				sep.next();
 				Operand oldOperand = operand;
-				if(Constants.EQ.equals(next) ) {
-					operand = new Operand(Constants._EQUALS, OperandTypes.Method, sep.lastNextPos() );
+				if(HXAttrHandlerConstants.EQ.equals(next) ) {
+					operand = new Operand(HXAttrHandlerConstants._EQUALS, OperandTypes.Method, sep.lastNextPos() );
 				} else {
-					operand = new Operand(Constants.NOT_EQUALS, OperandTypes.Method, sep.lastNextPos() );
+					operand = new Operand(HXAttrHandlerConstants.NOT_EQUALS, OperandTypes.Method, sep.lastNextPos() );
 				}
 				operand.addOperand(oldOperand);
 				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromComp) );
-			} else if(Constants.COND_EXP_COND.equals(next) ) {
+			} else if(HXAttrHandlerConstants.COND_EXP_COND.equals(next) ) {
 				Operand oldOperand = operand;
-				operand = new Operand(Constants.COND_EXP, OperandTypes.Method, sep.lastNextPos() );
+				operand = new Operand(HXAttrHandlerConstants.COND_EXP, OperandTypes.Method, sep.lastNextPos() );
 				operand.addOperand(oldOperand );
 				
 				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromCondExp) );
-				Tools.assert0(Constants.COND_EXP_BRANCH.equals(sep.seek() ), "expect a : " + Constants.COND_EXP_BRANCH + " ! aoround : " + sep.rest() );
+				HXAttrHandlerTools.assert0(HXAttrHandlerConstants.COND_EXP_BRANCH.equals(sep.seek() ), "expect a : " + HXAttrHandlerConstants.COND_EXP_BRANCH + " ! aoround : " + sep.rest() );
 				sep.next();
 				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromCondExp) );
 			}
@@ -712,29 +712,29 @@ public class StandardHandlerParser extends HandlerParser {
 //			return getNoneOrOneStringArgsHandler0(sep, ope, new TrimAsOneAttrHandler() );
 //		case Constants.TRIM_ALL:
 //			return getNoneOrOneStringArgsHandler0(sep, ope, new TrimAllAttrHandler() );
-		case Constants.TO_UPPERCASE:
+		case HXAttrHandlerConstants.TO_UPPERCASE:
 			return getNoneOrOneStringArgsHandler0(sep, ope, new ToUpperCaseAttrHandler() );
-		case Constants.TO_LOWERCASE:
+		case HXAttrHandlerConstants.TO_LOWERCASE:
 			return getNoneOrOneStringArgsHandler0(sep, ope, new ToLowerCaseAttrHandler() );
-		case Constants.LENGTH:
+		case HXAttrHandlerConstants.LENGTH:
 			return getNoneOrOneStringArgsHandler0(sep, ope, new LengthAttrHandler() );
-		case Constants.DO_NOTHING:
+		case HXAttrHandlerConstants.DO_NOTHING:
 			return getNoneOrOneStringArgsHandler0(sep, ope, new DoNothingAttrHandler() );
-		case Constants.TO_INT:
+		case HXAttrHandlerConstants.TO_INT:
 			return getNoneOrOneStringArgsHandler0(sep, ope, new ToIntAttrHandler() );
-		case Constants.TO_BOOLEAN:
+		case HXAttrHandlerConstants.TO_BOOLEAN:
 			return getNoneOrOneStringArgsHandler0(sep, ope, new ToBooleanAttrHandler() );
-		case Constants.TO_STRING:
+		case HXAttrHandlerConstants.TO_STRING:
 			return getNoneOrOneStringArgsHandler0(sep, ope, new ToStringAttrHandler() );
 		default:
-			Tools.assert0("got an unknow 'noArgs' method : " + attrHandler.name() );
+			HXAttrHandlerTools.assert0("got an unknow 'noArgs' method : " + attrHandler.name() );
 			return null;
 		}
 	}
 		private AttrHandler getNoneOrOneStringArgsHandler0(WordsSeprator sep, Operand ope, NoneOrOneStringArgsAttrHandler handler) {
 			// null & 'emptyOperand'
 			if((ope == null) || (ope.type() == OperandTypes.Null) ) {
-				return new OneStringResultHandlerArgsAttrHandler(handler, Constants.HANDLER_UNDEFINED);
+				return new OneStringResultHandlerArgsAttrHandler(handler, HXAttrHandlerConstants.HANDLER_UNDEFINED);
 			} else {
 				return new OneStringResultHandlerArgsAttrHandler(handler, getAttrHandler(sep, ope) );
 			}
@@ -742,10 +742,10 @@ public class StandardHandlerParser extends HandlerParser {
 	private AttrHandler getOneBooleanArgsHandler(WordsSeprator sep, Operand attrHandler) {
 		Operand ope = attrHandler.operand(0);
 		switch (attrHandler.name() ) {
-			case Constants.NOT:
+			case HXAttrHandlerConstants.NOT:
 					return getOneBooleanArgsHandler0(sep, ope, new NotAttrHandler() );
 			default:
-				Tools.assert0("got an unknow '(Boolean)' method : " + attrHandler.name() );
+				HXAttrHandlerTools.assert0("got an unknow '(Boolean)' method : " + attrHandler.name() );
 				break ;
 		}
 		
@@ -758,26 +758,26 @@ public class StandardHandlerParser extends HandlerParser {
 		Operand param01 = attrHandler.operand(0);
 		Operand param02 = attrHandler.operand(1);
 		switch (attrHandler.name() ) {
-			case Constants.EQUALS:
+			case HXAttrHandlerConstants.EQUALS:
 					return getOneOrTwoStringArgsHandler0(sep, param01, param02, new EqualsAttrHandler() );
-			case Constants.MATCHES:
+			case HXAttrHandlerConstants.MATCHES:
 					return getOneOrTwoStringArgsHandler0(sep, param01, param02, new MatchesAttrHandler() );
-			case Constants.CONTAINS:
+			case HXAttrHandlerConstants.CONTAINS:
 				return getOneOrTwoStringArgsHandler0(sep, param01, param02, new ContainsAttrHandler() );
-			case Constants.GREATER_THAN:
+			case HXAttrHandlerConstants.GREATER_THAN:
 				return getOneOrTwoStringArgsHandler0(sep, param01, param02, new GreaterThanAttrHandler() );
-			case Constants.GREATER_EQUALS_THAN:
+			case HXAttrHandlerConstants.GREATER_EQUALS_THAN:
 				return getOneOrTwoStringArgsHandler0(sep, param01, param02, new GreaterEqualsThanAttrHandler() );
-			case Constants.LESS_THAN:
+			case HXAttrHandlerConstants.LESS_THAN:
 				return getOneOrTwoStringArgsHandler0(sep, param01, param02, new LessThanAttrHandler() );
-			case Constants.LESS_EQUALS_THAN:
+			case HXAttrHandlerConstants.LESS_EQUALS_THAN:
 				return getOneOrTwoStringArgsHandler0(sep, param01, param02, new LessEqualsThanAttrHandler() );
-			case Constants._EQUALS:
+			case HXAttrHandlerConstants._EQUALS:
 				return getOneOrTwoStringArgsHandler0(sep, param01, param02, new EqualsAttrHandler() );
-			case Constants.NOT_EQUALS:
+			case HXAttrHandlerConstants.NOT_EQUALS:
 				return getOneOrTwoStringArgsHandler0(sep, param01, param02, new NotEqualsAttrHandler() );
 			default:
-				Tools.assert0("got an unknow '(String)' method : " + attrHandler.name() );
+				HXAttrHandlerTools.assert0("got an unknow '(String)' method : " + attrHandler.name() );
 				break ;
 		}
 		
@@ -785,7 +785,7 @@ public class StandardHandlerParser extends HandlerParser {
 	}
 		private AttrHandler getOneOrTwoStringArgsHandler0(WordsSeprator sep, Operand param01, Operand param02, TwoStringArgsAttrHandler handler) {
 			if(param02 == null) {
-				return new TwoStringResultHandlerArgsAttrHandler(handler, getAttrHandler(sep, param01), new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED) );
+				return new TwoStringResultHandlerArgsAttrHandler(handler, getAttrHandler(sep, param01), new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED) );
 			} else {
 				return new TwoStringResultHandlerArgsAttrHandler(handler, getAttrHandler(sep, param01), getAttrHandler(sep, param02) );
 			}
@@ -795,10 +795,10 @@ public class StandardHandlerParser extends HandlerParser {
 		Operand param02 = attrHandler.operand(1);
 		Operand param03 = attrHandler.operand(2);
 		switch (attrHandler.name() ) {
-			case Constants.REPLACE:
+			case HXAttrHandlerConstants.REPLACE:
 					return getTwoOrThreeStringArgsHandler0(sep, param01, param02, param03, new ReplaceAttrHandler() );
 			default :
-				Tools.assert0("got an unknow '(String, String)' method : " + attrHandler.name() );
+				HXAttrHandlerTools.assert0("got an unknow '(String, String)' method : " + attrHandler.name() );
 				break ;
 		}
 		
@@ -806,7 +806,7 @@ public class StandardHandlerParser extends HandlerParser {
 	}
 		private AttrHandler getTwoOrThreeStringArgsHandler0(WordsSeprator sep, Operand param01, Operand param02, Operand param03, TwoOrThreeStringArgsAttrHandler handler) {
 			if(param03 == null) {
-				return new ThreeStringResultHandler(handler, new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), new ConstantsAttrHandler(param02.name()) );
+				return new ThreeStringResultHandler(handler, new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), new ConstantsAttrHandler(param02.name()) );
 			} else {
 				return new ThreeStringResultHandler(handler, getAttrHandler(sep, param01), getAttrHandler(sep, param02), getAttrHandler(sep, param03) );
 			}
@@ -816,12 +816,12 @@ public class StandardHandlerParser extends HandlerParser {
 		Operand param02 = attrHandler.operand(1);
 		Operand param03 = attrHandler.operand(2);
 		switch (attrHandler.name() ) {
-			case Constants.INDEX_OF:
+			case HXAttrHandlerConstants.INDEX_OF:
 				return getStringOrStringIntArgsHandler0(sep, param01, param02, param03, new IndexAttrHandler() );
-			case Constants.LAST_INDEX_OF:
+			case HXAttrHandlerConstants.LAST_INDEX_OF:
 				return getStringOrStringIntArgsHandler0(sep, param01, param02, param03, new LastIndexAttrHandler() );
 			default :
-				Tools.assert0("got an unknow '(String [, Int])' method : " + attrHandler.name() );
+				HXAttrHandlerTools.assert0("got an unknow '(String [, Int])' method : " + attrHandler.name() );
 				break ;
 		}
 		
@@ -830,18 +830,18 @@ public class StandardHandlerParser extends HandlerParser {
 		private AttrHandler getStringOrStringIntArgsHandler0(WordsSeprator sep, Operand param01, Operand param02, Operand param03, OneOrTwoStringIntArgsAttrHandler handler) {
 			// (str)
 			if(param02 == null) {
-				return new TwoStringIntResultHandlerArgsAttrHandler(handler, new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED) );
+				return new TwoStringIntResultHandlerArgsAttrHandler(handler, new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED) );
 			} else {
 				// (str, int)
 				if(OperandTypes.Int == param02.type() ) {
-					return new TwoStringIntResultHandlerArgsAttrHandler(handler, new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), getAttrHandler(sep, param02) );
+					return new TwoStringIntResultHandlerArgsAttrHandler(handler, new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), getAttrHandler(sep, param02) );
 				} else {
 					// (str, str, int)
 					if(param03 != null) {
 						return new TwoStringIntResultHandlerArgsAttrHandler(handler, getAttrHandler(sep, param01), getAttrHandler(sep, param02), getAttrHandler(sep, param03) );
 					// (str, str)
 					} else {
-						return new TwoStringIntResultHandlerArgsAttrHandler(handler, getAttrHandler(sep, param01), getAttrHandler(sep, param02), new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED) );
+						return new TwoStringIntResultHandlerArgsAttrHandler(handler, getAttrHandler(sep, param01), getAttrHandler(sep, param02), new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED) );
 					}
 				}
 			}
@@ -851,10 +851,10 @@ public class StandardHandlerParser extends HandlerParser {
 		Operand param02 = attrHandler.operand(1);
 		Operand param03 = attrHandler.operand(2);
 		switch (attrHandler.name() ) {
-			case Constants.SUB_STRING:
+			case HXAttrHandlerConstants.SUB_STRING:
 				return getStringOneOrTwoIntArgsHandler0(sep, param01, param02, param03, new SubStringAttrHandler() );
 			default :
-				Tools.assert0("got an unknow '([String ,]Int [, Int])' method : " + attrHandler.name() );
+				HXAttrHandlerTools.assert0("got an unknow '([String ,]Int [, Int])' method : " + attrHandler.name() );
 				break ;
 		}
 		
@@ -867,21 +867,21 @@ public class StandardHandlerParser extends HandlerParser {
 			} else {
 				// (str, int)
 				if(OperandTypes.String == param01.type() ) {
-					return new StringTwoIntResultHandlerArgsAttrHandler(handler, getAttrHandler(sep, param01), getAttrHandler(sep, param02), new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED) );
+					return new StringTwoIntResultHandlerArgsAttrHandler(handler, getAttrHandler(sep, param01), getAttrHandler(sep, param02), new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED) );
 				} else {
 					// (int)
 					if(param02 == null ) {
-						return new StringTwoIntResultHandlerArgsAttrHandler(handler, new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED) );
+						return new StringTwoIntResultHandlerArgsAttrHandler(handler, new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED) );
 					// (int, int)						
 					} else {
-						return new StringTwoIntResultHandlerArgsAttrHandler(handler, new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), getAttrHandler(sep, param02) );
+						return new StringTwoIntResultHandlerArgsAttrHandler(handler, new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), getAttrHandler(sep, param02) );
 					}
 				}
 			}
 		}
 	private AttrHandler getOneBooleanTwoStringArgsHandler(WordsSeprator sep, Operand attrHandler) {
 		switch (attrHandler.name() ) {
-			case Constants.COND_EXP :
+			case HXAttrHandlerConstants.COND_EXP :
 				{
 					Operand ope = attrHandler.operand(0);
 					Operand ope01 = attrHandler.operand(1);
@@ -889,7 +889,7 @@ public class StandardHandlerParser extends HandlerParser {
 					return new CondExpAttrHandler(getAttrHandler(sep, ope), getAttrHandler(sep, ope01), getAttrHandler(sep, ope02) );
 				}
 			default :
-				Tools.assert0("got an unknow '(String, String, ...)' method : " + attrHandler.name() );
+				HXAttrHandlerTools.assert0("got an unknow '(String, String, ...)' method : " + attrHandler.name() );
 				break ;
 		}
 		
@@ -897,10 +897,10 @@ public class StandardHandlerParser extends HandlerParser {
 	}
 	private AttrHandler getMultiStringArgsHandler(WordsSeprator sep, Operand attrHandler) {
 		switch (attrHandler.name() ) {
-			case Constants.CONCATE :
+			case HXAttrHandlerConstants.CONCATE :
 				return getMultiStringArgsHandler0(sep, attrHandler, new ConcateAttrHandler(attrHandler.operands().size()) );
 			default :
-				Tools.assert0("got an unknow '(String, String, ...)' method : " + attrHandler.name() );
+				HXAttrHandlerTools.assert0("got an unknow '(String, String, ...)' method : " + attrHandler.name() );
 				break ;
 		}
 		
@@ -919,12 +919,12 @@ public class StandardHandlerParser extends HandlerParser {
 		}
 	private AttrHandler getMultiBooleanArgsHandler(WordsSeprator sep, Operand attrHandler) {
 		switch (attrHandler.name() ) {
-			case Constants.CUTTING_OUT_AND :
+			case HXAttrHandlerConstants.CUTTING_OUT_AND :
 				return getMultiBooleanArgsHandler0(sep, attrHandler, new CuttingOutAndAttrHandler<AttrHandler>(attrHandler.operands().size()) );
-			case Constants.CUTTING_OUT_OR :
+			case HXAttrHandlerConstants.CUTTING_OUT_OR :
 				return getMultiBooleanArgsHandler0(sep, attrHandler, new CuttingOutOrAttrHandler<AttrHandler>(attrHandler.operands().size()) );
 			default :
-				Tools.assert0("got an unknow '(String, String, ...)' method : " + attrHandler.name() );
+				HXAttrHandlerTools.assert0("got an unknow '(String, String, ...)' method : " + attrHandler.name() );
 				break ;
 		}
 		
@@ -943,18 +943,18 @@ public class StandardHandlerParser extends HandlerParser {
 		}
 	private AttrHandler getMultiIntArgsHandler(WordsSeprator sep, Operand attrHandler) {
 		switch (attrHandler.name() ) {
-			case Constants.ADD:
+			case HXAttrHandlerConstants.ADD:
 					return getMultiIntArgsHandler0(sep, attrHandler, new AddAttrHandler() );
-			case Constants.SUB:
+			case HXAttrHandlerConstants.SUB:
 				return getMultiIntArgsHandler0(sep, attrHandler, new SubAttrHandler() );						
-			case Constants.MUL:
+			case HXAttrHandlerConstants.MUL:
 				return getMultiIntArgsHandler0(sep, attrHandler, new MultiplyAttrHandler() );						
-			case Constants.DIV:
+			case HXAttrHandlerConstants.DIV:
 				return getMultiIntArgsHandler0(sep, attrHandler, new DivAttrHandler() );						
-			case Constants.MOD:
+			case HXAttrHandlerConstants.MOD:
 				return getMultiIntArgsHandler0(sep, attrHandler, new ModAttrHandler() );						
 			default :
-				Tools.assert0("got an unknow '(Int, Int)' method : " + attrHandler.name() );
+				HXAttrHandlerTools.assert0("got an unknow '(Int, Int)' method : " + attrHandler.name() );
 				break ;
 		}
 		
@@ -973,10 +973,10 @@ public class StandardHandlerParser extends HandlerParser {
 		}			
 	private AttrHandler getTwoOrThreeStringTwoBooleanArgsHandler(WordsSeprator sep, Operand attrHandler) {
 		switch (attrHandler.name() ) {
-			case Constants.GET_STR_IN_RANGE:
+			case HXAttrHandlerConstants.GET_STR_IN_RANGE:
 					return getTwoOrThreeStringTwoBooleanArgsHandler0(sep, attrHandler, new GetStrInRangeHandler() );
 			default :
-				Tools.assert0("got an unknow '(String, String[, String, Boolean, Boolean])' method : " + attrHandler.name() );
+				HXAttrHandlerTools.assert0("got an unknow '(String, String[, String, Boolean, Boolean])' method : " + attrHandler.name() );
 				break ;
 		}
 		
@@ -994,28 +994,28 @@ public class StandardHandlerParser extends HandlerParser {
 			} else {
 				// (str, str)
 				if(param03 == null) {
-					return new ThreeStringTwoBooleanResultHandler(handler, new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), getAttrHandler(sep, param02) );
+					return new ThreeStringTwoBooleanResultHandler(handler, new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), getAttrHandler(sep, param02) );
 				} else {
 					// (str, str, str)
 					if(OperandTypes.String == param03.type() ) {
 						return new ThreeStringTwoBooleanResultHandler(handler, getAttrHandler(sep, param01), getAttrHandler(sep, param02), getAttrHandler(sep, param03) );
 					// (str, str, boolean, boolean)
 					} else {
-						return new ThreeStringTwoBooleanResultHandler(handler, new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), getAttrHandler(sep, param02), getAttrHandler(sep, param03), getAttrHandler(sep, param04) );
+						return new ThreeStringTwoBooleanResultHandler(handler, new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), getAttrHandler(sep, param02), getAttrHandler(sep, param03), getAttrHandler(sep, param04) );
 					}
 				}
 			}
 		}
 	private AttrHandler getNoneOrOneStringOneOrTwoIntArgsHandler(WordsSeprator sep, Operand attrHandler) {
 		switch (attrHandler.name() ) {
-			case Constants.TRIM:
+			case HXAttrHandlerConstants.TRIM:
 					return getNoneOrOneStringOneOrTwoIntArgsHandler0(sep, attrHandler, new TrimAttrHandler() );
-			case Constants.TRIM_AS_ONE:
+			case HXAttrHandlerConstants.TRIM_AS_ONE:
 				return getNoneOrOneStringOneOrTwoIntArgsHandler0(sep, attrHandler, new TrimAsOneAttrHandler() );
-			case Constants.TRIM_ALL:
+			case HXAttrHandlerConstants.TRIM_ALL:
 				return getNoneOrOneStringOneOrTwoIntArgsHandler0(sep, attrHandler, new TrimAllAttrHandler() );
 			default :
-				Tools.assert0("got an unknow '([String, Int, Int])' method : " + attrHandler.name() );
+				HXAttrHandlerTools.assert0("got an unknow '([String, Int, Int])' method : " + attrHandler.name() );
 				break ;
 		}
 	
@@ -1027,7 +1027,7 @@ public class StandardHandlerParser extends HandlerParser {
 		Operand param03 = attrHandler.operand(2);
 		// ()
 		if((null == param01) || (emptyOperand(param01)) ) {
-			return new StringTwoIntResultHandlerArgsAttrHandler(handler, new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED), new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED), new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED) );
+			return new StringTwoIntResultHandlerArgsAttrHandler(handler, new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED), new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED), new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED) );
 		} else {
 			// (str, int, int)
 			if(param03 != null) {
@@ -1036,16 +1036,16 @@ public class StandardHandlerParser extends HandlerParser {
 				// (str) or (str, int)
 				if(OperandTypes.String == param01.type() ) {
 					if(param02 != null) {
-						return new StringTwoIntResultHandlerArgsAttrHandler(handler, getAttrHandler(sep, param01), getAttrHandler(sep, param02), new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED) );
+						return new StringTwoIntResultHandlerArgsAttrHandler(handler, getAttrHandler(sep, param01), getAttrHandler(sep, param02), new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED) );
 					} else {
-						return new StringTwoIntResultHandlerArgsAttrHandler(handler, getAttrHandler(sep, param01), new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED), new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED) );
+						return new StringTwoIntResultHandlerArgsAttrHandler(handler, getAttrHandler(sep, param01), new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED), new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED) );
 					}
 				// (int) or (int, int)
 				} else {
 					if(param02 != null) {
-						return new StringTwoIntResultHandlerArgsAttrHandler(handler, new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), getAttrHandler(sep, param02) );
+						return new StringTwoIntResultHandlerArgsAttrHandler(handler, new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), getAttrHandler(sep, param02) );
 					} else {
-						return new StringTwoIntResultHandlerArgsAttrHandler(handler, new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), new ConstantsAttrHandler(Constants.HANDLER_UNDEFINED) );
+						return new StringTwoIntResultHandlerArgsAttrHandler(handler, new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED), getAttrHandler(sep, param01), new ConstantsAttrHandler(HXAttrHandlerConstants.HANDLER_UNDEFINED) );
 					}
 				}
 			}
@@ -1059,7 +1059,7 @@ public class StandardHandlerParser extends HandlerParser {
 		return type == Types.String || type == Types.Int || type == Types.Boolean;
 	}
 	private boolean emptyOperand(Operand operand) {
-		return Constants.EMPTY_OPERAND_NAME.equals(operand.name());
+		return HXAttrHandlerConstants.EMPTY_OPERAND_NAME.equals(operand.name());
 	}
 	// 判断给定的flag中是否存在对应的位
 	private boolean isFrom(int flag, int mask) {
@@ -1085,7 +1085,7 @@ public class StandardHandlerParser extends HandlerParser {
 		private Operand next;
 		
 		// 空的操作数
-		public final static Operand emptyOperand = new Operand(Constants.EMPTY_OPERAND_NAME, OperandTypes.Null, 0);
+		public final static Operand emptyOperand = new Operand(HXAttrHandlerConstants.EMPTY_OPERAND_NAME, OperandTypes.Null, 0);
 		
 		// 初始化
 		public Operand(String opeName, int pos) {
@@ -1107,7 +1107,7 @@ public class StandardHandlerParser extends HandlerParser {
 		// 添加操作数
 		public void addOperand(Operand operand) {
 			if(operands == null) {
-				operands = new ArrayList<>(Constants.OPERAND_DEFAULT_CAP);
+				operands = new ArrayList<>(HXAttrHandlerConstants.OPERAND_DEFAULT_CAP);
 			}
 			operands.add(operand);
 		}

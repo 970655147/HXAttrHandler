@@ -9,7 +9,7 @@ package com.hx.attrHandler.attrHandler.operation;
 import com.hx.attrHandler.attrHandler.StandardHandlerParser.Types;
 import com.hx.attrHandler.attrHandler.interf.AttrHandler;
 import com.hx.attrHandler.attrHandler.operation.interf.OperationAttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 // mapHandler
 public class MapOperationAttrHandler extends OperationAttrHandler {
@@ -20,7 +20,7 @@ public class MapOperationAttrHandler extends OperationAttrHandler {
 	public MapOperationAttrHandler(AttrHandler handler, Types operationReturn ) {
 		super();
 		this.handler = handler;
-		operationType(Constants.MAP_OPERATION);
+		operationType(HXAttrHandlerConstants.MAP_OPERATION);
 		operationReturn(operationReturn);
 	}
 
@@ -31,7 +31,7 @@ public class MapOperationAttrHandler extends OperationAttrHandler {
 
 	@Override
 	public String name() {
-		return Constants.MAP_OPERATION;
+		return HXAttrHandlerConstants.MAP_OPERATION;
 	}
 
 }

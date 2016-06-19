@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.hx.attrHandler.attrHandler.interf.AttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 // 组合了多个Handler的AttrHandler
 public abstract class MultiArgsOperationAttrHandler<T extends OperationAttrHandler> extends OperationAttrHandler {
@@ -29,7 +29,7 @@ public abstract class MultiArgsOperationAttrHandler<T extends OperationAttrHandl
 		this.handlers = new ArrayList<>(initCap);
 	}
 	public MultiArgsOperationAttrHandler() {
-		this(Constants.CONCATE_HANDLER_DEFAULT_CAP);
+		this(HXAttrHandlerConstants.CONCATE_HANDLER_DEFAULT_CAP);
 	}
 	
 	// 添加handler

@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.hx.attrHandler.attrHandler.adapter.MultiArgsAttrHandler;
 import com.hx.attrHandler.attrHandler.interf.AttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 // Á¬½Ó×Ö·û´®µÄhandler
 // map(hello + $this + world)
@@ -23,7 +23,7 @@ public class ConcateAttrHandler extends MultiArgsAttrHandler<AttrHandler> {
 		super(initCap);
 	}
 	public ConcateAttrHandler() {
-		this(Constants.CONCATE_HANDLER_DEFAULT_CAP);
+		this(HXAttrHandlerConstants.CONCATE_HANDLER_DEFAULT_CAP);
 	}
 	
 	@Override
@@ -31,7 +31,7 @@ public class ConcateAttrHandler extends MultiArgsAttrHandler<AttrHandler> {
 		StringBuilder sb = new StringBuilder();
 		for(AttrHandler handler : handlers) {
 			String res = handler.handle(result);
-			if(Constants.RESULT_PROXY.equals(res) ) {
+			if(HXAttrHandlerConstants.RESULT_PROXY.equals(res) ) {
 				sb.append(result);
 			} else {
 				sb.append(res);
@@ -43,7 +43,7 @@ public class ConcateAttrHandler extends MultiArgsAttrHandler<AttrHandler> {
 
 	@Override
 	public String name() {
-		return Constants.CONCATE;
+		return HXAttrHandlerConstants.CONCATE;
 	}
 	
 }

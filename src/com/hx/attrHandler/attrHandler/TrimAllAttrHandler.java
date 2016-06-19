@@ -7,8 +7,8 @@
 package com.hx.attrHandler.attrHandler;
 
 import com.hx.attrHandler.attrHandler.adapter.interf.StringOneOrTwoIntAttrHandler;
-import com.hx.attrHandler.util.Constants;
-import com.hx.attrHandler.util.Tools;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
+import com.hx.attrHandler.util.HXAttrHandlerTools;
 
 // 去掉字符串的所有空格的handler
 // map(trimAll)
@@ -18,16 +18,16 @@ public class TrimAllAttrHandler extends StringOneOrTwoIntAttrHandler {
 		super(str, trimHead, trimTail);
 	}
 	public TrimAllAttrHandler() {
-		this(Constants.HANDLER_UNDEFINED, Constants.TARGET_UNDEFINED, Constants.TARGET_UNDEFINED);
+		this(HXAttrHandlerConstants.HANDLER_UNDEFINED, HXAttrHandlerConstants.TARGET_UNDEFINED, HXAttrHandlerConstants.TARGET_UNDEFINED);
 	}
 
 	@Override
 	protected String gotResult(String target, int from, int to, String result) {
-		String trimed = Tools.trimAllSpaces(target);
-		if(from == Constants.TARGET_UNDEFINED) {
+		String trimed = HXAttrHandlerTools.trimAllSpaces(target);
+		if(from == HXAttrHandlerConstants.TARGET_UNDEFINED) {
 			from = 0;
 		}
-		if(to == Constants.TARGET_UNDEFINED) {
+		if(to == HXAttrHandlerConstants.TARGET_UNDEFINED) {
 			to = trimed.length();
 		} else {
 			to = trimed.length() - to;
@@ -37,7 +37,7 @@ public class TrimAllAttrHandler extends StringOneOrTwoIntAttrHandler {
 
 	@Override
 	public String name() {
-		return Constants.TRIM_ALL;
+		return HXAttrHandlerConstants.TRIM_ALL;
 	}
 
 }

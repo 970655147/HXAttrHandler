@@ -9,7 +9,7 @@ package com.hx.attrHandler.attrHandler.operation;
 import com.hx.attrHandler.attrHandler.StandardHandlerParser.Types;
 import com.hx.attrHandler.attrHandler.interf.AttrHandler;
 import com.hx.attrHandler.attrHandler.operation.interf.OperationAttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 // filterHandler
 // 注意 ： 请将结果原样返回
@@ -21,7 +21,7 @@ public class FilterOperationAttrHandler extends OperationAttrHandler {
 	public FilterOperationAttrHandler(AttrHandler handler, Types operationReturn ) {
 		super();
 		this.handler = handler;
-		operationType(Constants.FILTER_OPERATION);
+		operationType(HXAttrHandlerConstants.FILTER_OPERATION);
 		operationReturn(operationReturn);
 	}
 
@@ -39,7 +39,7 @@ public class FilterOperationAttrHandler extends OperationAttrHandler {
 
 	@Override
 	public String name() {
-		return Constants.FILTER_OPERATION;
+		return HXAttrHandlerConstants.FILTER_OPERATION;
 	}
 
 }

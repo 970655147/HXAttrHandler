@@ -10,7 +10,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.hx.attrHandler.attrHandler.interf.AttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 // 条件表达式的handler
 // 1. condExp(true, truePart, falsePart )		2. true ? truePart : falsePart
@@ -39,7 +39,7 @@ public class CondExpAttrHandler extends AttrHandler {
 		this(new ConstantsAttrHandler(condAttr), truePart, falsePart);
 	}
 	public CondExpAttrHandler() {
-		this(new ConstantsAttrHandler("false"), Constants.HANDLER_UNDEFINED, Constants.HANDLER_UNDEFINED);
+		this(new ConstantsAttrHandler("false"), HXAttrHandlerConstants.HANDLER_UNDEFINED, HXAttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 	
 	@Override
@@ -54,7 +54,7 @@ public class CondExpAttrHandler extends AttrHandler {
 	
 	@Override
 	public String name() {
-		return Constants.COND_EXP;
+		return HXAttrHandlerConstants.COND_EXP;
 	}
 	
 	@Override

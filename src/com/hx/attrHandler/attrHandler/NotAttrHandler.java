@@ -7,7 +7,7 @@
 package com.hx.attrHandler.attrHandler;
 
 import com.hx.attrHandler.attrHandler.adapter.interf.interf.OneBooleanArgsAttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 // 将给定的[boo]转换为[!boo]的handler
 // map(not('abc') )
@@ -26,15 +26,15 @@ public class NotAttrHandler extends OneBooleanArgsAttrHandler {
 	@Override
 	public String handle0(String result) {
 		if(boo) {
-			return Constants.FALSE;
+			return HXAttrHandlerConstants.FALSE;
 		} else {
-			return Constants.TRUE;
+			return HXAttrHandlerConstants.TRUE;
 		}
 	}
 
 	@Override
 	public String name() {
-		return Constants.NOT;
+		return HXAttrHandlerConstants.NOT;
 	}
 
 	@Override

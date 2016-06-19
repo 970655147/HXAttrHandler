@@ -6,7 +6,7 @@
 
 package com.hx.attrHandler.attrHandler.interf;
 
-import com.hx.attrHandler.util.Tools;
+import com.hx.attrHandler.util.HXAttrHandlerTools;
 
 // handler相关的超类
 public abstract class AttrHandler {
@@ -17,7 +17,7 @@ public abstract class AttrHandler {
 	
 	// 核心业务[模板方法]
 	public String handle(String result) {
-		Tools.assert0(result != null, "result can't be null !");
+		HXAttrHandlerTools.assert0(result != null, "result can't be null !");
 		String res = handle0(result);
 		
 		return res;

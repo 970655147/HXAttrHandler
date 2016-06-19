@@ -14,7 +14,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.hx.attrHandler.attrHandler.interf.AttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 // 组合了多个Handler的AttrHandler
 public abstract class MultiArgsAttrHandler<T extends AttrHandler> extends AttrHandler {
@@ -30,7 +30,7 @@ public abstract class MultiArgsAttrHandler<T extends AttrHandler> extends AttrHa
 		this.handlers = new ArrayList<>(initCap);
 	}
 	public MultiArgsAttrHandler() {
-		this(Constants.CONCATE_HANDLER_DEFAULT_CAP);
+		this(HXAttrHandlerConstants.CONCATE_HANDLER_DEFAULT_CAP);
 	}
 	
 	// 添加handler

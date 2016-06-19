@@ -8,7 +8,7 @@ package com.hx.attrHandler.attrHandler.operation.interf;
 
 import com.hx.attrHandler.attrHandler.StandardHandlerParser.Types;
 import com.hx.attrHandler.attrHandler.interf.AttrHandler;
-import com.hx.attrHandler.util.Tools;
+import com.hx.attrHandler.util.HXAttrHandlerTools;
 
 // ²Ù×÷AttrHandler[map, filter, ..]
 public abstract class OperationAttrHandler extends AttrHandler {
@@ -93,7 +93,7 @@ public abstract class OperationAttrHandler extends AttrHandler {
 		if(beFiltered() ) {
 			System.out.println(returnMsg);
 		} else if(assertFalse() ) {
-			Tools.assert0(returnMsg);
+			HXAttrHandlerTools.assert0(returnMsg);
 		}
 	}
 	

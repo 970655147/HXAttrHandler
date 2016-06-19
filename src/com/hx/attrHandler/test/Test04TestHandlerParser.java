@@ -11,7 +11,7 @@ import org.apache.commons.logging.Log;
 import com.hx.attrHandler.attrHandler.StandardHandlerParser;
 import com.hx.attrHandler.attrHandler.interf.AttrHandler;
 import com.hx.attrHandler.attrHandler.interf.HandlerParser;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 public class Test04TestHandlerParser {
 	
@@ -80,7 +80,7 @@ public class Test04TestHandlerParser {
 //		String res = "te--|st";
 		String res = "te-   abslkdjflskfjgf -|st ";
 		HandlerParser parser = new StandardHandlerParser();
-		AttrHandler handler = parser.handlerParse(str, Constants.HANDLER);
+		AttrHandler handler = parser.handlerParse(str, HXAttrHandlerConstants.HANDLER);
 		System.out.println(handler.handle(res) );
 //		System.out.println(res.substring(Tools.trimAllSpaces(res).indexOf('|'), res.trim().indexOf('|')) );
 		

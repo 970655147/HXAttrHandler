@@ -7,7 +7,7 @@
 package com.hx.attrHandler.attrHandler;
 
 import com.hx.attrHandler.attrHandler.adapter.interf.NoneOrOneStringArgsAttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 // 获取给定的字符串的长度的handler
 // 用于适配类型
@@ -19,7 +19,7 @@ public class ToIntAttrHandler extends NoneOrOneStringArgsAttrHandler {
 		super(str);
 	}
 	public ToIntAttrHandler() {
-		this(Constants.HANDLER_UNDEFINED);
+		this(HXAttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class ToIntAttrHandler extends NoneOrOneStringArgsAttrHandler {
 
 	@Override
 	public String name() {
-		return Constants.TO_INT;
+		return HXAttrHandlerConstants.TO_INT;
 	}
 	
 }

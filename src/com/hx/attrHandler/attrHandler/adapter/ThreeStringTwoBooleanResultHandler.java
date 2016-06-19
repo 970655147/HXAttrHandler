@@ -11,7 +11,7 @@ import net.sf.json.JSONObject;
 import com.hx.attrHandler.attrHandler.ConstantsAttrHandler;
 import com.hx.attrHandler.attrHandler.adapter.interf.interf.ThreeStringTwoBooleanArgsAttrHandler;
 import com.hx.attrHandler.attrHandler.interf.AttrHandler;
-import com.hx.attrHandler.util.Constants;
+import com.hx.attrHandler.util.HXAttrHandlerConstants;
 
 public class ThreeStringTwoBooleanResultHandler extends AttrHandler {
 	// 处理数据的handler, 获取参数的handler
@@ -40,7 +40,7 @@ public class ThreeStringTwoBooleanResultHandler extends AttrHandler {
 		);
 	}
 	public ThreeStringTwoBooleanResultHandler(ThreeStringTwoBooleanArgsAttrHandler handler, AttrHandler target, AttrHandler start, AttrHandler end) {
-		this(handler, target, start, end, new ConstantsAttrHandler(Constants.FALSE), new ConstantsAttrHandler(Constants.FALSE) );
+		this(handler, target, start, end, new ConstantsAttrHandler(HXAttrHandlerConstants.FALSE), new ConstantsAttrHandler(HXAttrHandlerConstants.FALSE) );
 	}
 	public ThreeStringTwoBooleanResultHandler(ThreeStringTwoBooleanArgsAttrHandler handler, String target, String start, String end) {
 		this(handler, target, start, end, false, false );

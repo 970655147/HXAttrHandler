@@ -19,7 +19,7 @@ import com.hx.attrHandler.attrHandler.operation.MapOperationAttrHandler;
 import com.hx.attrHandler.attrHandler.operation.interf.OperationAttrHandler;
 
 // ³£Á¿
-public class Constants {
+public class HXAttrHandlerConstants {
 	
 	public static final String HANDLER = "handler";
 	

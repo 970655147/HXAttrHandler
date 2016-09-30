@@ -11,9 +11,15 @@ import com.hx.attrHandler.attrHandler.StandardHandlerParser.Types;
 import com.hx.attrHandler.attrHandler.interf.HandlerParser;
 import com.hx.attrHandler.attrHandler.operation.CompositeOperationAttrHandler;
 import com.hx.attrHandler.attrHandler.operation.interf.OperationAttrHandler;
+import com.hx.log.util.Tools;
 
-public class HandlerParserUtil {
-
+public final class AttrHandlerUtils {
+	
+	// disable constructor
+	private AttrHandlerUtils() {
+		Tools.assert0("can't instantiate !");
+	}
+	
 	// ------------ handlerParser相关 ------- 2016.03.23 -------------
 	// 处理handlerParse相关的业务
 	public final static HandlerParser handlerParser = new StandardHandlerParser();

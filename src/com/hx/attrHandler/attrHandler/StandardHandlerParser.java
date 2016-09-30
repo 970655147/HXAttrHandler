@@ -38,6 +38,7 @@ import com.hx.attrHandler.attrHandler.operation.MapOperationAttrHandler;
 import com.hx.attrHandler.attrHandler.operation.interf.OperationAttrHandler;
 import com.hx.attrHandler.util.HXAttrHandlerConstants;
 import com.hx.attrHandler.util.HXAttrHandlerTools;
+import com.hx.log.util.Tools;
 import com.hx.log.util.WordsSeprator;
 
 // Std 标准的处理handler字符串的解析器
@@ -48,6 +49,7 @@ public class StandardHandlerParser extends HandlerParser {
 	// 2. 添加该方法对应的校验逻辑
 	// 3. 添加该方法对应的创建AttrHandler的逻辑
 	// 4. 测试, 运行
+	// 相关简介请查看 : http://blog.csdn.net/u011039332/article/details/52612674		add at 2016.09.23
 	
 	// -------------------- business config ----------------------------------
 	// 支持的方法, 到其返回值的映射
@@ -55,6 +57,7 @@ public class StandardHandlerParser extends HandlerParser {
 	static {
 		handlerToResultType.put(HXAttrHandlerConstants.CONCATE, Types.String);
 		handlerToResultType.put(HXAttrHandlerConstants.REPLACE, Types.String);
+		handlerToResultType.put(HXAttrHandlerConstants.REPLACE_WITH_ORIGINAL, Types.String);
 		handlerToResultType.put(HXAttrHandlerConstants.TRIM, Types.String);
 		handlerToResultType.put(HXAttrHandlerConstants.TRIM_AS_ONE, Types.String);
 		handlerToResultType.put(HXAttrHandlerConstants.TRIM_ALL, Types.String);
@@ -133,6 +136,7 @@ public class StandardHandlerParser extends HandlerParser {
 		
 		// replace(regex, replacement)
 		twoOrThreeStringArgsMap.add(HXAttrHandlerConstants.REPLACE);
+		twoOrThreeStringArgsMap.add(HXAttrHandlerConstants.REPLACE_WITH_ORIGINAL);
 		
 		// add(arg01, arg02)
 		multiIntArgsMap.add(HXAttrHandlerConstants.ADD);
@@ -171,6 +175,8 @@ public class StandardHandlerParser extends HandlerParser {
 		handlerStr = HXAttrHandlerTools.trimAllSpaces(handlerStr, HXAttrHandlerConstants.escapeCharMap);
 		String lastOperationType = null;
 		List<String> suppertedOperations = HXAttrHandlerConstants.handlerTypeToHandleOperations.get(handlerType);
+		Tools.assert0(suppertedOperations != null, "have no this handlerType : '" + handlerType + "' ! " + 
+														" from now on support : " + HXAttrHandlerConstants.handlerTypeToHandleOperations.keySet().toString() );
 		
 		WordsSeprator sep = new WordsSeprator(handlerStr, HXAttrHandlerConstants.handlerParserSeps, HXAttrHandlerConstants.escapeMap, true);
 		while(sep.hasNext() ) {
@@ -216,197 +222,210 @@ public class StandardHandlerParser extends HandlerParser {
 		return handlerOperand;
 	}
 	// 校验给定的handlerContent
-	private Types checkHandlerContent(WordsSeprator sep, Operand attrHandlerContent) {
-		if((attrHandlerContent == null) || (OperandTypes.Null == attrHandlerContent.type()) ) {
-			return Types.Null;
-		}
-		if(attrHandlerContent.type() == OperandTypes.String) {
-			try {
-				Integer.parseInt(attrHandlerContent.name() );
-				attrHandlerContent.type(OperandTypes.Int);
-				return Types.Int;
-			} catch(Exception e) {
-				if(HXAttrHandlerConstants.TRUE.equals(attrHandlerContent.name()) || HXAttrHandlerConstants.FALSE.equals(attrHandlerContent.name()) ) {
-					attrHandlerContent.type(OperandTypes.Boolean);
-					return Types.Boolean;
-				}
-				
-				return Types.String;
+		private Types checkHandlerContent(WordsSeprator sep, Operand attrHandlerContent) {
+			if((attrHandlerContent == null) || (OperandTypes.Null == attrHandlerContent.type()) ) {
+				return Types.Null;
 			}
-		}
-//		if("length".equals(attrHandlerContent.name()) ) {
-//			Log.horizon();
-//		}
-		Types curType = Types.String;
-		Operand lastOperand = null, operand = attrHandlerContent;
-		
-		while(true ) {
-			HXAttrHandlerTools.assert0(((operand != null) && (handlerToResultType.containsKey(operand.name()) || HXAttrHandlerConstants.ANONY_OPERAND_NAME.equals(operand.name()) ) ), "have no this opearnd : '" + operand.name() + "' ! from now on support : " + handlerToResultType.keySet().toString() );
-			if(curType.isFinal) {
-				HXAttrHandlerTools.assert0("the operation : '" + lastOperand.name() + "' is final operation, can't take more operation !  around : " + sep.rest(operand.pos()) );
-			}
-			// nonArgsOperator, works like : "map(length ), map(length() )"
-			if(HXAttrHandlerConstants.ANONY_OPERAND_NAME.equals(operand.name()) ) {
-				HXAttrHandlerTools.assert0(((operand.operands() != null) && (operand.operands().size() == 1) ), "anonyOperand can only take one parameter, please check it ! around : " + sep.rest(operand.pos()) );
-				curType = checkHandlerContent(sep, attrHandlerContent.operand(0) );
-			} else if(noneOrStringArgsMap.contains(operand.name()) ) {
-				Types param = checkHandlerContent(sep, operand.operand(0));
-				boolean isValid = (operand.operands() == null) 
-								|| ( (operand.operands().size() == 1) 
-									 && (emptyOperand(operand.operand(0))) || (stringAble(param)) );
-				HXAttrHandlerTools.assert0(isValid, "the operand : '" + operand.name() + "' take ([String]), 'no parameter or String', but got (" + param + ") please check it ! around : " + sep.rest(operand.pos()) );
-			} else if(oneBooleanArgsMap.contains(operand.name()) ) {
-				Types param = checkHandlerContent(sep, operand.operand(0));
-				boolean isValid = (operand.operands() != null) 
-						&& (operand.operands().size() == 1) && (Types.Boolean  == param ) ;
-				assert0(isValid, operand.name(), "Boolean", operand.operands().size(),  (param + ", ..."), sep.rest(operand.pos()) );
-			} else if(oneOrTwoStringArgsMap.contains(operand.name()) ) {
-				Types param = checkHandlerContent(sep, operand.operand(0));
-				Types param02 = checkHandlerContent(sep, operand.operand(1));
-				boolean isValid = (operand.operands() != null) 
-						&& ((operand.operands().size() == 1) || ((operand.operands().size() == 2)) ) 
-						&& (stringAble(param) 
-						&& (stringAble(param02) || (Types.Null == param02) ) ) ;
-				assert0(isValid, operand.name(), "String [, String]", operand.operands().size(),  (param + ", ..."), sep.rest(operand.pos()) );
-			} else if(twoOrThreeStringArgsMap.contains(operand.name()) ) {
-				Types param01 = checkHandlerContent(sep, operand.operand(0));
-				Types param02 = checkHandlerContent(sep, operand.operand(1));
-				Types param03 = checkHandlerContent(sep, operand.operand(2));
-				boolean isValid = (operand.operands() != null) && ((stringAble(param01)) && (stringAble(param02)) );
-				if(isValid) {
-					// (str, str, str)
-					if(Types.Null != param03) {
-						isValid = stringAble(param03);
+			if(attrHandlerContent.type() == OperandTypes.String) {
+				try {
+					Integer.parseInt(attrHandlerContent.name() );
+					attrHandlerContent.type(OperandTypes.Int);
+					return Types.Int;
+				} catch(Exception e) {
+					if(HXAttrHandlerConstants.TRUE.equals(attrHandlerContent.name()) || HXAttrHandlerConstants.FALSE.equals(attrHandlerContent.name()) ) {
+						attrHandlerContent.type(OperandTypes.Boolean);
+						return Types.Boolean;
 					}
+					
+					return Types.String;
 				}
-				// else (str, str)
-//						&& (operand.operands().size() == 2)
-//						&& (stringAble(param01) && stringAble(param02) );
-				assert0(isValid, operand.name(), "String, String[, String]", operand.operands().size(),  (param01 + ", " + param02 + ", " + param03), sep.rest(operand.pos()) );
-			} else if(oneOrTwoStringIntArgsMap.contains(operand.name()) ) {
-				Types param01 = checkHandlerContent(sep, operand.operand(0));
-				Types param02 = checkHandlerContent(sep, operand.operand(1));
-				Types param03 = checkHandlerContent(sep, operand.operand(2));
-				boolean isValid = (operand.operands() != null) && (stringAble(param01));
-				if(isValid) {
-					if(Types.Null != param02) {
-						// (str, int)
-						if(Types.Int == param02) {
-							isValid = stringAble(param02);
-						// (str, str) or (str, str, int)
-						} else {
-							if(Types.Null != param03) {
-								isValid = (stringAble(param02) && (Types.Int == param03) );
-							} else {
-								isValid = stringAble(param02);
-							}
+			}
+//			if("length".equals(attrHandlerContent.name()) ) {
+//				Log.horizon();
+//			}
+			Types curType = Types.String;
+			Operand lastOperand = null, operand = attrHandlerContent;
+			
+			while(true ) {
+				HXAttrHandlerTools.assert0(((operand != null) && (handlerToResultType.containsKey(operand.name()) || HXAttrHandlerConstants.ANONY_OPERAND_NAME.equals(operand.name()) ) ), "have no this opearnd : '" + operand.name() + "' ! from now on support : " + handlerToResultType.keySet().toString() );
+				if(curType.isFinal) {
+					HXAttrHandlerTools.assert0("the operation : '" + lastOperand.name() + "' is final operation, can't take more operation !  around : " + sep.rest(operand.pos()) );
+				}
+				// anonymouseOperand, works like "map(((trim)) )"
+				if(HXAttrHandlerConstants.ANONY_OPERAND_NAME.equals(operand.name()) ) {
+					List<Operand> tmpOperands = operand.operands();
+					HXAttrHandlerTools.assert0(((tmpOperands != null) && (tmpOperands.size() == 1) ), "anonyOperand can only take one parameter, please check it ! around : " + sep.rest(operand.pos()) );
+					curType = checkHandlerContent(sep, attrHandlerContent.operand(0) );
+					// nonArgsOperator, works like : "map(length ), map(length() )"
+				} else if(noneOrStringArgsMap.contains(operand.name()) ) {
+					Types param = checkHandlerContent(sep, operand.operand(0));
+					List<Operand> tmpOperands = operand.operands();
+					boolean isValid = (tmpOperands == null) 
+									|| ( (tmpOperands.size() == 1) 
+										 && (emptyOperand(operand.operand(0))) || (stringAble(param)) );
+					HXAttrHandlerTools.assert0(isValid, "the operand : '" + operand.name() + "' take ([String]), 'no parameter or String', but got (" + param + ") please check it ! around : " + sep.rest(operand.pos()) );
+				} else if(oneBooleanArgsMap.contains(operand.name()) ) {
+					Types param = checkHandlerContent(sep, operand.operand(0));
+					List<Operand> tmpOperands = operand.operands();
+					boolean isValid = (tmpOperands != null) 
+							&& (tmpOperands.size() == 1) && (Types.Boolean  == param ) ;
+					assert0(isValid, operand.name(), "Boolean", tmpOperands == null ? 0 : tmpOperands.size(),  (param + ", ..."), sep.rest(operand.pos()) );
+				} else if(oneOrTwoStringArgsMap.contains(operand.name()) ) {
+					Types param = checkHandlerContent(sep, operand.operand(0));
+					Types param02 = checkHandlerContent(sep, operand.operand(1));
+					List<Operand> tmpOperands = operand.operands();
+					boolean isValid = (tmpOperands != null) 
+							&& ((tmpOperands.size() == 1) || ((tmpOperands.size() == 2)) ) 
+							&& (stringAble(param) 
+							&& (stringAble(param02) || (Types.Null == param02) ) ) ;
+					assert0(isValid, operand.name(), "String [, String]", tmpOperands == null ? 0 : tmpOperands.size(),  (param + ", ..."), sep.rest(operand.pos()) );
+				} else if(twoOrThreeStringArgsMap.contains(operand.name()) ) {
+					Types param01 = checkHandlerContent(sep, operand.operand(0));
+					Types param02 = checkHandlerContent(sep, operand.operand(1));
+					Types param03 = checkHandlerContent(sep, operand.operand(2));
+					List<Operand> tmpOperands = operand.operands();
+					boolean isValid = (tmpOperands != null) && ((stringAble(param01)) && (stringAble(param02)) );
+					if(isValid) {
+						// (str, str, str)
+						if(Types.Null != param03) {
+							isValid = stringAble(param03);
 						}
 					}
-					// else -> (str)
-				}
-				assert0(isValid, operand.name(), "String[, String, Int]", operand.operands().size(),  (param01 + ", " + param02 + ", " + param03), sep.rest(operand.pos()) );
-			} else if(stringOneOrTwoIntArgsMap.contains(operand.name()) ) {
-				Types param01 = checkHandlerContent(sep, operand.operand(0));
-				Types param02 = checkHandlerContent(sep, operand.operand(1));
-				Types param03 = checkHandlerContent(sep, operand.operand(2));
-				boolean isValid = (operand.operands() != null);
-				if(isValid) {
-					// (int, int) or (int)
-					if(Types.Int == param01) {
+					// else (str, str)
+//							&& (operand.operands().size() == 2)
+//							&& (stringAble(param01) && stringAble(param02) );
+					assert0(isValid, operand.name(), "String, String[, String]", tmpOperands == null ? 0 : tmpOperands.size(),  (param01 + ", " + param02 + ", " + param03), sep.rest(operand.pos()) );
+				} else if(oneOrTwoStringIntArgsMap.contains(operand.name()) ) {
+					Types param01 = checkHandlerContent(sep, operand.operand(0));
+					Types param02 = checkHandlerContent(sep, operand.operand(1));
+					Types param03 = checkHandlerContent(sep, operand.operand(2));
+					List<Operand> tmpOperands = operand.operands();
+					boolean isValid = (tmpOperands != null) && (stringAble(param01));
+					if(isValid) {
 						if(Types.Null != param02) {
-							isValid = (Types.Int == param02);				
-						}
-					// (string, int, int) or (string, int)
-					} else {
-						isValid = (stringAble(param01) && (Types.Int == param02) 
-								&& ((Types.Null == param03) || (Types.Int == param03) ) );
-					}
-				}
-						
-				assert0(isValid, operand.name(), "[String ,]Int[, Int]", operand.operands().size(),  (param01 + ", " + param02 + ", ..."), sep.rest(operand.pos()) );
-			} else if(oneBooleanTwoStringArgsMap.contains(operand.name()) ) {
-				Types param01 = checkHandlerContent(sep, operand.operand(0));
-				Types param02 = checkHandlerContent(sep, operand.operand(1));
-				Types param03 = checkHandlerContent(sep, operand.operand(2));
-				boolean isValid = (operand.operands() != null)
-						&& ((operand.operands().size() == 3) )
-						&& (Types.Boolean == param01 && stringAble(param02) && stringAble(param03) );
-				assert0(isValid, operand.name(), "Boolean, String, String", operand.operands().size(),  (param01 + ", " + param02 + ", " + param03 + ", ..."), sep.rest(operand.pos()) );
-			} else if(multiStringArgsMap.contains(operand.name()) ) {
-				boolean isValid = (operand.operands() != null) && (operand.operands().size() > 0);
-				StringBuilder typeError = new StringBuilder();
-				if(isValid) {
-					for(Operand ope : operand.operands() ) {
-						Types opeType = checkHandlerContent(sep, ope);
-						if(! stringAble(opeType) ) {
-							isValid = false;
-						}
-						typeError.append(opeType + ", ");
-					}
-					typeError.delete(typeError.length()-2, typeError.length() );
-				}
-				assert0(isValid, operand.name(), "String, String, ...", operand.operands().size(), typeError.toString(), sep.rest(operand.pos()) );
-			} else if(multiBooleanArgsMap.contains(operand.name()) ) {
-				boolean isValid = (operand.operands() != null) && (operand.operands().size() > 0);
-				StringBuilder typeError = new StringBuilder();
-				if(isValid) {
-					for(Operand ope : operand.operands() ) {
-						Types opeType = checkHandlerContent(sep, ope);
-						if(Types.Boolean != opeType ) {
-							isValid = false;
-						}
-						typeError.append(opeType + ", ");
-					}
-					typeError.delete(typeError.length()-2, typeError.length() );
-				}
-				assert0(isValid, operand.name(), "Boolean, Boolean, ...", operand.operands().size(), typeError.toString(), sep.rest(operand.pos()) );
-			} else if(multiIntArgsMap.contains(operand.name()) ) {
-				boolean isValid = (operand.operands() != null) && (operand.operands().size() > 0);
-				StringBuilder typeError = new StringBuilder();
-				if(isValid) {
-					for(Operand ope : operand.operands() ) {
-						Types opeType = checkHandlerContent(sep, ope);
-						if(Types.Int != opeType ) {
-							isValid = false;
-						}
-						typeError.append(opeType + ", ");
-					}
-					typeError.delete(typeError.length()-2, typeError.length() );
-				}
-				assert0(isValid, operand.name(), "Int, Int, ...", operand.operands().size(), typeError.toString(), sep.rest(operand.pos()) );				
-			} else if(twoOrThreeStringTwoBooleanArgsMap.contains(operand.name()) ) {
-				Types param01 = checkHandlerContent(sep, operand.operand(0));
-				Types param02 = checkHandlerContent(sep, operand.operand(1));
-				Types param03 = checkHandlerContent(sep, operand.operand(2));
-				Types param04 = checkHandlerContent(sep, operand.operand(3));
-				Types param05 = checkHandlerContent(sep, operand.operand(4));
-				boolean isValid = (operand.operands() != null)
-						&& (stringAble(param01) && stringAble(param02) );
-				if(isValid) {
-					if(Types.Null != param03) {
-						// (str, str, boolean, boolean)
-						if(Types.Boolean == param03) {
-							isValid = ((Types.Boolean == param03) && (Types.Boolean == param04) ); 
-						// (str, str, str, boolean, boolean) or (str, str, str)
-						} else {
-							// (str, str, str, boolean, boolean)
-							if(Types.Boolean == param04) {
-								isValid = ((stringAble(param03)) && (Types.Boolean == param04) && (Types.Boolean == param05) );
-							// (str, str, str)
+							// (str, int)
+							if(Types.Int == param02) {
+								isValid = stringAble(param02);
+							// (str, str) or (str, str, int)
 							} else {
-								isValid = ((stringAble(param03)) && (Types.Null == param04) && (Types.Null == param05) );
+								if(Types.Null != param03) {
+									isValid = (stringAble(param02) && (Types.Int == param03) );
+								} else {
+									isValid = stringAble(param02);
+								}
 							}
 						}
+						// else -> (str)
 					}
-					// else -> (str, str)
-				}
-				assert0(isValid, operand.name(), "String, String, [String, Boolean, Boolean]", operand.operands().size(),  (param01 + ", " + param02 + "," + param03 + ", " + param04 + ", " + param05), sep.rest(operand.pos()) );
-			} else if(noneOrOneStringOneOrTwoIntArgsMap.contains(operand.name()) ) {
-				Types param01 = checkHandlerContent(sep, operand.operand(0));
-				Types param02 = checkHandlerContent(sep, operand.operand(1));
-				Types param03 = checkHandlerContent(sep, operand.operand(2));
-				boolean isValid = (operand.operands() != null);
-				if(isValid) {
+					assert0(isValid, operand.name(), "String[, String, Int]", tmpOperands == null ? 0 : tmpOperands.size(),  (param01 + ", " + param02 + ", " + param03), sep.rest(operand.pos()) );
+				} else if(stringOneOrTwoIntArgsMap.contains(operand.name()) ) {
+					Types param01 = checkHandlerContent(sep, operand.operand(0));
+					Types param02 = checkHandlerContent(sep, operand.operand(1));
+					Types param03 = checkHandlerContent(sep, operand.operand(2));
+					List<Operand> tmpOperands = operand.operands();
+					boolean isValid = (tmpOperands != null);
+					if(isValid) {
+						// (int, int) or (int)
+						if(Types.Int == param01) {
+							if(Types.Null != param02) {
+								isValid = (Types.Int == param02);				
+							}
+						// (string, int, int) or (string, int)
+						} else {
+							isValid = (stringAble(param01) && (Types.Int == param02) 
+									&& ((Types.Null == param03) || (Types.Int == param03) ) );
+						}
+					}
+							
+					assert0(isValid, operand.name(), "[String ,]Int[, Int]", tmpOperands == null ? 0 : tmpOperands.size(),  (param01 + ", " + param02 + ", ..."), sep.rest(operand.pos()) );
+				} else if(oneBooleanTwoStringArgsMap.contains(operand.name()) ) {
+					Types param01 = checkHandlerContent(sep, operand.operand(0));
+					Types param02 = checkHandlerContent(sep, operand.operand(1));
+					Types param03 = checkHandlerContent(sep, operand.operand(2));
+					List<Operand> tmpOperands = operand.operands();
+					boolean isValid = (tmpOperands != null)
+							&& ((tmpOperands.size() == 3) )
+							&& (Types.Boolean == param01 && stringAble(param02) && stringAble(param03) );
+					assert0(isValid, operand.name(), "Boolean, String, String", tmpOperands == null ? 0 : tmpOperands.size(),  (param01 + ", " + param02 + ", " + param03 + ", ..."), sep.rest(operand.pos()) );
+				} else if(multiStringArgsMap.contains(operand.name()) ) {
+					List<Operand> tmpOperands = operand.operands();
+					boolean isValid = (tmpOperands != null) && (tmpOperands.size() > 0);
+					StringBuilder typeError = new StringBuilder();
+					if(isValid) {
+						for(Operand ope : tmpOperands ) {
+							Types opeType = checkHandlerContent(sep, ope);
+							if(! stringAble(opeType) ) {
+								isValid = false;
+							}
+							typeError.append(opeType + ", ");
+						}
+						typeError.delete(typeError.length()-2, typeError.length() );
+					}
+					assert0(isValid, operand.name(), "String, String, ...", tmpOperands == null ? 0 : tmpOperands.size(), typeError.toString(), sep.rest(operand.pos()) );
+				} else if(multiBooleanArgsMap.contains(operand.name()) ) {
+					List<Operand> tmpOperands = operand.operands();
+					boolean isValid = (tmpOperands != null) && (tmpOperands.size() > 0);
+					StringBuilder typeError = new StringBuilder();
+					if(isValid) {
+						for(Operand ope : tmpOperands ) {
+							Types opeType = checkHandlerContent(sep, ope);
+							if(Types.Boolean != opeType ) {
+								isValid = false;
+							}
+							typeError.append(opeType + ", ");
+						}
+						typeError.delete(typeError.length()-2, typeError.length() );
+					}
+					assert0(isValid, operand.name(), "Boolean, Boolean, ...", tmpOperands == null ? 0 : tmpOperands.size(), typeError.toString(), sep.rest(operand.pos()) );
+				} else if(multiIntArgsMap.contains(operand.name()) ) {
+					List<Operand> tmpOperands = operand.operands();
+					boolean isValid = (tmpOperands != null) && (tmpOperands.size() > 0);
+					StringBuilder typeError = new StringBuilder();
+					if(isValid) {
+						for(Operand ope : tmpOperands ) {
+							Types opeType = checkHandlerContent(sep, ope);
+							if(Types.Int != opeType ) {
+								isValid = false;
+							}
+							typeError.append(opeType + ", ");
+						}
+						typeError.delete(typeError.length()-2, typeError.length() );
+					}
+					assert0(isValid, operand.name(), "Int, Int, ...", tmpOperands == null ? 0 : tmpOperands.size(), typeError.toString(), sep.rest(operand.pos()) );				
+				} else if(twoOrThreeStringTwoBooleanArgsMap.contains(operand.name()) ) {
+					Types param01 = checkHandlerContent(sep, operand.operand(0));
+					Types param02 = checkHandlerContent(sep, operand.operand(1));
+					Types param03 = checkHandlerContent(sep, operand.operand(2));
+					Types param04 = checkHandlerContent(sep, operand.operand(3));
+					Types param05 = checkHandlerContent(sep, operand.operand(4));
+					List<Operand> tmpOperands = operand.operands();
+					boolean isValid = (tmpOperands != null)
+							&& (stringAble(param01) && stringAble(param02) );
+					if(isValid) {
+						if(Types.Null != param03) {
+							// (str, str, boolean, boolean)
+							if(Types.Boolean == param03) {
+								isValid = ((Types.Boolean == param03) && (Types.Boolean == param04) ); 
+							// (str, str, str, boolean, boolean) or (str, str, str)
+							} else {
+								// (str, str, str, boolean, boolean)
+								if(Types.Boolean == param04) {
+									isValid = ((stringAble(param03)) && (Types.Boolean == param04) && (Types.Boolean == param05) );
+								// (str, str, str)
+								} else {
+									isValid = ((stringAble(param03)) && (Types.Null == param04) && (Types.Null == param05) );
+								}
+							}
+						}
+						// else -> (str, str)
+					}
+					assert0(isValid, operand.name(), "String, String, [String, Boolean, Boolean]", tmpOperands == null ? 0 : tmpOperands.size(),  (param01 + ", " + param02 + "," + param03 + ", " + param04 + ", " + param05), sep.rest(operand.pos()) );
+				} else if(noneOrOneStringOneOrTwoIntArgsMap.contains(operand.name()) ) {
+					Types param01 = checkHandlerContent(sep, operand.operand(0));
+					Types param02 = checkHandlerContent(sep, operand.operand(1));
+					Types param03 = checkHandlerContent(sep, operand.operand(2));
+					List<Operand> tmpOperands = operand.operands();
+					boolean isValid = false;
 					if(Types.Null != param01) {
 						// (str) or (str, int) or (str, int, int)
 						if(Types.String == param01) {
@@ -422,29 +441,30 @@ public class StandardHandlerParser extends HandlerParser {
 							if(Types.Null != param02) {
 								isValid = (Types.Int == param02 );
 							}
-						}
+						}				
+					// else -> trim, trim()		
+					} else {
+						isValid = true;
 					}
-					// else -> trim, trim()
+					assert0(isValid, operand.name(), "[String, Int, Int]", tmpOperands == null ? 0 : tmpOperands.size(),  (param01 + ", " + param02 + ", " + param03), sep.rest(operand.pos()) );
+				} else {
+					// can't got there !
+					HXAttrHandlerTools.assert0("unknow operand : '" + operand.name() + "', please check it !   around : " + sep.rest(operand.pos()) );
 				}
-				assert0(isValid, operand.name(), "[String, Int, Int]", operand.operands().size(),  (param01 + ", " + param02 + "," + param03), sep.rest(operand.pos()) );
-			} else {
-				// can't got there !
-				HXAttrHandlerTools.assert0("unknow operand : '" + operand.name() + "', please check it !   around : " + sep.rest(operand.pos()) );
+				
+				if(! HXAttrHandlerConstants.ANONY_OPERAND_NAME.equals(operand.name()) ) {
+					curType = handlerToResultType.get(operand.name() );
+				}
+				if(operand.hasNext()) {
+					lastOperand = operand;
+					operand = operand.next;
+				} else {
+					break ;
+				}
 			}
 			
-			if(! HXAttrHandlerConstants.ANONY_OPERAND_NAME.equals(operand.name()) ) {
-				curType = handlerToResultType.get(operand.name() );
-			}
-			if(operand.hasNext()) {
-				lastOperand = operand;
-				operand = operand.next;
-			} else {
-				break ;
-			}
+			return curType;
 		}
-		
-		return curType;
-	}
 	private void assert0(boolean isValid, String operandName, String needTypes, int got, String gotTypes, String around ) {
 		String errorMsg = String.format("the operand : '%s' need '%s' as parameter, but got %d params: '(%s)',  around : %s", operandName, needTypes, got, gotTypes, around);
 		HXAttrHandlerTools.assert0(isValid, errorMsg);
@@ -550,6 +570,7 @@ public class StandardHandlerParser extends HandlerParser {
 		// 3. trim().subString(1, 3)
 		// 4. 'str1' + str2 / subString('sd')
 	private Operand getAttrHandlerOperand(WordsSeprator sep, String bracket, Map<String, String> bracketpair, int flags)	{
+		// incase of "length()"
 		if(bracketpair.get(bracket).equals(sep.seek()) ) {
 			return Operand.emptyOperand;
 		}
@@ -571,7 +592,8 @@ public class StandardHandlerParser extends HandlerParser {
 		Operand operand = new Operand(method, sep.lastNextPos() );
 		operand.type(OperandTypes.String);
 		// incase of "map(length )", mark length as 'Method'	
-		if(noneOrStringArgsMap.contains(operand.name()) ) {
+		// add incase of "trim" at 2016.07.25 
+		if(noneOrStringArgsMap.contains(operand.name()) || noneOrOneStringOneOrTwoIntArgsMap.contains(operand.name()) ) {
 			operand.type(OperandTypes.Method);
 		}
 		
@@ -580,7 +602,7 @@ public class StandardHandlerParser extends HandlerParser {
 			// incase of "(param01, xx)", "(param01)"
 			if(HXAttrHandlerConstants.PARAM_SEP.equals(sep.seek()) 
 					|| bracketpair.get(bracket).equals(sep.seek())
-					|| (isFrom(flags, isFromConcate) && (HXAttrHandlerConstants.STRING_CONCATE.equals(sep.seek())) || HXAttrHandlerConstants.COND_EXP_BRANCH.equals(sep.seek() ) ) 
+					|| (isFrom(flags, isFromConcate) && (HXAttrHandlerConstants.STRING_CONCATE.equals(sep.seek())) ) 
 					|| (isFrom(flags, isFromCuttingOut) && HXAttrHandlerConstants.STRING_CONCATE.equals(sep.seek()) ) 
 					|| (isFrom(flags, isFromComp) && (HXAttrHandlerConstants.STRING_CONCATE.equals(sep.seek()) || HXAttrHandlerConstants.AND.equals(sep.seek()) || HXAttrHandlerConstants.OR.equals(sep.seek()) || HXAttrHandlerConstants.COND_EXP_COND.equals(sep.seek()) ) ) 
 					|| (isFrom(flags, isFromCondExp) && HXAttrHandlerConstants.COND_EXP_BRANCH.equals(sep.seek()) ) 
@@ -597,6 +619,7 @@ public class StandardHandlerParser extends HandlerParser {
 				operand.addOperand(ope );
 				while(sep.hasNext() ) {
 					String dotCommaOrNot = sep.next();
+					// ??? 这里的这个判断似乎是用不了啊
 					if(HXAttrHandlerConstants.SUB_HANDLER_CALL.equals(dotCommaOrNot) ) {
 						ope.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromNone) );
 					} else if(HXAttrHandlerConstants.PARAM_SEP.equals(dotCommaOrNot) ) {
@@ -696,6 +719,7 @@ public class StandardHandlerParser extends HandlerParser {
 				HXAttrHandlerTools.assert0(HXAttrHandlerConstants.COND_EXP_BRANCH.equals(sep.seek() ), "expect a : " + HXAttrHandlerConstants.COND_EXP_BRANCH + " ! aoround : " + sep.rest() );
 				sep.next();
 				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromCondExp) );
+				HXAttrHandlerTools.assert0(bracketpair.get(bracket).equals(sep.seek() ), "expect a : " + bracketpair.get(bracket) + " ! aoround : " + sep.rest() );
 			}
 		}
 		
@@ -797,6 +821,8 @@ public class StandardHandlerParser extends HandlerParser {
 		switch (attrHandler.name() ) {
 			case HXAttrHandlerConstants.REPLACE:
 					return getTwoOrThreeStringArgsHandler0(sep, param01, param02, param03, new ReplaceAttrHandler() );
+			case HXAttrHandlerConstants.REPLACE_WITH_ORIGINAL:
+				return getTwoOrThreeStringArgsHandler0(sep, param01, param02, param03, new ReplaceWithOriginalAttrHandler() );
 			default :
 				HXAttrHandlerTools.assert0("got an unknow '(String, String)' method : " + attrHandler.name() );
 				break ;
@@ -1166,7 +1192,7 @@ public class StandardHandlerParser extends HandlerParser {
 			this.isFinal = isFinal;
 		}
 	}
-	// 各个操作数的类型
+	// 各个Operand的类型
 	enum OperandTypes {
 		Method, String, Boolean, Int, Null;
 	}

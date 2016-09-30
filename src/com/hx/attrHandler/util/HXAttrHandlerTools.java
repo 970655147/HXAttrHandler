@@ -12,14 +12,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.hx.attrHandler.attrHandler.StandardHandlerParser;
-import com.hx.attrHandler.attrHandler.StandardHandlerParser.Types;
-import com.hx.attrHandler.attrHandler.interf.HandlerParser;
-import com.hx.attrHandler.attrHandler.operation.CompositeOperationAttrHandler;
-import com.hx.attrHandler.attrHandler.operation.interf.OperationAttrHandler;
+import com.hx.log.util.Tools;
 
 // 工具类
-public class HXAttrHandlerTools {
+public final class HXAttrHandlerTools {
+	
+	// disable constructor
+	private HXAttrHandlerTools() {
+		Tools.assert0("can't instantiate !");
+	}
 	
 	// ------------ assert相关 ------- 2016.03.22 -------------
 	// 工具方法

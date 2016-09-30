@@ -17,9 +17,15 @@ import com.hx.attrHandler.attrHandler.DoNothingAttrHandler;
 import com.hx.attrHandler.attrHandler.StandardHandlerParser.Types;
 import com.hx.attrHandler.attrHandler.operation.MapOperationAttrHandler;
 import com.hx.attrHandler.attrHandler.operation.interf.OperationAttrHandler;
+import com.hx.log.util.Tools;
 
 // ³£Á¿
-public class HXAttrHandlerConstants {
+public final class HXAttrHandlerConstants {
+	
+	// disable constructor
+	private HXAttrHandlerConstants() {
+		Tools.assert0("can't instantiate !");
+	}
 	
 	public static final String HANDLER = "handler";
 	
@@ -75,6 +81,7 @@ public class HXAttrHandlerConstants {
 	// each 'functionName'
 	public final static String CONCATE = "concate";
 	public final static String REPLACE = "replace";
+	public final static String REPLACE_WITH_ORIGINAL = "replaceO";
 	public final static String TRIM = "trim";
 	public final static String TRIM_ALL = "trimAll";
 	public final static String TRIM_AS_ONE = "trimAsOne";
@@ -150,10 +157,11 @@ public class HXAttrHandlerConstants {
 		
 		handlerParserSeps.add("(");
 		handlerParserSeps.add(")");
-		handlerParserSeps.add("+");
 		handlerParserSeps.add(",");
 		handlerParserSeps.add(".");
 		handlerParserSeps.add("'");
+		
+		handlerParserSeps.add("+");
 		handlerParserSeps.add("!");
 		handlerParserSeps.add(">");
 		handlerParserSeps.add("<");

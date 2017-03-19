@@ -20,8 +20,8 @@ public abstract class OperationAttrHandler extends AttrHandler {
 	
 	// 被filter掉[第1位为1] 或者assert判定失败[第2位为1]的标志位
 	// ..0001,	..0010
-	public final static int BE_FILTERED = 1;
-	public final static int ASSERT_FALSE = BE_FILTERED << 1;
+	public static final int BE_FILTERED = 1;
+	public static final int ASSERT_FALSE = BE_FILTERED << 1;
 	
 	// 初始化
 	public OperationAttrHandler() {

@@ -30,8 +30,8 @@ public final class HXAttrHandlerConstants {
 	public static final String HANDLER = "handler";
 	
 	// Constants
-	public final static Character SLASH = '\\';
-	public final static Character INV_SLASH = '/';
+	public static final Character SLASH = '\\';
+	public static final Character INV_SLASH = '/';
 	public static final Character QUESTION = '?';
 	public static final Character DOT = '.';
 	public static final Character COMMA = ',';
@@ -46,107 +46,107 @@ public final class HXAttrHandlerConstants {
 	public static final String DEFAULT_VALUE = "defaultValue";
 
 	// Constants related on 'attrHandler'				// add at 2016.03.22
-	public final static String HANDLER_PREFIX = "map";
-	public final static String RESULT_PROXY = "$this";
-	public final static boolean RECOGNIZE_RESULT_PROXY = true;
-	public final static String ANONY_OPERAND_NAME = "anonymousOperand";
-	public final static String EMPTY_OPERAND_NAME = "emptyOperand";
-	public final static int COMPOSITE_HANDLER_DEFAULT_CAP = 2;
-	public final static int CONCATE_HANDLER_DEFAULT_CAP = 2;
-	public final static int CUTTING_DOOR_HANDLER_DEFAULT_CAP = 2;
-	public final static int CALC_HANDLER_DEFAULT_CAP = 2;
-	public final static int MULTI_ARG_HANDLER_DEFAULT_CAP = 2;
-	public final static int OPERAND_DEFAULT_CAP = 2;
+	public static final String HANDLER_PREFIX = "map";
+	public static final String RESULT_PROXY = "$this";
+	public static final boolean RECOGNIZE_RESULT_PROXY = true;
+	public static final String ANONY_OPERAND_NAME = "anonymousOperand";
+	public static final String EMPTY_OPERAND_NAME = "emptyOperand";
+	public static final int COMPOSITE_HANDLER_DEFAULT_CAP = 2;
+	public static final int CONCATE_HANDLER_DEFAULT_CAP = 2;
+	public static final int CUTTING_DOOR_HANDLER_DEFAULT_CAP = 2;
+	public static final int CALC_HANDLER_DEFAULT_CAP = 2;
+	public static final int MULTI_ARG_HANDLER_DEFAULT_CAP = 2;
+	public static final int OPERAND_DEFAULT_CAP = 2;
 	// some 'sugar' symbol
 		// 'abc' + 'def', 2 > 3, true && true, 3>5 ? truePart : falsePart
-	public final static String STRING_CONCATE = "+";
-	public final static String STRING_NOT = "!";
-	public final static String GT = ">";
-	public final static String LT = "<";
-	public final static String EQ = "=";
-	public final static String AND = "&";
-	public final static String OR = "|";
-	public final static String COND_EXP_COND = "?";
-	public final static String COND_EXP_BRANCH = ":";
+	public static final String STRING_CONCATE = "+";
+	public static final String STRING_NOT = "!";
+	public static final String GT = ">";
+	public static final String LT = "<";
+	public static final String EQ = "=";
+	public static final String AND = "&";
+	public static final String OR = "|";
+	public static final String COND_EXP_COND = "?";
+	public static final String COND_EXP_BRANCH = ":";
 	
-	public final static String PARAM_SEP = ",";
-	public final static String SUB_HANDLER_CALL = ".";
-//	public final static String QUOTE = "'";
-	public final static String QUOTED_STRING = "quotedString";
-	public final static String TRUE = Boolean.TRUE.toString();
-	public final static String FALSE = Boolean.FALSE.toString();
-	public final static String HANDLER_UNDEFINED = "-1";
-	public final static int TARGET_UNDEFINED = Integer.parseInt(HANDLER_UNDEFINED);
+	public static final String PARAM_SEP = ",";
+	public static final String SUB_HANDLER_CALL = ".";
+//	public static final String QUOTE = "'";
+	public static final String QUOTED_STRING = "quotedString";
+	public static final String TRUE = Boolean.TRUE.toString();
+	public static final String FALSE = Boolean.FALSE.toString();
+	public static final String HANDLER_UNDEFINED = "-1";
+	public static final int TARGET_UNDEFINED = Integer.parseInt(HANDLER_UNDEFINED);
 	
 	// each 'functionName'
-	public final static String CONCATE = "concate";
-	public final static String REPLACE = "replace";
-	public final static String REPLACE_WITH_ORIGINAL = "replaceO";
-	public final static String TRIM = "trim";
-	public final static String TRIM_ALL = "trimAll";
-	public final static String TRIM_AS_ONE = "trimAsOne";
-	public final static String SUB_STRING = "subString";
-	public final static String TO_UPPERCASE = "toUpperCase";
-	public final static String TO_LOWERCASE = "toLowerCase";
-	public final static String CONSTANTS = "constants";
-	public final static String DO_NOTHING = "doNothing";
-	public final static String GET_STR_IN_RANGE = "getStrIn";
+	public static final String CONCATE = "concate";
+	public static final String REPLACE = "replace";
+	public static final String REPLACE_WITH_ORIGINAL = "replaceO";
+	public static final String TRIM = "trim";
+	public static final String TRIM_ALL = "trimAll";
+	public static final String TRIM_AS_ONE = "trimAsOne";
+	public static final String SUB_STRING = "subString";
+	public static final String TO_UPPERCASE = "toUpperCase";
+	public static final String TO_LOWERCASE = "toLowerCase";
+	public static final String CONSTANTS = "constants";
+	public static final String DO_NOTHING = "doNothing";
+	public static final String GET_STR_IN_RANGE = "getStrIn";
 	
-	public final static String INDEX_OF = "indexOf";
-	public final static String LAST_INDEX_OF = "lastIndexOf";
-	public final static String LENGTH = "length";
+	public static final String INDEX_OF = "indexOf";
+	public static final String LAST_INDEX_OF = "lastIndexOf";
+	public static final String LENGTH = "length";
 	
-	public final static String EQUALS = "equals";
-	public final static String MATCHES = "matches";
-	public final static String CONTAINS = "contains";
-	public final static String NOT = "not";
+	public static final String EQUALS = "equals";
+	public static final String MATCHES = "matches";
+	public static final String CONTAINS = "contains";
+	public static final String NOT = "not";
 	
-	public final static String COMPOSITE = "composite";
+	public static final String COMPOSITE = "composite";
 	
-	public final static String GREATER_THAN = "gt";
-	public final static String GREATER_EQUALS_THAN = "get";
-	public final static String LESS_THAN = "lt";
-	public final static String LESS_EQUALS_THAN = "let";
-	public final static String _EQUALS = "eq";
-	public final static String NOT_EQUALS = "neq";
+	public static final String GREATER_THAN = "gt";
+	public static final String GREATER_EQUALS_THAN = "get";
+	public static final String LESS_THAN = "lt";
+	public static final String LESS_EQUALS_THAN = "let";
+	public static final String _EQUALS = "eq";
+	public static final String NOT_EQUALS = "neq";
 	
-	public final static String CUTTING_OUT_AND = "and";
-	public final static String CUTTING_OUT_OR = "or";
+	public static final String CUTTING_OUT_AND = "and";
+	public static final String CUTTING_OUT_OR = "or";
 	
-	public final static String COND_EXP = "condExp";
+	public static final String COND_EXP = "condExp";
 	
-	public final static String ADD = "add";
-	public final static String SUB = "sub";
-	public final static String MUL = "mul";
-	public final static String DIV = "div";
-	public final static String MOD = "mod";
+	public static final String ADD = "add";
+	public static final String SUB = "sub";
+	public static final String MUL = "mul";
+	public static final String DIV = "div";
+	public static final String MOD = "mod";
 	
-	public final static String TO_INT = "toInt";
-	public final static String TO_BOOLEAN = "toBool";
-	public final static String TO_STRING = "toString";
+	public static final String TO_INT = "toInt";
+	public static final String TO_BOOLEAN = "toBool";
+	public static final String TO_STRING = "toString";
 
 	// Constants related on 'operation'
-	public final static String OPERATION_COMPOSITE = "operationComposite";
-	public final static String MAP_OPERATION = "map";
-	public final static String FILTER_OPERATION = "filter";
-	public final static String ASSERT_OPERATION = "assert";
+	public static final String OPERATION_COMPOSITE = "operationComposite";
+	public static final String MAP_OPERATION = "map";
+	public static final String FILTER_OPERATION = "filter";
+	public static final String ASSERT_OPERATION = "assert";
 	
 	// 校验不通过即时返回的消息, 
 	// default 'OperationHandler'[map(doNothing) ]
-	public final static String immediateOperationMsg;
-	public final static OperationAttrHandler defaultOperationAttrHandler = new MapOperationAttrHandler(new DoNothingAttrHandler(), Types.String);
+	public static final String immediateOperationMsg;
+	public static final OperationAttrHandler defaultOperationAttrHandler = new MapOperationAttrHandler(new DoNothingAttrHandler(), Types.String);
 	
 	// <handlerType -> operation> {'handler' : [map, filter, assert] }
 	// the 'Operation' that need immediateReturn
 	// the seprator that used while 'WordsSeprate'
 	// the symbolPair that need to be escape while 'WordsSeprate', like 'log(abc);', should not be seprate
 	// the symbolPair represents every 'bracketPair'['(' & ')', '{' & '}', '[' & ']' ]
-	public final static Map<String, List<String>> handlerTypeToHandleOperations = new HashMap<>();
-	public final static Set<String> immediateOperation = new HashSet<>();
-	public final static Set<String> handlerParserSeps = new HashSet<>();
-	public final static Map<String, String> escapeMap = new HashMap<>();
-	public final static Map<Character, Character> escapeCharMap = new HashMap<>();
-	public final static Map<String, String> bracketPair = new HashMap<>();
+	public static final Map<String, List<String>> handlerTypeToHandleOperations = new HashMap<>();
+	public static final Set<String> immediateOperation = new HashSet<>();
+	public static final Set<String> handlerParserSeps = new HashSet<>();
+	public static final Map<String, String> escapeMap = new HashMap<>();
+	public static final Map<Character, Character> escapeCharMap = new HashMap<>();
+	public static final Map<String, String> bracketPair = new HashMap<>();
 	static {
 		handlerTypeToHandleOperations.put(HANDLER, Arrays.asList(MAP_OPERATION, FILTER_OPERATION, ASSERT_OPERATION) );
 		

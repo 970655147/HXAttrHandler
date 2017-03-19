@@ -22,7 +22,7 @@ public final class AttrHandlerUtils {
 	
 	// ------------ handlerParser相关 ------- 2016.03.23 -------------
 	// 处理handlerParse相关的业务
-	public final static HandlerParser handlerParser = new StandardHandlerParser();
+	public static final HandlerParser handlerParser = new StandardHandlerParser();
 	
 	// 将给定的字符串解析为AttrHandler
 	public static OperationAttrHandler handlerParse(String handlerStr, String handlerType, Types lastOperationReturn) {

@@ -95,18 +95,18 @@ public class StandardHandlerParser extends HandlerParser {
 	}
 	
 	// 没有参数的方法, 一个字符串参数的方法, 两个字符串参数的方法, 多种选择的参数的方法
-	private final static Set<String> noneOrStringArgsMap = new HashSet<>();
-	private final static Set<String> oneBooleanArgsMap = new HashSet<>();
-	private final static Set<String> oneOrTwoStringArgsMap = new HashSet<>();
-	private final static Set<String> stringOneOrTwoIntArgsMap = new HashSet<>();
-	private final static Set<String> twoOrThreeStringArgsMap = new HashSet<>();
-	private final static Set<String> oneOrTwoStringIntArgsMap = new HashSet<>();
-	private final static Set<String> oneBooleanTwoStringArgsMap = new HashSet<>();
-	private final static Set<String> multiStringArgsMap = new HashSet<>();
-	private final static Set<String> multiBooleanArgsMap = new HashSet<>();
-	private final static Set<String> multiIntArgsMap = new HashSet<>();
-	private final static Set<String> twoOrThreeStringTwoBooleanArgsMap = new HashSet<>();
-	private final static Set<String> noneOrOneStringOneOrTwoIntArgsMap = new HashSet<>();
+	private static final Set<String> noneOrStringArgsMap = new HashSet<>();
+	private static final Set<String> oneBooleanArgsMap = new HashSet<>();
+	private static final Set<String> oneOrTwoStringArgsMap = new HashSet<>();
+	private static final Set<String> stringOneOrTwoIntArgsMap = new HashSet<>();
+	private static final Set<String> twoOrThreeStringArgsMap = new HashSet<>();
+	private static final Set<String> oneOrTwoStringIntArgsMap = new HashSet<>();
+	private static final Set<String> oneBooleanTwoStringArgsMap = new HashSet<>();
+	private static final Set<String> multiStringArgsMap = new HashSet<>();
+	private static final Set<String> multiBooleanArgsMap = new HashSet<>();
+	private static final Set<String> multiIntArgsMap = new HashSet<>();
+	private static final Set<String> twoOrThreeStringTwoBooleanArgsMap = new HashSet<>();
+	private static final Set<String> noneOrOneStringOneOrTwoIntArgsMap = new HashSet<>();
 	static {
 		// toUpperCase, toUpperCase()
 		noneOrStringArgsMap.add(HXAttrHandlerConstants.TO_UPPERCASE);
@@ -1111,7 +1111,7 @@ public class StandardHandlerParser extends HandlerParser {
 		private Operand next;
 		
 		// 空的操作数
-		public final static Operand emptyOperand = new Operand(HXAttrHandlerConstants.EMPTY_OPERAND_NAME, OperandTypes.Null, 0);
+		public static final Operand emptyOperand = new Operand(HXAttrHandlerConstants.EMPTY_OPERAND_NAME, OperandTypes.Null, 0);
 		
 		// 初始化
 		public Operand(String opeName, int pos) {

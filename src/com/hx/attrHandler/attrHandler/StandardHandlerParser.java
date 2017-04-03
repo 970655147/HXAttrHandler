@@ -38,7 +38,6 @@ import com.hx.attrHandler.attrHandler.operation.MapOperationAttrHandler;
 import com.hx.attrHandler.attrHandler.operation.interf.OperationAttrHandler;
 import com.hx.attrHandler.util.HXAttrHandlerConstants;
 import com.hx.attrHandler.util.HXAttrHandlerTools;
-import com.hx.log.util.Tools;
 import com.hx.log.util.WordsSeprator;
 
 // Std 标准的处理handler字符串的解析器
@@ -175,7 +174,7 @@ public class StandardHandlerParser extends HandlerParser {
 		handlerStr = HXAttrHandlerTools.trimAllSpaces(handlerStr, HXAttrHandlerConstants.escapeCharMap);
 		String lastOperationType = null;
 		List<String> suppertedOperations = HXAttrHandlerConstants.handlerTypeToHandleOperations.get(handlerType);
-		Tools.assert0(suppertedOperations != null, "have no this handlerType : '" + handlerType + "' ! " + 
+		HXAttrHandlerTools.assert0(suppertedOperations != null, "have no this handlerType : '" + handlerType + "' ! " +
 														" from now on support : " + HXAttrHandlerConstants.handlerTypeToHandleOperations.keySet().toString() );
 		
 		WordsSeprator sep = new WordsSeprator(handlerStr, HXAttrHandlerConstants.handlerParserSeps, HXAttrHandlerConstants.escapeMap, true);

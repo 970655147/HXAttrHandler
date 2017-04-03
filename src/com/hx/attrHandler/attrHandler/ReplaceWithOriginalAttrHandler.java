@@ -33,5 +33,5 @@ public class ReplaceWithOriginalAttrHandler extends TwoOrThreeStringArgsAttrHand
 	protected String gotResult(String target, String pattern, String replacement, String result) {
 		return Tools.replaceO(target, pattern, replacement);
 	}
-	
+
 }

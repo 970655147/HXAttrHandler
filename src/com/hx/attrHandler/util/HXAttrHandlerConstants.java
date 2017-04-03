@@ -17,14 +17,13 @@ import com.hx.attrHandler.attrHandler.DoNothingAttrHandler;
 import com.hx.attrHandler.attrHandler.StandardHandlerParser.Types;
 import com.hx.attrHandler.attrHandler.operation.MapOperationAttrHandler;
 import com.hx.attrHandler.attrHandler.operation.interf.OperationAttrHandler;
-import com.hx.log.util.Tools;
 
 // ³£Á¿
 public final class HXAttrHandlerConstants {
 	
 	// disable constructor
 	private HXAttrHandlerConstants() {
-		Tools.assert0("can't instantiate !");
+		HXAttrHandlerTools.assert0("can't instantiate !");
 	}
 	
 	public static final String HANDLER = "handler";

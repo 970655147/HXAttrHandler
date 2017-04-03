@@ -11,13 +11,12 @@ import com.hx.attrHandler.attrHandler.StandardHandlerParser.Types;
 import com.hx.attrHandler.attrHandler.interf.HandlerParser;
 import com.hx.attrHandler.attrHandler.operation.CompositeOperationAttrHandler;
 import com.hx.attrHandler.attrHandler.operation.interf.OperationAttrHandler;
-import com.hx.log.util.Tools;
 
 public final class AttrHandlerUtils {
 	
 	// disable constructor
 	private AttrHandlerUtils() {
-		Tools.assert0("can't instantiate !");
+		HXAttrHandlerTools.assert0("can't instantiate !");
 	}
 	
 	// ------------ handlerParserœ‡πÿ ------- 2016.03.23 -------------

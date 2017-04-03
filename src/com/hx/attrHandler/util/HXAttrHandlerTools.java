@@ -12,14 +12,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.hx.log.util.Tools;
-
 // 工具类
 public final class HXAttrHandlerTools {
 	
 	// disable constructor
 	private HXAttrHandlerTools() {
-		Tools.assert0("can't instantiate !");
+		HXAttrHandlerTools.assert0("can't instantiate !");
 	}
 	
 	// ------------ assert相关 ------- 2016.03.22 -------------

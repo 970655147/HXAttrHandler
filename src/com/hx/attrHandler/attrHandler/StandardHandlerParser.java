@@ -38,7 +38,7 @@ import com.hx.attrHandler.attrHandler.operation.MapOperationAttrHandler;
 import com.hx.attrHandler.attrHandler.operation.interf.OperationAttrHandler;
 import com.hx.attrHandler.util.HXAttrHandlerConstants;
 import com.hx.attrHandler.util.HXAttrHandlerTools;
-import com.hx.log.util.WordsSeprator;
+import com.hx.log.str.WordsSeprator;
 
 // Std 标准的处理handler字符串的解析器
 public class StandardHandlerParser extends HandlerParser {

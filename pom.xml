@@ -17,7 +17,7 @@
 
   <groupId>com.hx</groupId>
   <artifactId>HXAttrHandler</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <packaging>jar</packaging>
 
   <name>HXAttrHandler</name>
@@ -27,8 +27,7 @@
     <project.build.sourceEncoding>GBK</project.build.sourceEncoding>
     
     <json.version>2.2.3</json.version>
-    <HXAttrHandler.version>0.0.1</HXAttrHandler.version>
-    <HXLog.version>0.0.1</HXLog.version>
+    <HXLog.version>0.0.2</HXLog.version>
   </properties>
 
   <dependencies>

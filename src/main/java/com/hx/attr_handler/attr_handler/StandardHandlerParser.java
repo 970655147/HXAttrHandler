@@ -181,14 +181,14 @@ public class StandardHandlerParser extends HandlerParser {
 		while(sep.hasNext() ) {
 			if(lastOperationReturn != null) {
 				if(lastOperationReturn.isFinal ) {
-					HXAttrHandlerTools.assert0("the operation : '" + lastOperationType + "' is final operation, can't take more operation !  around : " + sep.rest() );
+					HXAttrHandlerTools.assert0("the operation : '" + lastOperationType + "' is final operation, can't take more operation !  around : " + sep.currentAndRest() );
 				}
 			}
 			lastOperationType = sep.next();
 			HXAttrHandlerTools.assert0(suppertedOperations.contains(lastOperationType), "have no this opearnd : '" + lastOperationType + "', in operation : '" + handlerType 
 							+ "' ! from now on support : " + HXAttrHandlerConstants.handlerTypeToHandleOperations.get(handlerType).toString() );
 			String bracket = sep.next();
-			HXAttrHandlerTools.assert0(HXAttrHandlerConstants.bracketPair.containsKey(bracket), "expect a bracket : '" + bracket + "' ! , please check your format['" + sep.rest() + "'] ! ");
+			HXAttrHandlerTools.assert0(HXAttrHandlerConstants.bracketPair.containsKey(bracket), "expect a bracket : '" + bracket + "' ! , please check your format['" + sep.currentAndRest() + "'] ! ");
 			Operand handlerOperand = getAttrHandlerContent(sep, bracket, HXAttrHandlerConstants.bracketPair);
 			lastOperationReturn = checkHandlerContent(sep, handlerOperand );
 			checkHandler(lastOperationType, lastOperationReturn);
@@ -201,7 +201,7 @@ public class StandardHandlerParser extends HandlerParser {
 			if((dotOrNull == null) ) {
 				break ;
 			}
-			HXAttrHandlerTools.assert0(".".equals(dotOrNull), "expect a dot : '.' ! , please check your format['" + sep.rest() + "'] ! ");
+			HXAttrHandlerTools.assert0(".".equals(dotOrNull), "expect a dot : '.' ! , please check your format['" + sep.currentAndRest() + "'] ! ");
 		}
 		
 		return compositeOperationAttrHandler;
@@ -215,7 +215,7 @@ public class StandardHandlerParser extends HandlerParser {
 		Operand handlerOperand = null;
 		if(sep.hasNext() ) {
 			handlerOperand = getAttrHandlerOperand(sep, bracket, bracketpair, isFromNone);
-			HXAttrHandlerTools.assert0(bracketpair.get(bracket).equals(sep.next() ), "expect a rightBracket : ')' ! , please check your format['" + sep.rest() + "'] ! ");
+			HXAttrHandlerTools.assert0(bracketpair.get(bracket).equals(sep.next() ), "expect a rightBracket : ')' ! , please check your format['" + sep.currentAndRest() + "'] ! ");
 		}
 		
 		return handlerOperand;
@@ -581,14 +581,14 @@ public class StandardHandlerParser extends HandlerParser {
 		// incase of "! equals('abc')"
 		} else if(HXAttrHandlerConstants.STRING_NOT.equals(method)) {
 			sep.next();
-			Operand operand = new Operand(HXAttrHandlerConstants.NOT, OperandTypes.Method, sep.lastNextPos() );
+			Operand operand = new Operand(HXAttrHandlerConstants.NOT, OperandTypes.Method, sep.currentStartIdx() );
 			operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromNone) );
 			return operand;
 		// common case : "trim()" or "'Hello' + $this"
 		} else {
 			sep.next();
 		}
-		Operand operand = new Operand(method, sep.lastNextPos() );
+		Operand operand = new Operand(method, sep.currentStartIdx() );
 		operand.type(OperandTypes.String);
 		// incase of "map(length )", mark length as 'Method'	
 		// add incase of "trim" at 2016.07.25 
@@ -625,7 +625,7 @@ public class StandardHandlerParser extends HandlerParser {
 						ope = getAttrHandlerOperand(sep, bracket, bracketpair, isFromNone);
 						operand.addOperand(ope );
 					} else {
-						HXAttrHandlerTools.assert0(bracketpair.get(bracket).equals(dotCommaOrNot), "expect a  : '" + bracketpair.get(bracket) + "' ! , please check your format['" + sep.rest() + "'] ! ");
+						HXAttrHandlerTools.assert0(bracketpair.get(bracket).equals(dotCommaOrNot), "expect a  : '" + bracketpair.get(bracket) + "' ! , please check your format['" + sep.currentAndRest() + "'] ! ");
 						break ;
 					}
 				}
@@ -640,7 +640,7 @@ public class StandardHandlerParser extends HandlerParser {
 			// incase of "a + b"
 			if(HXAttrHandlerConstants.STRING_CONCATE.equals(next) ) {
 				Operand oldOperand = operand;
-				operand = new Operand(HXAttrHandlerConstants.CONCATE, OperandTypes.Method, sep.lastNextPos() );
+				operand = new Operand(HXAttrHandlerConstants.CONCATE, OperandTypes.Method, sep.currentStartIdx() );
 				operand.addOperand(oldOperand );
 					
 				boolean isFirstConcate = true;
@@ -654,13 +654,13 @@ public class StandardHandlerParser extends HandlerParser {
 			// 规约拼串的优先级高于 短路与/ 或[&&, ||]
 			} else if(HXAttrHandlerConstants.AND.equals(next) || HXAttrHandlerConstants.OR.equals(next) ) {
 				String curSymbol = next;
-				HXAttrHandlerTools.assert0(curSymbol.equals(sep.seek() ), "expect a : " + curSymbol + " ! aoround : " + sep.rest() );
+				HXAttrHandlerTools.assert0(curSymbol.equals(sep.seek() ), "expect a : " + curSymbol + " ! around : " + sep.currentAndRest() );
 				sep.next();
 				Operand oldOperand = operand;
 				if(HXAttrHandlerConstants.AND.equals(curSymbol) ) {
-					operand = new Operand(HXAttrHandlerConstants.CUTTING_OUT_AND, OperandTypes.Method, sep.lastNextPos() );
+					operand = new Operand(HXAttrHandlerConstants.CUTTING_OUT_AND, OperandTypes.Method, sep.currentStartIdx() );
 				} else {
-					operand = new Operand(HXAttrHandlerConstants.CUTTING_OUT_OR, OperandTypes.Method, sep.lastNextPos() );
+					operand = new Operand(HXAttrHandlerConstants.CUTTING_OUT_OR, OperandTypes.Method, sep.currentStartIdx() );
 				}
 				operand.addOperand(oldOperand );
 					
@@ -668,7 +668,7 @@ public class StandardHandlerParser extends HandlerParser {
 				do {
 					if(! isFirstConcate) {
 						sep.next();
-						HXAttrHandlerTools.assert0(curSymbol.equals(sep.seek() ), "expect a : " + curSymbol + " ! aoround : " + sep.rest() );
+						HXAttrHandlerTools.assert0(curSymbol.equals(sep.seek() ), "expect a : " + curSymbol + " ! around : " + sep.currentAndRest() );
 						sep.next();
 					}
 					isFirstConcate = false;
@@ -683,42 +683,42 @@ public class StandardHandlerParser extends HandlerParser {
 				Operand oldOperand = operand;
 				if(HXAttrHandlerConstants.GT.equals(next) ) {
 					if(! HXAttrHandlerConstants.EQ.equals(sep.seek()) ) {
-						operand = new Operand(HXAttrHandlerConstants.GREATER_THAN, OperandTypes.Method, sep.lastNextPos() );
+						operand = new Operand(HXAttrHandlerConstants.GREATER_THAN, OperandTypes.Method, sep.currentStartIdx() );
 					} else {
 						sep.next();
-						operand = new Operand(HXAttrHandlerConstants.GREATER_EQUALS_THAN, OperandTypes.Method, sep.lastNextPos() );
+						operand = new Operand(HXAttrHandlerConstants.GREATER_EQUALS_THAN, OperandTypes.Method, sep.currentStartIdx() );
 					}
 				} else {
 					if(! HXAttrHandlerConstants.EQ.equals(sep.seek()) ) {
-						operand = new Operand(HXAttrHandlerConstants.LESS_THAN, OperandTypes.Method, sep.lastNextPos() );
+						operand = new Operand(HXAttrHandlerConstants.LESS_THAN, OperandTypes.Method, sep.currentStartIdx() );
 					} else {
 						sep.next();
-						operand = new Operand(HXAttrHandlerConstants.LESS_EQUALS_THAN, OperandTypes.Method, sep.lastNextPos() );
+						operand = new Operand(HXAttrHandlerConstants.LESS_EQUALS_THAN, OperandTypes.Method, sep.currentStartIdx() );
 					}
 				}
 				operand.addOperand(oldOperand);
 				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromComp) );
 			} else if(HXAttrHandlerConstants.EQ.equals(next) || HXAttrHandlerConstants.STRING_NOT.equals(next) ) {
-				HXAttrHandlerTools.assert0(HXAttrHandlerConstants.EQ.equals(sep.seek() ), "expect a : " + HXAttrHandlerConstants.EQ + " ! aoround : " + sep.rest() );
+				HXAttrHandlerTools.assert0(HXAttrHandlerConstants.EQ.equals(sep.seek() ), "expect a : " + HXAttrHandlerConstants.EQ + " ! around : " + sep.currentAndRest() );
 				sep.next();
 				Operand oldOperand = operand;
 				if(HXAttrHandlerConstants.EQ.equals(next) ) {
-					operand = new Operand(HXAttrHandlerConstants._EQUALS, OperandTypes.Method, sep.lastNextPos() );
+					operand = new Operand(HXAttrHandlerConstants._EQUALS, OperandTypes.Method, sep.currentStartIdx() );
 				} else {
-					operand = new Operand(HXAttrHandlerConstants.NOT_EQUALS, OperandTypes.Method, sep.lastNextPos() );
+					operand = new Operand(HXAttrHandlerConstants.NOT_EQUALS, OperandTypes.Method, sep.currentStartIdx() );
 				}
 				operand.addOperand(oldOperand);
 				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromComp) );
 			} else if(HXAttrHandlerConstants.COND_EXP_COND.equals(next) ) {
 				Operand oldOperand = operand;
-				operand = new Operand(HXAttrHandlerConstants.COND_EXP, OperandTypes.Method, sep.lastNextPos() );
+				operand = new Operand(HXAttrHandlerConstants.COND_EXP, OperandTypes.Method, sep.currentStartIdx() );
 				operand.addOperand(oldOperand );
 				
 				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromCondExp) );
-				HXAttrHandlerTools.assert0(HXAttrHandlerConstants.COND_EXP_BRANCH.equals(sep.seek() ), "expect a : " + HXAttrHandlerConstants.COND_EXP_BRANCH + " ! aoround : " + sep.rest() );
+				HXAttrHandlerTools.assert0(HXAttrHandlerConstants.COND_EXP_BRANCH.equals(sep.seek() ), "expect a : " + HXAttrHandlerConstants.COND_EXP_BRANCH + " ! around : " + sep.currentAndRest() );
 				sep.next();
 				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromCondExp) );
-				HXAttrHandlerTools.assert0(bracketpair.get(bracket).equals(sep.seek() ), "expect a : " + bracketpair.get(bracket) + " ! aoround : " + sep.rest() );
+				HXAttrHandlerTools.assert0(bracketpair.get(bracket).equals(sep.seek() ), "expect a : " + bracketpair.get(bracket) + " ! around : " + sep.currentAndRest() );
 			}
 		}
 		

@@ -8,7 +8,7 @@ package com.hx.attr_handler.attr_handler.adapter.interf;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.interf.OneStringArgsAttrHandler;
 import com.hx.attr_handler.util.AttrHandlerConstants;
-import net.sf.json.JSONObject;
+import com.hx.json.JSONObject;
 
 
 // 零个或者一个字符串参数的AttrHander参数的AttrHandler

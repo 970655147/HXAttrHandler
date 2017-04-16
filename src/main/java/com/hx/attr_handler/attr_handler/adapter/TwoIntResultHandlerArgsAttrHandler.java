@@ -9,7 +9,7 @@ package com.hx.attr_handler.attr_handler.adapter;
 import com.hx.attr_handler.attr_handler.ConstantsAttrHandler;
 import com.hx.attr_handler.attr_handler.adapter.interf.interf.TwoIntArgsAttrHandler;
 import com.hx.attr_handler.attr_handler.interf.AttrHandler;
-import net.sf.json.JSONObject;
+import com.hx.json.JSONObject;
 
 // 构造两个int参数的AttrHandler的Handler适配器
 // map(trim)

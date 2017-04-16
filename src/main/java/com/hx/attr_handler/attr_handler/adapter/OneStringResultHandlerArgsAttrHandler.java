@@ -8,7 +8,7 @@ package com.hx.attr_handler.attr_handler.adapter;
 
 import com.hx.attr_handler.attr_handler.ConstantsAttrHandler;
 import com.hx.attr_handler.attr_handler.interf.AttrHandler;
-import net.sf.json.JSONObject;
+import com.hx.json.JSONObject;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.interf.OneStringArgsAttrHandler;
 

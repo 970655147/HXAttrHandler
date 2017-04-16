@@ -6,7 +6,7 @@
 
 package com.hx.attr_handler.attr_handler;
 
-import net.sf.json.JSONObject;
+import com.hx.json.JSONObject;
 
 import com.hx.attr_handler.attr_handler.interf.AttrHandler;
 import com.hx.attr_handler.util.AttrHandlerConstants;

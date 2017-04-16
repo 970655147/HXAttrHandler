@@ -7,7 +7,7 @@
 package com.hx.attr_handler.attr_handler.adapter.interf;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.interf.TwoStringIntArgsAttrHandler;
-import net.sf.json.JSONObject;
+import com.hx.json.JSONObject;
 
 import com.hx.attr_handler.util.AttrHandlerConstants;
 

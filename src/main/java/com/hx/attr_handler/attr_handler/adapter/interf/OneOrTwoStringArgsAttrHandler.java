@@ -7,8 +7,8 @@
 package com.hx.attr_handler.attr_handler.adapter.interf;
 
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.hx.json.JSONArray;
+import com.hx.json.JSONObject;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.interf.TwoStringArgsAttrHandler;
 import com.hx.attr_handler.util.AttrHandlerConstants;

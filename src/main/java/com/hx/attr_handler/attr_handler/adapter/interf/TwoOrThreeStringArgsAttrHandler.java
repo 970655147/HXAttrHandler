@@ -7,7 +7,7 @@
 package com.hx.attr_handler.attr_handler.adapter.interf;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.interf.ThreeStringArgsAttrHandler;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerConstants;
 import net.sf.json.JSONObject;
 
 public abstract class TwoOrThreeStringArgsAttrHandler extends ThreeStringArgsAttrHandler {
@@ -30,7 +30,7 @@ public abstract class TwoOrThreeStringArgsAttrHandler extends ThreeStringArgsAtt
 	}
 	// 重写handle0, 处理逻辑[将核心逻辑留在了gotResult中]
 	public String handle0(String result) {
-		if(HXAttrHandlerConstants.HANDLER_UNDEFINED.equals(target) ) {
+		if(AttrHandlerConstants.HANDLER_UNDEFINED.equals(target) ) {
 			target = result;
 		}
 

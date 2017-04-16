@@ -7,7 +7,7 @@
 package com.hx.attr_handler.attr_handler;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.NoneOrOneStringArgsAttrHandler;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerConstants;
 
 // 获取给定的字符串的大写形式的Handler
 // map(toUpperCase ), map(toUpperCase('abc') )
@@ -17,7 +17,7 @@ public class ToUpperCaseAttrHandler extends NoneOrOneStringArgsAttrHandler {
 		super(str);
 	}
 	public ToUpperCaseAttrHandler() {
-		this(HXAttrHandlerConstants.HANDLER_UNDEFINED);
+		this(AttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class ToUpperCaseAttrHandler extends NoneOrOneStringArgsAttrHandler {
 
 	@Override
 	public String name() {
-		return HXAttrHandlerConstants.TO_UPPERCASE;
+		return AttrHandlerConstants.TO_UPPERCASE;
 	}
 	
 }

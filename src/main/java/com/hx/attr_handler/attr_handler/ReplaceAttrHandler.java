@@ -7,7 +7,7 @@
 package com.hx.attr_handler.attr_handler;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.TwoOrThreeStringArgsAttrHandler;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerConstants;
 
 // 将给定的字符串替换为目标字符串
 // map(replace(src, tar) )
@@ -17,15 +17,15 @@ public class ReplaceAttrHandler extends TwoOrThreeStringArgsAttrHandler {
 		super(target, regex, replacement);
 	}
 	public ReplaceAttrHandler(String regex, String replacement) {
-		super(HXAttrHandlerConstants.HANDLER_UNDEFINED, regex, replacement);
+		super(AttrHandlerConstants.HANDLER_UNDEFINED, regex, replacement);
 	}
 	public ReplaceAttrHandler() {
-		this(HXAttrHandlerConstants.HANDLER_UNDEFINED, HXAttrHandlerConstants.HANDLER_UNDEFINED, HXAttrHandlerConstants.HANDLER_UNDEFINED);
+		this(AttrHandlerConstants.HANDLER_UNDEFINED, AttrHandlerConstants.HANDLER_UNDEFINED, AttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 
 	@Override
 	public String name() {
-		return HXAttrHandlerConstants.REPLACE;
+		return AttrHandlerConstants.REPLACE;
 	}
 	
 	@Override

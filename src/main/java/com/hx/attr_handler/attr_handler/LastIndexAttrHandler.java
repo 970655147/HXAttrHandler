@@ -7,7 +7,7 @@
 package com.hx.attr_handler.attr_handler;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.OneOrTwoStringIntArgsAttrHandler;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerConstants;
 
 // lastIndexOf¹ØÁªµÄAttrHandler
 // map(lastIndexOf(hello[, 2]) )
@@ -17,26 +17,26 @@ public class LastIndexAttrHandler extends OneOrTwoStringIntArgsAttrHandler {
 		super(target, idxStr, from);
 	}
 	public LastIndexAttrHandler(String target, String idxStr) {
-		this(target, idxStr, HXAttrHandlerConstants.TARGET_UNDEFINED);
+		this(target, idxStr, AttrHandlerConstants.TARGET_UNDEFINED);
 	}
 	public LastIndexAttrHandler(String idxStr, int from) {
-		super(HXAttrHandlerConstants.HANDLER_UNDEFINED, idxStr, from);
+		super(AttrHandlerConstants.HANDLER_UNDEFINED, idxStr, from);
 	}
 	public LastIndexAttrHandler(String idxStr) {
-		this(HXAttrHandlerConstants.HANDLER_UNDEFINED, idxStr, HXAttrHandlerConstants.TARGET_UNDEFINED);
+		this(AttrHandlerConstants.HANDLER_UNDEFINED, idxStr, AttrHandlerConstants.TARGET_UNDEFINED);
 	}
 	public LastIndexAttrHandler() {
-		this(HXAttrHandlerConstants.HANDLER_UNDEFINED, "", HXAttrHandlerConstants.TARGET_UNDEFINED);
+		this(AttrHandlerConstants.HANDLER_UNDEFINED, "", AttrHandlerConstants.TARGET_UNDEFINED);
 	}
 	
 	@Override
 	public String name() {
-		return HXAttrHandlerConstants.LAST_INDEX_OF;
+		return AttrHandlerConstants.LAST_INDEX_OF;
 	}
 	
 	@Override
 	protected String gotResult(String target, String idxStr, int from, String result) {
-		if(from == HXAttrHandlerConstants.TARGET_UNDEFINED) {
+		if(from == AttrHandlerConstants.TARGET_UNDEFINED) {
 			from = target.length();
 		}
 		return String.valueOf(target.lastIndexOf(idxStr, from) );

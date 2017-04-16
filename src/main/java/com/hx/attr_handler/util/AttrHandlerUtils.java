@@ -15,7 +15,7 @@ public final class AttrHandlerUtils {
 	
 	// disable constructor
 	private AttrHandlerUtils() {
-		HXAttrHandlerTools.assert0("can't instantiate !");
+		AttrHandlerTools.assert0("can't instantiate !");
 	}
 	
 	// ------------ handlerParser相关 ------- 2016.03.23 -------------
@@ -24,8 +24,8 @@ public final class AttrHandlerUtils {
 	
 	// 将给定的字符串解析为AttrHandler
 	public static OperationAttrHandler handlerParse(String handlerStr, String handlerType, StandardHandlerParser.Types lastOperationReturn) {
-		HXAttrHandlerTools.assert0(handlerStr != null, "'handlerStr' can't be null ");
-		HXAttrHandlerTools.assert0(handlerType != null, "'handlerType' can't be null ");
+		AttrHandlerTools.assert0(handlerStr != null, "'handlerStr' can't be null ");
+		AttrHandlerTools.assert0(handlerType != null, "'handlerType' can't be null ");
 		return handlerParser.handlerParse(handlerStr, handlerType, lastOperationReturn);
 	}
 	public static OperationAttrHandler handlerParse(String handlerStr, String handlerType) {
@@ -34,10 +34,10 @@ public final class AttrHandlerUtils {
 	
 	// 合并两个Handler
 	public static OperationAttrHandler combineHandler(OperationAttrHandler mainHandler, OperationAttrHandler attachHander) {
-		HXAttrHandlerTools.assert0(mainHandler != null, "'mainHandler' can't be null ");
-		HXAttrHandlerTools.assert0(attachHander != null, "'attachHander' can't be null ");
+		AttrHandlerTools.assert0(mainHandler != null, "'mainHandler' can't be null ");
+		AttrHandlerTools.assert0(attachHander != null, "'attachHander' can't be null ");
 		
-		HXAttrHandlerTools.assert0(! mainHandler.operationReturn().isFinal, "the first handler's returnType is final, can't concate 'AttrHandler' anymore ! please check it ! ");
+		AttrHandlerTools.assert0(! mainHandler.operationReturn().isFinal(), "the first handler's returnType is final, can't concate 'AttrHandler' anymore ! please check it ! ");
 		CompositeOperationAttrHandler<OperationAttrHandler> attrHandler = new CompositeOperationAttrHandler<>();
 		attrHandler.addHandler(mainHandler);
 		attrHandler.addHandler(attachHander);

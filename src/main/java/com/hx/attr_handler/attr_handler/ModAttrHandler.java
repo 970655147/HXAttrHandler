@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.hx.attr_handler.attr_handler.adapter.MultiArgsAttrHandler;
 import com.hx.attr_handler.attr_handler.interf.AttrHandler;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerConstants;
 
 // 将给定的字符串替换为目标字符串
 // map(replace(src, tar) )
@@ -24,7 +24,7 @@ public class ModAttrHandler extends MultiArgsAttrHandler<AttrHandler> {
 		super(initCap);
 	}
 	public ModAttrHandler() {
-		super(HXAttrHandlerConstants.CALC_HANDLER_DEFAULT_CAP);
+		super(AttrHandlerConstants.CALC_HANDLER_DEFAULT_CAP);
 	}
 
 	@Override
@@ -39,6 +39,6 @@ public class ModAttrHandler extends MultiArgsAttrHandler<AttrHandler> {
 
 	@Override
 	public String name() {
-		return HXAttrHandlerConstants.MOD;
+		return AttrHandlerConstants.MOD;
 	}
 }

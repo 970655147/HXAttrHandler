@@ -9,7 +9,7 @@ package com.hx.attr_handler.attr_handler.adapter.interf;
 import com.hx.attr_handler.attr_handler.adapter.interf.interf.StringTwoIntAttrHandler;
 import net.sf.json.JSONObject;
 
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerConstants;
 
 public abstract class StringOneOrTwoIntAttrHandler extends StringTwoIntAttrHandler {
 	// 传入的用户指定的参数
@@ -32,7 +32,7 @@ public abstract class StringOneOrTwoIntAttrHandler extends StringTwoIntAttrHandl
 
 	// 重写handle0, 处理逻辑[将核心逻辑留在了gotResult中]
 	public String handle0(String result) {
-		if(HXAttrHandlerConstants.HANDLER_UNDEFINED.equals(target) ) {
+		if(AttrHandlerConstants.HANDLER_UNDEFINED.equals(target) ) {
 			target = result;
 		}
 

@@ -7,8 +7,8 @@
 package com.hx.attr_handler.attr_handler;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.StringOneOrTwoIntAttrHandler;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
-import com.hx.attr_handler.util.HXAttrHandlerTools;
+import com.hx.attr_handler.util.AttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerTools;
 
 // 将字符串的多个空格合并为一个的handler
 // map(trimAsOne), map(trimAsOne('abc') )
@@ -19,16 +19,16 @@ public class TrimAsOneAttrHandler extends StringOneOrTwoIntAttrHandler {
 		super(str, trimHead, trimTail);
 	}
 	public TrimAsOneAttrHandler() {
-		this(HXAttrHandlerConstants.HANDLER_UNDEFINED, HXAttrHandlerConstants.TARGET_UNDEFINED, HXAttrHandlerConstants.TARGET_UNDEFINED);
+		this(AttrHandlerConstants.HANDLER_UNDEFINED, AttrHandlerConstants.TARGET_UNDEFINED, AttrHandlerConstants.TARGET_UNDEFINED);
 	}
 	
 	@Override
 	protected String gotResult(String target, int from, int to, String result) {
-		String trimed = HXAttrHandlerTools.trimSpacesAsOne(target);
-		if(from == HXAttrHandlerConstants.TARGET_UNDEFINED) {
+		String trimed = AttrHandlerTools.trimSpacesAsOne(target);
+		if(from == AttrHandlerConstants.TARGET_UNDEFINED) {
 			from = 0;
 		}
-		if(to == HXAttrHandlerConstants.TARGET_UNDEFINED) {
+		if(to == AttrHandlerConstants.TARGET_UNDEFINED) {
 			to = trimed.length();
 		} else {
 			to = trimed.length() - to;
@@ -38,7 +38,7 @@ public class TrimAsOneAttrHandler extends StringOneOrTwoIntAttrHandler {
 
 	@Override
 	public String name() {
-		return HXAttrHandlerConstants.TRIM_AS_ONE;
+		return AttrHandlerConstants.TRIM_AS_ONE;
 	}
 	
 }

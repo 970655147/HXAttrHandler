@@ -9,8 +9,8 @@ package com.hx.attr_handler.attr_handler;
 import java.util.regex.Pattern;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.OneOrTwoStringArgsAttrHandler;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
-import com.hx.attr_handler.util.HXAttrHandlerTools;
+import com.hx.attr_handler.util.AttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerTools;
 
 // 判断给定的字符串是否和expect匹配的handler
 // 类似于equals
@@ -22,20 +22,20 @@ public class MatchesAttrHandler extends OneOrTwoStringArgsAttrHandler {
 		super(str, pattern);
 	}
 	public MatchesAttrHandler(String pattern) {
-		this(pattern, HXAttrHandlerConstants.HANDLER_UNDEFINED);
+		this(pattern, AttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 	public MatchesAttrHandler() {
-		this(HXAttrHandlerConstants.HANDLER_UNDEFINED, HXAttrHandlerConstants.HANDLER_UNDEFINED);
+		this(AttrHandlerConstants.HANDLER_UNDEFINED, AttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 
 	@Override
 	protected String gotResult(String str, String pattern, String result) {
-		HXAttrHandlerTools.assert0(pattern != null, "error while calc the 'matches(String)', pattern be initialized illegal ! ");
+		AttrHandlerTools.assert0(pattern != null, "error while calc the 'matches(String)', pattern be initialized illegal ! ");
 		return String.valueOf(Pattern.compile(pattern).matcher(str).matches() );
 	}
 
 	@Override
 	public String name() {
-		return HXAttrHandlerConstants.MATCHES;
+		return AttrHandlerConstants.MATCHES;
 	}
 }

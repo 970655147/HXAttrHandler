@@ -7,7 +7,7 @@
 package com.hx.attr_handler.attr_handler;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.NoneOrOneStringArgsAttrHandler;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerConstants;
 
 // 获取给定的字符串的长度的handler
 // map(length )	or map(length() )
@@ -18,7 +18,7 @@ public class LengthAttrHandler extends NoneOrOneStringArgsAttrHandler {
 		super(str);
 	}
 	public LengthAttrHandler() {
-		this(HXAttrHandlerConstants.HANDLER_UNDEFINED);
+		this(AttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class LengthAttrHandler extends NoneOrOneStringArgsAttrHandler {
 
 	@Override
 	public String name() {
-		return HXAttrHandlerConstants.LENGTH;
+		return AttrHandlerConstants.LENGTH;
 	}
 	
 }

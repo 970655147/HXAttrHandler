@@ -13,11 +13,11 @@ import java.util.Map;
 import java.util.Set;
 
 // 工具类
-public final class HXAttrHandlerTools {
+public final class AttrHandlerTools {
 	
 	// disable constructor
-	private HXAttrHandlerTools() {
-		HXAttrHandlerTools.assert0("can't instantiate !");
+	private AttrHandlerTools() {
+		AttrHandlerTools.assert0("can't instantiate !");
 	}
 	
 	// ------------ assert相关 ------- 2016.03.22 -------------
@@ -40,7 +40,7 @@ public final class HXAttrHandlerTools {
 		assert0(false, e);
 	}
 	public static void assert0(boolean boo, Exception e) {
-		HXAttrHandlerTools.assert0(e != null, "'e' can't be null ");
+		AttrHandlerTools.assert0(e != null, "'e' can't be null ");
 		if(! boo) {
 			throw new RuntimeException(e);
 		}
@@ -100,18 +100,18 @@ public final class HXAttrHandlerTools {
 		return getStrInRangeWithEnd(str, end, true);
 	}
 	public static String getStrInRange(String str, String start, String end, boolean includeStart, boolean includeEnd) {
-		HXAttrHandlerTools.assert0(str != null, "'str' can't be null ");
-		HXAttrHandlerTools.assert0(start != null, "'start' can't be null ");
-		HXAttrHandlerTools.assert0(end != null, "'end' can't be null ");
+		AttrHandlerTools.assert0(str != null, "'str' can't be null ");
+		AttrHandlerTools.assert0(start != null, "'start' can't be null ");
+		AttrHandlerTools.assert0(end != null, "'end' can't be null ");
 		
 		int startIdx = str.indexOf(start);
 		if(startIdx == -1) {
-			return HXAttrHandlerConstants.EMPTY_STR;
+			return AttrHandlerConstants.EMPTY_STR;
 		}
 		
 		int endIdx = str.indexOf(end, startIdx + start.length());
 		if(endIdx == -1) {
-			return HXAttrHandlerConstants.EMPTY_STR;
+			return AttrHandlerConstants.EMPTY_STR;
 		}
 		
 		if(! includeStart) {
@@ -124,8 +124,8 @@ public final class HXAttrHandlerTools {
 		return str.substring(startIdx, endIdx);
 	}
 	public static String getStrInRangeWithStart(String str, String start, boolean include) {
-		HXAttrHandlerTools.assert0(str != null, "'str' can't be null ");
-		HXAttrHandlerTools.assert0(start != null, "'start' can't be null ");
+		AttrHandlerTools.assert0(str != null, "'str' can't be null ");
+		AttrHandlerTools.assert0(start != null, "'start' can't be null ");
 		
 		int idx = str.indexOf(start);
 		if(idx != -1) {
@@ -135,11 +135,11 @@ public final class HXAttrHandlerTools {
 			return str.substring(idx);
 		}
 		
-		return HXAttrHandlerConstants.EMPTY_STR;
+		return AttrHandlerConstants.EMPTY_STR;
 	}
 	public static String getStrInRangeWithEnd(String str, String end, boolean include) {
-		HXAttrHandlerTools.assert0(str != null, "'str' can't be null ");
-		HXAttrHandlerTools.assert0(end != null, "'end' can't be null ");
+		AttrHandlerTools.assert0(str != null, "'str' can't be null ");
+		AttrHandlerTools.assert0(end != null, "'end' can't be null ");
 		
 		int idx = str.indexOf(end);
 		if(idx != -1) {
@@ -149,16 +149,16 @@ public final class HXAttrHandlerTools {
 			return str.substring(0, idx);
 		}
 		
-		return HXAttrHandlerConstants.EMPTY_STR;
+		return AttrHandlerConstants.EMPTY_STR;
 	}
 	
 	// 空格类字符
 	static Set<Character> spaces = new HashSet<>();
 	static {
-		spaces.add(HXAttrHandlerConstants.SPACE);
-		spaces.add(HXAttrHandlerConstants.TAB);
-		spaces.add(HXAttrHandlerConstants.CR);
-		spaces.add(HXAttrHandlerConstants.LF);
+		spaces.add(AttrHandlerConstants.SPACE);
+		spaces.add(AttrHandlerConstants.TAB);
+		spaces.add(AttrHandlerConstants.CR);
+		spaces.add(AttrHandlerConstants.LF);
 	}
 	
 	// 将字符串的多个连续的空格转换为一个空格
@@ -169,13 +169,13 @@ public final class HXAttrHandlerTools {
 	// 可以直接使用正则进行处理		// str.replaceAll("\\s+", " ");
 	public static String trimSpacesAsOne(String str) {
 		if(isEmpty(str) ) {
-			return HXAttrHandlerConstants.EMPTY_STR;
+			return AttrHandlerConstants.EMPTY_STR;
 		}
 		
 		StringBuilder sb = new StringBuilder();
 		for(int i=0; i<str.length(); i++) {
 			if(spaces.contains(str.charAt(i)) ) {
-				sb.append(HXAttrHandlerConstants.SPACE);
+				sb.append(AttrHandlerConstants.SPACE);
 				int nextI = i+1;
 				while((nextI < str.length() ) && spaces.contains(str.charAt(nextI)) ) nextI++ ;
 				i = nextI - 1;
@@ -185,7 +185,7 @@ public final class HXAttrHandlerTools {
 		}
 		
 		if((sb.length() == 0) || ((sb.length() == 1) && spaces.contains(sb.charAt(0))) ) {
-			return HXAttrHandlerConstants.EMPTY_STR;
+			return AttrHandlerConstants.EMPTY_STR;
 		} else {
 			int start = 0, end = sb.length();
 			if(spaces.contains(sb.charAt(start)) ) {
@@ -199,7 +199,7 @@ public final class HXAttrHandlerTools {
 		}
 	}
 	public static String[] trimSpacesAsOne(String[] arr) {
-		HXAttrHandlerTools.assert0(arr != null, "'arr' can't be null ");
+		AttrHandlerTools.assert0(arr != null, "'arr' can't be null ");
 		for(int i=0; i<arr.length; i++) {
 			arr[i] = trimSpacesAsOne(arr[i]);
 		}
@@ -207,7 +207,7 @@ public final class HXAttrHandlerTools {
 		return arr;
 	}
 	public static List<String> trimSpacesAsOne(List<String> arr) {
-		HXAttrHandlerTools.assert0(arr != null, "'arr' can't be null ");
+		AttrHandlerTools.assert0(arr != null, "'arr' can't be null ");
 		for(int i=0; i<arr.size(); i++) {
 			arr.set(i, trimSpacesAsOne(arr.get(i)) );
 		}
@@ -217,7 +217,7 @@ public final class HXAttrHandlerTools {
 
 	public static String trimAllSpaces(String str, Map<Character, Character> escapeMap) {
 		if(isEmpty(str) ) {
-			return HXAttrHandlerConstants.EMPTY_STR;
+			return AttrHandlerConstants.EMPTY_STR;
 		}
 		
 		StringBuilder sb = new StringBuilder();
@@ -248,7 +248,7 @@ public final class HXAttrHandlerTools {
 		return trimAllSpaces(str, null);
 	}
 	public static String[] trimAllSpaces(String[] arr, Map<Character, Character> escapeMap) {
-		HXAttrHandlerTools.assert0(arr != null, "'arr' can't be null ");
+		AttrHandlerTools.assert0(arr != null, "'arr' can't be null ");
 		for(int i=0; i<arr.length; i++) {
 			arr[i] = trimAllSpaces(arr[i], escapeMap);
 		}
@@ -259,7 +259,7 @@ public final class HXAttrHandlerTools {
 		return trimAllSpaces(arr, null);
 	}
 	public static List<String> trimAllSpaces(List<String> arr, Map<Character, Character> escapeMap) {
-		HXAttrHandlerTools.assert0(arr != null, "'arr' can't be null ");
+		AttrHandlerTools.assert0(arr != null, "'arr' can't be null ");
 		for(int i=0; i<arr.size(); i++) {
 			arr.set(i, trimAllSpaces(arr.get(i), escapeMap) );
 		}
@@ -271,7 +271,7 @@ public final class HXAttrHandlerTools {
 	}
 	
 	// 如果字符串为一下字符串, 将其视为空字符串
-	static Set<String> emptyStrCondition = HXAttrHandlerConstants.emptyStrCondition;
+	static Set<String> emptyStrCondition = AttrHandlerConstants.emptyStrCondition;
 	
 	
 	// 判断字符串是否为空[null, "", "null"]

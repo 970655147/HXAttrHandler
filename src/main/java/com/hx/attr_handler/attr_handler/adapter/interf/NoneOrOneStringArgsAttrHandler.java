@@ -7,7 +7,7 @@
 package com.hx.attr_handler.attr_handler.adapter.interf;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.interf.OneStringArgsAttrHandler;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerConstants;
 import net.sf.json.JSONObject;
 
 
@@ -27,7 +27,7 @@ public abstract class NoneOrOneStringArgsAttrHandler extends OneStringArgsAttrHa
 	}
 	// 重写handle0, 处理逻辑[将核心逻辑留在了gotResult中]
 	public String handle0(String result) {
-		if(HXAttrHandlerConstants.HANDLER_UNDEFINED.equals(arg) ) {
+		if(AttrHandlerConstants.HANDLER_UNDEFINED.equals(arg) ) {
 			arg = result;
 		}
 		

@@ -7,8 +7,8 @@
 package com.hx.attr_handler.attr_handler;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.OneOrTwoStringArgsAttrHandler;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
-import com.hx.attr_handler.util.HXAttrHandlerTools;
+import com.hx.attr_handler.util.AttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerTools;
 
 //判断给定的字符串是否和expect匹配的handler
 //gt(2), gt(2, 1), 2 > 1
@@ -19,16 +19,16 @@ public class GreaterThanAttrHandler extends OneOrTwoStringArgsAttrHandler {
 		super(arg01, arg02);
 	}
 	public GreaterThanAttrHandler(String arg01) {
-		this(arg01, HXAttrHandlerConstants.HANDLER_UNDEFINED);
+		this(arg01, AttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 	public GreaterThanAttrHandler() {
-		this(HXAttrHandlerConstants.HANDLER_UNDEFINED, HXAttrHandlerConstants.HANDLER_UNDEFINED);
+		this(AttrHandlerConstants.HANDLER_UNDEFINED, AttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 
 	@Override
 	protected String gotResult(String arg01, String arg02, String result) {
-		HXAttrHandlerTools.assert0(arg01 != null, "error while calc the 'matches(String)', pattern be initialized illegal ! ");
-		HXAttrHandlerTools.assert0(arg02 != null, "error while calc the 'matches(String)', pattern be initialized illegal ! ");
+		AttrHandlerTools.assert0(arg01 != null, "error while calc the 'matches(String)', pattern be initialized illegal ! ");
+		AttrHandlerTools.assert0(arg02 != null, "error while calc the 'matches(String)', pattern be initialized illegal ! ");
 		int intArg01 = 0, intArg02 = 0;
 		boolean valid = true;
 		try {
@@ -46,6 +46,6 @@ public class GreaterThanAttrHandler extends OneOrTwoStringArgsAttrHandler {
 	
 	@Override
 	public String name() {
-		return HXAttrHandlerConstants.GREATER_THAN;
+		return AttrHandlerConstants.GREATER_THAN;
 	}
 }

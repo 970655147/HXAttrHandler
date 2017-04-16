@@ -9,7 +9,7 @@ package com.hx.attr_handler.test;
 import com.hx.attr_handler.attr_handler.StandardHandlerParser;
 import com.hx.attr_handler.attr_handler.interf.AttrHandler;
 import com.hx.attr_handler.attr_handler.interf.HandlerParser;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerConstants;
 
 public class Test04TestHandlerParser {
 	
@@ -83,7 +83,7 @@ public class Test04TestHandlerParser {
 //		String res = "te-   abslkdjflskfjgf -|st ";
 		String res = "te-   ???? -|st ";
 		HandlerParser parser = new StandardHandlerParser();
-		AttrHandler handler = parser.handlerParse(str, HXAttrHandlerConstants.HANDLER);
+		AttrHandler handler = parser.handlerParse(str, AttrHandlerConstants.HANDLER);
 //		AttrHandler handler = parser.handlerParse(str, "abc");
 		System.out.println(handler.handle(res) );
 //		System.out.println(handler.handle(null) );

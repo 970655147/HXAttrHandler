@@ -7,7 +7,7 @@
 package com.hx.attr_handler.attr_handler;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.OneOrTwoStringArgsAttrHandler;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerConstants;
 
 // 判断给定的字符串是否和expect匹配的handler
 // trim, length等等也具有此用法
@@ -20,19 +20,19 @@ public class EqualsAttrHandler extends OneOrTwoStringArgsAttrHandler {
 		super(val, expect);
 	}
 	public EqualsAttrHandler(String expect) {
-		this(expect, HXAttrHandlerConstants.HANDLER_UNDEFINED);
+		this(expect, AttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 	public EqualsAttrHandler() {
-		this(HXAttrHandlerConstants.HANDLER_UNDEFINED, HXAttrHandlerConstants.HANDLER_UNDEFINED);
+		this(AttrHandlerConstants.HANDLER_UNDEFINED, AttrHandlerConstants.HANDLER_UNDEFINED);
 	}
 	
 	@Override
 	protected String gotResult(String str, String expect, String result) {
 		if(expect == null) {
 			if(str == null) {
-				return HXAttrHandlerConstants.TRUE;
+				return AttrHandlerConstants.TRUE;
 			} else {
-				return HXAttrHandlerConstants.FALSE;
+				return AttrHandlerConstants.FALSE;
 			}
 		}
 		return String.valueOf(expect.equals(str) );
@@ -40,6 +40,6 @@ public class EqualsAttrHandler extends OneOrTwoStringArgsAttrHandler {
 
 	@Override
 	public String name() {
-		return HXAttrHandlerConstants.EQUALS;
+		return AttrHandlerConstants.EQUALS;
 	}
 }

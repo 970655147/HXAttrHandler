@@ -8,7 +8,7 @@ package com.hx.attr_handler.attr_handler.operation;
 
 import com.hx.attr_handler.attr_handler.interf.AttrHandler;
 import com.hx.attr_handler.attr_handler.operation.interf.OperationAttrHandler;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerConstants;
 import com.hx.attr_handler.attr_handler.StandardHandlerParser;
 
 // assertHandler
@@ -21,7 +21,7 @@ public class AssertOperationAttrHandler extends OperationAttrHandler {
 	public AssertOperationAttrHandler(AttrHandler handler, StandardHandlerParser.Types operationReturn ) {
 		super();
 		this.handler = handler;
-		operationType(HXAttrHandlerConstants.ASSERT_OPERATION);
+		operationType(AttrHandlerConstants.ASSERT_OPERATION);
 		operationReturn(operationReturn);
 	}
 
@@ -38,7 +38,7 @@ public class AssertOperationAttrHandler extends OperationAttrHandler {
 
 	@Override
 	public String name() {
-		return HXAttrHandlerConstants.ASSERT_OPERATION;
+		return AttrHandlerConstants.ASSERT_OPERATION;
 	}
 
 }

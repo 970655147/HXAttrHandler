@@ -9,7 +9,7 @@ package com.hx.attr_handler.attr_handler.adapter.interf;
 import com.hx.attr_handler.attr_handler.adapter.interf.interf.ThreeStringTwoBooleanArgsAttrHandler;
 import net.sf.json.JSONObject;
 
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerConstants;
 
 
 // 零个或者一个字符串参数的AttrHander参数的AttrHandler
@@ -37,7 +37,7 @@ public abstract class TwoOrThreeStringTwoBooleanArgsAttrHandler extends ThreeStr
 	}
 	// 重写handle0, 处理逻辑[将核心逻辑留在了gotResult中]
 	public String handle0(String result) {
-		if(HXAttrHandlerConstants.HANDLER_UNDEFINED.equals(target) ) {
+		if(AttrHandlerConstants.HANDLER_UNDEFINED.equals(target) ) {
 			target = result;
 		}
 

@@ -7,7 +7,7 @@
 package com.hx.attr_handler.attr_handler;
 
 import com.hx.attr_handler.attr_handler.adapter.interf.StringOneOrTwoIntAttrHandler;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerConstants;
 
 // ½ØÈ¡×Ö·û´®µÄhandler
 // map(subString(1, 3) )
@@ -17,26 +17,26 @@ public class SubStringAttrHandler extends StringOneOrTwoIntAttrHandler {
 		super(target, from, to);
 	}
 	public SubStringAttrHandler(String target, int from) {
-		super(target, from, HXAttrHandlerConstants.TARGET_UNDEFINED);
+		super(target, from, AttrHandlerConstants.TARGET_UNDEFINED);
 	}
 	public SubStringAttrHandler(int from, int to) {
-		super(HXAttrHandlerConstants.HANDLER_UNDEFINED, from, to);
+		super(AttrHandlerConstants.HANDLER_UNDEFINED, from, to);
 	}
 	public SubStringAttrHandler(int from) {
-		super(HXAttrHandlerConstants.HANDLER_UNDEFINED, from, HXAttrHandlerConstants.TARGET_UNDEFINED);
+		super(AttrHandlerConstants.HANDLER_UNDEFINED, from, AttrHandlerConstants.TARGET_UNDEFINED);
 	}
 	public SubStringAttrHandler() {
-		this(HXAttrHandlerConstants.HANDLER_UNDEFINED, HXAttrHandlerConstants.TARGET_UNDEFINED, HXAttrHandlerConstants.TARGET_UNDEFINED);
+		this(AttrHandlerConstants.HANDLER_UNDEFINED, AttrHandlerConstants.TARGET_UNDEFINED, AttrHandlerConstants.TARGET_UNDEFINED);
 	}
 	
 	@Override
 	public String name() {
-		return HXAttrHandlerConstants.SUB_STRING;
+		return AttrHandlerConstants.SUB_STRING;
 	}
 	
 	@Override
 	protected String gotResult(String target, int from, int to, String result) {
-		if(to == HXAttrHandlerConstants.TARGET_UNDEFINED) {
+		if(to == AttrHandlerConstants.TARGET_UNDEFINED) {
 			to = target.length();
 		}
 		return target.substring(from, to);

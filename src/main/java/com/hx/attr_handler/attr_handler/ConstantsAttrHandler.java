@@ -9,7 +9,7 @@ package com.hx.attr_handler.attr_handler;
 import net.sf.json.JSONObject;
 
 import com.hx.attr_handler.attr_handler.interf.AttrHandler;
-import com.hx.attr_handler.util.HXAttrHandlerConstants;
+import com.hx.attr_handler.util.AttrHandlerConstants;
 
 // 返回res的AttrHandler
 // 适配常量
@@ -20,7 +20,7 @@ public class ConstantsAttrHandler extends AttrHandler {
 	// 初始化
 	public ConstantsAttrHandler(String res) {
 		this.res = res;
-		if(HXAttrHandlerConstants.escapeCharMap.containsKey(res.charAt(0)) && HXAttrHandlerConstants.escapeCharMap.containsKey(res.charAt(res.length()-1)) ) {
+		if(AttrHandlerConstants.escapeCharMap.containsKey(res.charAt(0)) && AttrHandlerConstants.escapeCharMap.containsKey(res.charAt(res.length()-1)) ) {
 			this.res = this.res.substring(1, this.res.length()-1 );
 		}
 	}
@@ -33,8 +33,8 @@ public class ConstantsAttrHandler extends AttrHandler {
 
 	@Override
 	public String handle0(String result) {
-		if(HXAttrHandlerConstants.RECOGNIZE_RESULT_PROXY) {
-			if(HXAttrHandlerConstants.RESULT_PROXY.equals(res) ) {
+		if(AttrHandlerConstants.RECOGNIZE_RESULT_PROXY) {
+			if(AttrHandlerConstants.RESULT_PROXY.equals(res) ) {
 				return result;
 			}
 		}
@@ -44,7 +44,7 @@ public class ConstantsAttrHandler extends AttrHandler {
 
 	@Override
 	public String name() {
-		return HXAttrHandlerConstants.CONSTANTS;
+		return AttrHandlerConstants.CONSTANTS;
 	}
 
 	@Override

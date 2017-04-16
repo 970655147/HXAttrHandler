@@ -19,11 +19,11 @@ import com.hx.attr_handler.attr_handler.operation.interf.OperationAttrHandler;
 import com.hx.attr_handler.attr_handler.StandardHandlerParser;
 
 // ³£Á¿
-public final class HXAttrHandlerConstants {
+public final class AttrHandlerConstants {
 	
 	// disable constructor
-	private HXAttrHandlerConstants() {
-		HXAttrHandlerTools.assert0("can't instantiate !");
+	private AttrHandlerConstants() {
+		AttrHandlerTools.assert0("can't instantiate !");
 	}
 	
 	public static final String HANDLER = "handler";

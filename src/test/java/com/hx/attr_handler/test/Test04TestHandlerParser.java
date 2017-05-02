@@ -81,7 +81,7 @@ public class Test04TestHandlerParser {
 //		String res = "       te-----             ---|st    ";
 //		String res = "te--|st";
 //		String res = "te-   abslkdjflskfjgf -|st ";
-		String res = "te-   ???? -|st ";
+		String res = "te-   ???? -|st jj ";
 		HandlerParser parser = new StandardHandlerParser();
 		AttrHandler handler = parser.handlerParse(str, AttrHandlerConstants.HANDLER);
 //		AttrHandler handler = parser.handlerParse(str, "abc");

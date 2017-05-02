@@ -32,7 +32,12 @@
   <dependencies>
       <dependency>
           <groupId>com.hx</groupId>
-          <artifactId>HXLog</artifactId>
+          <artifactId>HXCommon</artifactId>
+          <version>${HXLog.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>com.hx</groupId>
+          <artifactId>HXJson</artifactId>
           <version>${HXLog.version}</version>
       </dependency>
 

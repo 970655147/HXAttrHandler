@@ -639,96 +639,93 @@ public class StandardHandlerParser extends HandlerParser {
 			}
 			
 			// 处理语法糖, 拼串, 短路与/ 或, 条件表达式, 比较运算符
-			desugar(next, operand, sep, bracket, bracketpair);
-		}
-		
-		return operand;
-	}
-	private void desugar(String next, Operand operand, WordsSeprator sep, String bracket, Map<String, String> bracketpair) {
-		// 			    | |
-		// incase of "a + b"
-		if(AttrHandlerConstants.STRING_CONCATE.equals(next) ) {
-			Operand oldOperand = operand;
-			operand = new Operand(AttrHandlerConstants.CONCATE, OperandTypes.Method, sep.currentStartIdx() );
-			operand.addOperand(oldOperand );
+			// 			    | |
+			// incase of "a + b"
+			if(AttrHandlerConstants.STRING_CONCATE.equals(next) ) {
+				Operand oldOperand = operand;
+				operand = new Operand(AttrHandlerConstants.CONCATE, OperandTypes.Method, sep.currentStartIdx() );
+				operand.addOperand(oldOperand );
 
-			boolean isFirstConcate = true;
-			do {
-				if(! isFirstConcate) {
-					sep.next();
+				boolean isFirstConcate = true;
+				do {
+					if(! isFirstConcate) {
+						sep.next();
+					}
+					isFirstConcate = false;
+					operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromConcate) );
+				} while(AttrHandlerConstants.STRING_CONCATE.equals(sep.seek()) );
+				// 规约拼串的优先级高于 短路与/ 或[&&, ||]
+			} else if(AttrHandlerConstants.AND.equals(next) || AttrHandlerConstants.OR.equals(next) ) {
+				String curSymbol = next;
+				AttrHandlerTools.assert0(curSymbol.equals(sep.seek() ), "expect a : " + curSymbol + " ! around : " + sep.currentAndRest() );
+				sep.next();
+				Operand oldOperand = operand;
+				if(AttrHandlerConstants.AND.equals(curSymbol) ) {
+					operand = new Operand(AttrHandlerConstants.CUTTING_OUT_AND, OperandTypes.Method, sep.currentStartIdx() );
+				} else {
+					operand = new Operand(AttrHandlerConstants.CUTTING_OUT_OR, OperandTypes.Method, sep.currentStartIdx() );
 				}
-				isFirstConcate = false;
-				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromConcate) );
-			} while(AttrHandlerConstants.STRING_CONCATE.equals(sep.seek()) );
-			// 规约拼串的优先级高于 短路与/ 或[&&, ||]
-		} else if(AttrHandlerConstants.AND.equals(next) || AttrHandlerConstants.OR.equals(next) ) {
-			String curSymbol = next;
-			AttrHandlerTools.assert0(curSymbol.equals(sep.seek() ), "expect a : " + curSymbol + " ! around : " + sep.currentAndRest() );
-			sep.next();
-			Operand oldOperand = operand;
-			if(AttrHandlerConstants.AND.equals(curSymbol) ) {
-				operand = new Operand(AttrHandlerConstants.CUTTING_OUT_AND, OperandTypes.Method, sep.currentStartIdx() );
-			} else {
-				operand = new Operand(AttrHandlerConstants.CUTTING_OUT_OR, OperandTypes.Method, sep.currentStartIdx() );
-			}
-			operand.addOperand(oldOperand );
+				operand.addOperand(oldOperand );
 
-			boolean isFirstConcate = true;
-			do {
-				if(! isFirstConcate) {
-					sep.next();
-					AttrHandlerTools.assert0(curSymbol.equals(sep.seek() ), "expect a : " + curSymbol + " ! around : " + sep.currentAndRest() );
-					sep.next();
-				}
-				isFirstConcate = false;
-				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromCuttingOut) );
-			} while(curSymbol.equals(sep.seek()) );
-			// 规约拼串的优先级高于比较[>, <, ..]
+				boolean isFirstConcate = true;
+				do {
+					if(! isFirstConcate) {
+						sep.next();
+						AttrHandlerTools.assert0(curSymbol.equals(sep.seek() ), "expect a : " + curSymbol + " ! around : " + sep.currentAndRest() );
+						sep.next();
+					}
+					isFirstConcate = false;
+					operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromCuttingOut) );
+				} while(curSymbol.equals(sep.seek()) );
+				// 规约拼串的优先级高于比较[>, <, ..]
 //				 a + b == c + d
 //					   ||
 //					   \/
 //				  ab   ==  cd
-		} else if(AttrHandlerConstants.GT.equals(next) || AttrHandlerConstants.LT.equals(next) ) {
-			Operand oldOperand = operand;
-			if(AttrHandlerConstants.GT.equals(next) ) {
-				if(! AttrHandlerConstants.EQ.equals(sep.seek()) ) {
-					operand = new Operand(AttrHandlerConstants.GREATER_THAN, OperandTypes.Method, sep.currentStartIdx() );
+			} else if(AttrHandlerConstants.GT.equals(next) || AttrHandlerConstants.LT.equals(next) ) {
+				Operand oldOperand = operand;
+				if(AttrHandlerConstants.GT.equals(next) ) {
+					if(! AttrHandlerConstants.EQ.equals(sep.seek()) ) {
+						operand = new Operand(AttrHandlerConstants.GREATER_THAN, OperandTypes.Method, sep.currentStartIdx() );
+					} else {
+						sep.next();
+						operand = new Operand(AttrHandlerConstants.GREATER_EQUALS_THAN, OperandTypes.Method, sep.currentStartIdx() );
+					}
 				} else {
-					sep.next();
-					operand = new Operand(AttrHandlerConstants.GREATER_EQUALS_THAN, OperandTypes.Method, sep.currentStartIdx() );
+					if(! AttrHandlerConstants.EQ.equals(sep.seek()) ) {
+						operand = new Operand(AttrHandlerConstants.LESS_THAN, OperandTypes.Method, sep.currentStartIdx() );
+					} else {
+						sep.next();
+						operand = new Operand(AttrHandlerConstants.LESS_EQUALS_THAN, OperandTypes.Method, sep.currentStartIdx() );
+					}
 				}
-			} else {
-				if(! AttrHandlerConstants.EQ.equals(sep.seek()) ) {
-					operand = new Operand(AttrHandlerConstants.LESS_THAN, OperandTypes.Method, sep.currentStartIdx() );
+				operand.addOperand(oldOperand);
+				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromComp) );
+			} else if(AttrHandlerConstants.EQ.equals(next) || AttrHandlerConstants.STRING_NOT.equals(next) ) {
+				AttrHandlerTools.assert0(AttrHandlerConstants.EQ.equals(sep.seek() ), "expect a : " + AttrHandlerConstants.EQ + " ! around : " + sep.currentAndRest() );
+				sep.next();
+				Operand oldOperand = operand;
+				if(AttrHandlerConstants.EQ.equals(next) ) {
+					operand = new Operand(AttrHandlerConstants._EQUALS, OperandTypes.Method, sep.currentStartIdx() );
 				} else {
-					sep.next();
-					operand = new Operand(AttrHandlerConstants.LESS_EQUALS_THAN, OperandTypes.Method, sep.currentStartIdx() );
+					operand = new Operand(AttrHandlerConstants.NOT_EQUALS, OperandTypes.Method, sep.currentStartIdx() );
 				}
-			}
-			operand.addOperand(oldOperand);
-			operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromComp) );
-		} else if(AttrHandlerConstants.EQ.equals(next) || AttrHandlerConstants.STRING_NOT.equals(next) ) {
-			AttrHandlerTools.assert0(AttrHandlerConstants.EQ.equals(sep.seek() ), "expect a : " + AttrHandlerConstants.EQ + " ! around : " + sep.currentAndRest() );
-			sep.next();
-			Operand oldOperand = operand;
-			if(AttrHandlerConstants.EQ.equals(next) ) {
-				operand = new Operand(AttrHandlerConstants._EQUALS, OperandTypes.Method, sep.currentStartIdx() );
-			} else {
-				operand = new Operand(AttrHandlerConstants.NOT_EQUALS, OperandTypes.Method, sep.currentStartIdx() );
-			}
-			operand.addOperand(oldOperand);
-			operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromComp) );
-		} else if(AttrHandlerConstants.COND_EXP_COND.equals(next) ) {
-			Operand oldOperand = operand;
-			operand = new Operand(AttrHandlerConstants.COND_EXP, OperandTypes.Method, sep.currentStartIdx() );
-			operand.addOperand(oldOperand );
+				operand.addOperand(oldOperand);
+				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromComp) );
+			} else if(AttrHandlerConstants.COND_EXP_COND.equals(next) ) {
+				Operand oldOperand = operand;
+				operand = new Operand(AttrHandlerConstants.COND_EXP, OperandTypes.Method, sep.currentStartIdx() );
+				operand.addOperand(oldOperand );
 
-			operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromCondExp) );
-			AttrHandlerTools.assert0(AttrHandlerConstants.COND_EXP_BRANCH.equals(sep.seek() ), "expect a : " + AttrHandlerConstants.COND_EXP_BRANCH + " ! around : " + sep.currentAndRest() );
-			sep.next();
-			operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromCondExp) );
-			AttrHandlerTools.assert0(bracketpair.get(bracket).equals(sep.seek() ), "expect a : " + bracketpair.get(bracket) + " ! around : " + sep.currentAndRest() );
+				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromCondExp) );
+				AttrHandlerTools.assert0(AttrHandlerConstants.COND_EXP_BRANCH.equals(sep.seek() ), "expect a : " + AttrHandlerConstants.COND_EXP_BRANCH + " ! around : " + sep.currentAndRest() );
+				sep.next();
+				operand.addOperand(getAttrHandlerOperand(sep, bracket, bracketpair, isFromCondExp) );
+				AttrHandlerTools.assert0(bracketpair.get(bracket).equals(sep.seek() ), "expect a : " + bracketpair.get(bracket) + " ! around : " + sep.currentAndRest() );
+			}
 		}
+		
+		return operand;
 	}
 
 	/**
